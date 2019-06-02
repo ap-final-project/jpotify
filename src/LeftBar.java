@@ -57,10 +57,10 @@ public class LeftBar extends JPanel {
                 }
             });
             this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-            btn2.setBackground(Color.BLACK);
-            btn3.setBackground(Color.BLACK);
-            btn4.setBackground(Color.BLACK);
-            btn5.setBackground(Color.BLACK);
+            btn2.setBackground(Color.YELLOW);
+            btn3.setBackground(Color.YELLOW);
+            btn4.setBackground(Color.YELLOW);
+            btn5.setBackground(Color.YELLOW);
             btn2.setForeground(Color.WHITE);
             btn3.setForeground(Color.WHITE);
             btn4.setForeground(Color.WHITE);
