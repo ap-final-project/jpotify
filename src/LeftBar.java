@@ -21,14 +21,16 @@ public class LeftBar extends JPanel {
     JButton btn4=new JButton("Song");
     JButton btn5=new JButton("Albums");
         public LeftBar(){
-            this.setBackground(Color.BLACK);
+            Color bright =new Color(194,194,194);
+            Color dark=new Color(24,24,24);
+            this.setBackground(Color.blue);
             AddBtn.setIcon(new ImageIcon("plus.png"));
             text.setText("Your menu kian merge");
-            home.setBackground(Color.BLACK);
-            home.setForeground(Color.WHITE);
-            text.setForeground(Color.GREEN);
-            AddBtn.setBackground(Color.BLACK);
-            AddBtn.setForeground(Color.WHITE);
+            home.setBackground(dark);
+            home.setForeground(bright);
+            text.setForeground(dark);
+            AddBtn.setBackground(dark);
+            AddBtn.setForeground(bright);
             AddBtn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
