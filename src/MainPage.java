@@ -10,20 +10,21 @@ import java.util.Arrays;
 import static javax.swing.BorderFactory.createLineBorder;
 
 public class MainPage extends JFrame {
-    private final String TITLE="Kian & Pariya Jpotify";
-    private final int HEIGHT = 500,WIDTh=500;
-    LeftBar leftBar=new LeftBar();
-    JPanel main=new JPanel();
-    MusicBar musicBar=new MusicBar();
-    public MainPage(){
+    private final String TITLE = "Kian & Pariya Jpotify";
+    private final int HEIGHT = 500, WIDTh = 500;
+    LeftBar leftBar = new LeftBar();
+    JPanel main = new JPanel();
+    MusicBar musicBar = new MusicBar();
+
+    public MainPage() {
         this.setTitle(TITLE);
-        this.setSize(HEIGHT,WIDTh);
-        this.setLocation(500,200);
+        this.setSize(HEIGHT, WIDTh);
+        this.setLocation(500, 200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        leftBar.setBorder(createLineBorder(Color.white,2));
+        leftBar.setBorder(createLineBorder(Color.white, 2));
         main.setLayout(new BorderLayout());
-        main.add(leftBar,BorderLayout.WEST);
-        main.add(musicBar,BorderLayout.PAGE_END);
+        main.add(leftBar, BorderLayout.WEST);
+        main.add(musicBar, BorderLayout.PAGE_END);
         this.add(main);
         this.setVisible(true);
 //        this.pack();

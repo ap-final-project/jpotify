@@ -72,7 +72,6 @@ public class LeftBar extends JPanel {
             this.add(btn4);
             this.add(btn5);
             this.add(AddBtn,BorderLayout.PAGE_END);
-
         }
 }
 
