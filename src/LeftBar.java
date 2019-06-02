@@ -16,7 +16,7 @@ public class LeftBar extends JPanel {
         this.listener = listener;
     }
 
-    JButton btn2=new JButton("Browse");
+    JButton btn2=new JButton("browse");
     JButton btn3=new JButton("Library");
     JButton btn4=new JButton("Song");
     JButton btn5=new JButton("Albums");
