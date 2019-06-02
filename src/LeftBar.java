@@ -23,7 +23,7 @@ public class LeftBar extends JPanel {
         public LeftBar(){
             this.setBackground(Color.BLACK);
             AddBtn.setIcon(new ImageIcon("plus.png"));
-            text.setText("Your menu");
+            text.setText("Your menu kian merge");
             home.setBackground(Color.BLACK);
             home.setForeground(Color.WHITE);
             text.setForeground(Color.GREEN);
