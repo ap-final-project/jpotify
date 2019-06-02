@@ -45,7 +45,7 @@ public class Wallpaper {
     }
 
     private static Panel createPanel() {
-        Panel p = new Panel();
+        Panel p = new Panel(1);
 
         ButtonGroup entreeGroup = new ButtonGroup();
         JRadioButton radioButton;

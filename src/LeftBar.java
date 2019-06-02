@@ -8,19 +8,20 @@ import java.util.Arrays;
 
 public class LeftBar extends Panel {
     AddPlaylistListener listener=null;
-    Button AddBtn=new Button("Add");
+    Button AddBtn=new Button("Add",1);
     JLabel text=new JLabel();
-    Button home=new Button("Home");
+    Button home=new Button("Home",1);
 
     public void setListener(AddPlaylistListener listener) {
         this.listener = listener;
     }
 
-    Button btn2=new Button("browse");
-    Button btn3=new Button("Library");
-    Button btn4=new Button("Song");
-    Button btn5=new Button("Albums");
+    Button btn2=new Button("browse",1);
+    Button btn3=new Button("Library",1);
+    Button btn4=new Button("Song",1);
+    Button btn5=new Button("Albums",1);
         public LeftBar(){
+            super(1);
             Color bright =new Color(194,194,194);
             Color dark=new Color(24,24,24);
             AddBtn.setIcon(new ImageIcon("plus.png"));

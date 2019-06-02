@@ -18,7 +18,7 @@ public class progress extends JFrame {
         f = new JFrame("ProgressBar demo");
 
         // create a panel 
-        Panel p = new Panel();
+        Panel p = new Panel(3);
 
         // create a progressbar 
         b = new JProgressBar();

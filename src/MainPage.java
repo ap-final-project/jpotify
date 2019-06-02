@@ -13,7 +13,7 @@ public class MainPage extends JFrame {
     private final String TITLE = "Kian & Pariya Jpotify";
     private final int HEIGHT = 500, WIDTh = 500;
     LeftBar leftBar = new LeftBar();
-    Panel main = new Panel();
+    Panel main = new Panel(2);
     MusicBar musicBar = new MusicBar();
 
     public MainPage() {
