@@ -10,7 +10,7 @@ import java.util.Arrays;
 import static javax.swing.BorderFactory.createLineBorder;
 
 public class MainPage extends JFrame {
-    private final String TITLE="Kian Jpotify";
+    private final String TITLE="Kian & Pariya Jpotify";
     private final int HEIGHT = 500,WIDTh=500;
     LeftBar leftBar=new LeftBar();
     JPanel main=new JPanel();
