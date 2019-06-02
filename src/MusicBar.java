@@ -3,7 +3,7 @@ import javax.swing.plaf.TextUI;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 
-public class MusicBar extends JPanel {
+public class MusicBar extends Panel {
     JButton play;
     JButton pause;
     JButton stop;
@@ -16,21 +16,21 @@ public class MusicBar extends JPanel {
     JProgressBar progressBar;
     public MusicBar() {
         this.setLayout(new BorderLayout());
-        JPanel info=new JPanel();
+        Panel info=new Panel();
         info.setLayout(new GridLayout(3,1));
         info.add(songName);
         info.add(artistName);
         info.add(album);
         icon.setIcon(new ImageIcon("plus.png"));
-        JPanel image=new JPanel();
+        Panel image=new Panel();
         image.add(icon);
-        JPanel bottom=new JPanel();
+        Panel bottom=new Panel();
         bottom.setLayout(new GridLayout(1,5));
         progressBar=new JProgressBar();
         progressBar.setValue(54);
         progressBar.setStringPainted(false);
         progressBar.setPreferredSize(new Dimension(300,10));
-        JPanel top=new JPanel();
+        Panel top=new Panel();
         top.add(progressBar);
         this.add(info,BorderLayout.WEST);
         play = new JButton();
@@ -53,7 +53,7 @@ public class MusicBar extends JPanel {
         bottom.add(play);
         bottom.add(stop);
         bottom.add(next);
-        JPanel keke=new JPanel();
+        Panel keke=new Panel();
         keke.setLayout(new GridLayout(2,1));
         keke.add(top);
         keke.add(bottom);

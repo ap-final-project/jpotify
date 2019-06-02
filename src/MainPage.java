@@ -13,7 +13,7 @@ public class MainPage extends JFrame {
     private final String TITLE = "Kian & Pariya Jpotify";
     private final int HEIGHT = 500, WIDTh = 500;
     LeftBar leftBar = new LeftBar();
-    JPanel main = new JPanel();
+    Panel main = new Panel();
     MusicBar musicBar = new MusicBar();
 
     public MainPage() {
@@ -25,7 +25,7 @@ public class MainPage extends JFrame {
         this.setSize(HEIGHT, WIDTh);
         this.setLocation(500, 200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        leftBar.setBorder(createLineBorder(Color.white, 2));
+//        leftBar.setBorder(createLineBorder(Color.white, 2));
         main.setLayout(new BorderLayout());
         main.add(leftBar, BorderLayout.WEST);
         main.add(musicBar, BorderLayout.PAGE_END);

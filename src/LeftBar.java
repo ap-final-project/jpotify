@@ -6,24 +6,23 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Arrays;
 
-public class LeftBar extends JPanel {
+public class LeftBar extends Panel {
     AddPlaylistListener listener=null;
-    JButton AddBtn=new JButton("Add");
+    Button AddBtn=new Button("Add");
     JLabel text=new JLabel();
-    JButton home=new JButton("Home");
+    Button home=new Button("Home");
 
     public void setListener(AddPlaylistListener listener) {
         this.listener = listener;
     }
 
-    JButton btn2=new JButton("browse");
-    JButton btn3=new JButton("Library");
-    JButton btn4=new JButton("Song");
-    JButton btn5=new JButton("Albums");
+    Button btn2=new Button("browse");
+    Button btn3=new Button("Library");
+    Button btn4=new Button("Song");
+    Button btn5=new Button("Albums");
         public LeftBar(){
             Color bright =new Color(194,194,194);
             Color dark=new Color(24,24,24);
-            this.setBackground(Color.blue);
             AddBtn.setIcon(new ImageIcon("plus.png"));
             text.setText("Your menu kian merge");
             home.setBackground(dark);
@@ -59,14 +58,6 @@ public class LeftBar extends JPanel {
                 }
             });
             this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-            btn2.setBackground(Color.green);
-            btn3.setBackground(Color.green);
-            btn4.setBackground(Color.green);
-            btn5.setBackground(Color.green);
-            btn2.setForeground(Color.WHITE);
-            btn3.setForeground(Color.WHITE);
-            btn4.setForeground(Color.WHITE);
-            btn5.setForeground(Color.WHITE);
             this.add(text);
             this.add(home);
             this.add(btn2);

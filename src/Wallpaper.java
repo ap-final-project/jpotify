@@ -32,7 +32,7 @@ public class Wallpaper {
     public static void createUI() {
         JFrame f = new JFrame("Wallpaper");
 
-        JPanel panel = createPanel();
+        Panel panel = createPanel();
         LayerUI<JComponent> layerUI = new WallpaperLayerUI();
         JLayer<JComponent> jlayer = new JLayer<JComponent>(panel, layerUI);
 
@@ -44,8 +44,8 @@ public class Wallpaper {
         f.setVisible(true);
     }
 
-    private static JPanel createPanel() {
-        JPanel p = new JPanel();
+    private static Panel createPanel() {
+        Panel p = new Panel();
 
         ButtonGroup entreeGroup = new ButtonGroup();
         JRadioButton radioButton;
