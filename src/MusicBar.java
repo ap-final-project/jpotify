@@ -9,10 +9,10 @@ public class MusicBar extends JPanel {
     JButton stop;
     JButton next;
     JButton previous;
-    JLabel songName=new JLabel("sozngName");
-    JLabel artistName=new JLabel("ArtistName");
-    JLabel album=new JLabel("AlbumName");
-    JLabel icon=new JLabel();
+    Label songName=new Label("sozngName");
+    Label artistName=new Label("ArtistName");
+    Label album=new Label("AlbumName");
+    Label icon=new Label();
     JProgressBar progressBar;
     public MusicBar() {
         this.setLayout(new BorderLayout());
