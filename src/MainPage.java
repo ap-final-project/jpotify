@@ -13,8 +13,8 @@ public class MainPage extends JFrame {
     private final String TITLE="Kian Jpotify";
     private final int HEIGHT = 500,WIDTh=500;
     LeftBar leftBar=new LeftBar();
-    MusicBar musicBar=new MusicBar();
     JPanel main=new JPanel();
+    MusicBar musicBar=new MusicBar();
     public MainPage(){
         this.setTitle(TITLE);
         this.setSize(HEIGHT,WIDTh);
