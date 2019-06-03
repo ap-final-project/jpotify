@@ -17,28 +17,66 @@ public class Song {
     FileInputStream fileInputStream;
     File file;
     byte[] bArray;
-
+    String title;
+    String artist;
+    String album;
+    String year;
     public Song() throws JavaLayerException, FileNotFoundException {
         path = "music3.mp3";
         file = new File(path);
         fileInputStream = new FileInputStream(path);
         player = new Player(fileInputStream);
         bArray = readFileToByteArray(file);
-        for (int i =140; i > 1; i--){
-            System.out.print((char)bArray[bArray.length-i]);
+        String data = "";
+        for (int i = 128; i > 1; i--) {
+            data = data.concat(String.valueOf((char) bArray[bArray.length - i]));
         }
+        title = this.getTitle(data);
+        System.out.println("title : " + title);
+        artist = this.getArtist(data);
+        System.out.println("Artist : " + artist);
+        album = this.getAlbum(data);
+        System.out.println("Album : " + album);
+        year = this.getYear(data);
+        System.out.println("Year : "+year);
     }
-    private static byte[] readFileToByteArray(File file){
+
+    private String getYear(String data) {
+        String year="";
+        year=data.substring(93,97);
+        return year;
+    }
+
+    private String getTitle(String data) {
+        System.out.println(data);
+        String title = "";
+        title = data.substring(3, 33);
+        return title;
+    }
+
+    private String getArtist(String data) {
+        String artist = "";
+        artist = data.substring(33, 63);
+        return artist;
+    }
+
+    private String getAlbum(String data) {
+        String album = "";
+        album = data.substring(63, 93);
+        return album;
+    }
+
+    private static byte[] readFileToByteArray(File file) {
         FileInputStream fis = null;
         // Creating a byte array using the length of the file
         // file.length returns long which is cast to int
         byte[] bArray = new byte[(int) file.length()];
-        try{
+        try {
             fis = new FileInputStream(file);
             fis.read(bArray);
             fis.close();
 
-        }catch(IOException ioExp){
+        } catch (IOException ioExp) {
             ioExp.printStackTrace();
         }
         return bArray;
