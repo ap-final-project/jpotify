@@ -7,5 +7,6 @@ import javax.swing.JFrame;
 public class Main{
     public static void main(String[] args) throws Exception {
         MainPage mainPage=new MainPage();
+        Song song=new Song();
     }
 }
