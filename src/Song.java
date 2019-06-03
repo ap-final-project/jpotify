@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Song {
     Player player;
@@ -18,18 +19,14 @@ public class Song {
     byte[] bArray;
 
     public Song() throws JavaLayerException, FileNotFoundException {
-        path = "music1.mp3";
+        path = "music3.mp3";
         file = new File(path);
         fileInputStream = new FileInputStream(path);
         player = new Player(fileInputStream);
         bArray = readFileToByteArray(file);
-        for (int i = 0; i < bArray.length; i++){
-            System.out.print((char) bArray[i]);
+        for (int i =140; i > 1; i--){
+            System.out.print((char)bArray[bArray.length-i]);
         }
-        //ino khodam zadam :
-//        for (int i =1; i < 128; i++){
-//            System.out.println((char)bArray[bArray.length-i]);
-//        }
     }
     private static byte[] readFileToByteArray(File file){
         FileInputStream fis = null;
