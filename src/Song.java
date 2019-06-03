@@ -23,13 +23,15 @@ public class Song {
         fileInputStream = new FileInputStream(path);
         player = new Player(fileInputStream);
         bArray = readFileToByteArray(file);
-        for (int i = 0; i < bArray.length; i++){
-            System.out.print((char) bArray[i]);
-        }
-        //ino khodam zadam :
-//        for (int i =1; i < 128; i++){
-//            System.out.println((char)bArray[bArray.length-i]);
+
+
+//        for (int i = bArray.length-256; i < bArray.length; i++){
+//            System.out.println((char) bArray[i]);
 //        }
+//        ino khodam zadam :
+        for (int i =1; i < 128; i++){
+            System.out.println((char)bArray[bArray.length-i]);
+        }
     }
     private static byte[] readFileToByteArray(File file){
         FileInputStream fis = null;
