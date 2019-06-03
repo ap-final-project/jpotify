@@ -44,10 +44,10 @@ public class MusicBar extends Panel {
         previous.setBorder(BorderFactory.createEmptyBorder());
         next.setBorder(BorderFactory.createEmptyBorder());
         stop.setBorder(BorderFactory.createEmptyBorder());
-        play.setIcon(new ImageIcon("play.png"));
-        pause.setIcon(new ImageIcon("pause.png"));
-        stop.setIcon(new ImageIcon("stop.png"));
-        previous.setIcon(new ImageIcon("back.png"));
+        play.setIcon(new ImageIcon("img\\play.png"));
+        pause.setIcon(new ImageIcon("img\\pause.png"));
+        stop.setIcon(new ImageIcon("img\\stop.png"));
+        previous.setIcon(new ImageIcon("img\\next.png"));
         next.setIcon(new ImageIcon("forward.png"));
         bottom.add(previous);
         bottom.add(pause);

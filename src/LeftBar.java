@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class LeftBar extends Panel {
     AddPlaylistListener listener=null;
     Button AddBtn=new Button("Add",1);
-    JLabel text=new JLabel();
+    Label text=new Label(1);
     Button home=new Button("Home",1);
 
     public void setListener(AddPlaylistListener listener) {
@@ -26,11 +26,6 @@ public class LeftBar extends Panel {
             Color dark=new Color(24,24,24);
             AddBtn.setIcon(new ImageIcon("plus.png"));
             text.setText("Your menu kian merge");
-            home.setBackground(dark);
-            home.setForeground(bright);
-            text.setForeground(dark);
-            AddBtn.setBackground(dark);
-            AddBtn.setForeground(bright);
             AddBtn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

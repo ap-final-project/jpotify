@@ -6,7 +6,7 @@ public class Label extends JLabel {
     Color dark1=new Color(24,24,24);
     Color dark2=new Color(18,18,18);
     Color dark3=new Color(40,40,40);
-
+    Color bright=new Color(194,194,194);
     public Label(String text, Icon icon, int horizontalAlignment,int c) {
         super(text, icon, horizontalAlignment);
         Color color;
@@ -18,6 +18,7 @@ public class Label extends JLabel {
         }
         this.setOpaque(true);
         this.setBackground(color);
+    this.setForeground(bright);
     }
 
     public Label(String text, int horizontalAlignment,int c) {
@@ -31,6 +32,8 @@ public class Label extends JLabel {
         }
         this.setOpaque(true);
         this.setBackground(color);
+        this.setForeground(bright);
+
     }
 
     public Label(String text,int c) {
@@ -44,6 +47,8 @@ public class Label extends JLabel {
         }
         this.setOpaque(true);
         this.setBackground(color);
+        this.setForeground(bright);
+
     }
 
     public Label(Icon image, int horizontalAlignment,int c) {
@@ -57,6 +62,8 @@ public class Label extends JLabel {
         }
         this.setOpaque(true);
         this.setBackground(color);
+        this.setForeground(bright);
+
     }
 
     public Label(Icon image,int c) {
@@ -70,6 +77,8 @@ public class Label extends JLabel {
         }
         this.setOpaque(true);
         this.setBackground(color);
+        this.setForeground(bright);
+
     }
 
     public Label(int c) {
@@ -82,5 +91,7 @@ public class Label extends JLabel {
         }
         this.setOpaque(true);
         this.setBackground(color);
+        this.setForeground(bright);
+
     }
 }
