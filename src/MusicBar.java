@@ -30,7 +30,7 @@ public class MusicBar extends Panel {
         progressBar=new JProgressBar();
         progressBar.setValue(54);
         progressBar.setStringPainted(false);
-        progressBar.setPreferredSize(new Dimension(300,10));
+//        progressBar.setPreferredSize(new Dimension(300,10));
         Panel top=new Panel(3);
         top.add(progressBar);
         this.add(info,BorderLayout.WEST);
@@ -39,11 +39,11 @@ public class MusicBar extends Panel {
         stop = new Button(3);
         next = new Button(3);
         previous = new Button(3);
-        play.setBorder(BorderFactory.createEmptyBorder());
-        pause.setBorder(BorderFactory.createEmptyBorder());
-        previous.setBorder(BorderFactory.createEmptyBorder());
-        next.setBorder(BorderFactory.createEmptyBorder());
-        stop.setBorder(BorderFactory.createEmptyBorder());
+//        play.setBorder(BorderFactory.createEmptyBorder());
+//        pause.setBorder(BorderFactory.createEmptyBorder());
+//        previous.setBorder(BorderFactory.createEmptyBorder());
+//        next.setBorder(BorderFactory.createEmptyBorder());
+//        stop.setBorder(BorderFactory.createEmptyBorder());
         play.setIcon(new ImageIcon("img\\play.png"));
         pause.setIcon(new ImageIcon("img\\pause.png"));
         stop.setIcon(new ImageIcon("img\\stop.png"));
@@ -60,7 +60,7 @@ public class MusicBar extends Panel {
         keke.add(bottom);
         bottom.setBackground(dark3);
         this.add(image,BorderLayout.CENTER);
-        this.add(keke,BorderLayout.EAST);
+        this.add(keke);
         this.add(info,BorderLayout.WEST);
     }
 }

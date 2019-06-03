@@ -53,7 +53,9 @@ public class LeftBar extends Panel {
                     }
                 }
             });
-            this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+            BoxLayout boxLayout=new BoxLayout(this,BoxLayout.Y_AXIS);
+            this.setLayout(boxLayout);
+
             this.add(text);
             this.add(home);
             this.add(btn2);

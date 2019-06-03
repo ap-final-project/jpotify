@@ -19,6 +19,7 @@ public class Label extends JLabel {
         this.setOpaque(true);
         this.setBackground(color);
     this.setForeground(bright);
+    this.setBorder(BorderFactory.createEmptyBorder());
     }
 
     public Label(String text, int horizontalAlignment,int c) {
@@ -33,6 +34,7 @@ public class Label extends JLabel {
         this.setOpaque(true);
         this.setBackground(color);
         this.setForeground(bright);
+        this.setBorder(BorderFactory.createEmptyBorder());
 
     }
 
@@ -48,6 +50,7 @@ public class Label extends JLabel {
         this.setOpaque(true);
         this.setBackground(color);
         this.setForeground(bright);
+        this.setBorder(BorderFactory.createEmptyBorder());
 
     }
 
@@ -63,6 +66,7 @@ public class Label extends JLabel {
         this.setOpaque(true);
         this.setBackground(color);
         this.setForeground(bright);
+        this.setBorder(BorderFactory.createEmptyBorder());
 
     }
 
@@ -78,6 +82,7 @@ public class Label extends JLabel {
         this.setOpaque(true);
         this.setBackground(color);
         this.setForeground(bright);
+        this.setBorder(BorderFactory.createEmptyBorder());
 
     }
 
@@ -92,6 +97,7 @@ public class Label extends JLabel {
         this.setOpaque(true);
         this.setBackground(color);
         this.setForeground(bright);
+        this.setBorder(BorderFactory.createEmptyBorder());
 
     }
 }

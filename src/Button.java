@@ -19,6 +19,8 @@ public class Button extends JButton {
         this.setOpaque(true);
         this.setBackground(color);
         this.setForeground(bright);
+        this.setBorder(BorderFactory.createEmptyBorder());
+
     }
 
     public Button(Icon icon,int c) {
@@ -35,6 +37,7 @@ public class Button extends JButton {
         this.setOpaque(true);
         this.setBackground(color);
         this.setForeground(bright);
+        this.setBorder(BorderFactory.createEmptyBorder());
 
     }
 
@@ -51,6 +54,7 @@ public class Button extends JButton {
         this.setOpaque(true);
         this.setBackground(color);
         this.setForeground(bright);
+        this.setBorder(BorderFactory.createEmptyBorder());
 
     }
 
@@ -67,6 +71,7 @@ public class Button extends JButton {
         this.setOpaque(true);
         this.setBackground(color);
         this.setForeground(bright);
+        this.setBorder(BorderFactory.createEmptyBorder());
 
     }
 
@@ -83,5 +88,7 @@ public class Button extends JButton {
         this.setOpaque(true);
         this.setForeground(bright);
         this.setBackground(color);
+        this.setBorder(BorderFactory.createEmptyBorder());
+
     }
 }

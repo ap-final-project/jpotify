@@ -35,7 +35,7 @@ public class progress extends JFrame {
         f.add(p);
 
         // set the size of the frame 
-        f.setSize(500, 500);
+//        f.setSize(500, 500);
         f.setVisible(true);
 
         fill();
