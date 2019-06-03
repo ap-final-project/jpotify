@@ -4,42 +4,25 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-public class progress extends JFrame {
-
-    // create a frame 
-    static JFrame f;
-
+public class progress extends Panel {
     static JProgressBar b;
-
-    public static void main(String[] args)
-    {
-
-        // create a frame 
-        f = new JFrame("ProgressBar demo");
-
-        // create a panel 
-        Panel p = new Panel(3);
-
-        // create a progressbar 
+public progress(){
+        super(3);
         b = new JProgressBar();
-
-        // set initial value 
         b.setValue(0);
+        this.add(b);
+        b.setOpaque(true);
+        b.setBackground(new Color(63,63,63));
+        b.setForeground(new Color(176,176,176));
+        b.setStringPainted(false);
+        b.setBorder(BorderFactory.createEmptyBorder());
+        b.setValue(54);
+        b.setAlignmentX(0);
+        b.setAlignmentY(0);
+        b.setSize(600,6);
+        b.setBorderPainted(false);
+}
 
-        b.setStringPainted(true);
-
-        // add progressbar 
-        p.add(b);
-
-        // add panel 
-        f.add(p);
-
-        // set the size of the frame 
-//        f.setSize(500, 500);
-        f.setVisible(true);
-
-        fill();
-    }
 
     // function to increase progress 
     public static void fill()
