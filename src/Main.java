@@ -1,12 +1,13 @@
 import java.io.File;
 import java.net.URL;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 
-public class Main {
+public class Main{
     public static void main(String[] args) throws Exception {
-        UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        MainPage mainPage = new MainPage();
-//        Song song=new Song();
+        MainPage mainPage=new MainPage();
     }
 }
+//        UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+
