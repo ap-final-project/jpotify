@@ -9,11 +9,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 
 public class Song {
     Player player;
-    String path = "";
     FileInputStream fileInputStream;
     File file;
     byte[] bArray;
@@ -21,10 +21,9 @@ public class Song {
     String artist;
     String album;
     String year;
-    public Song() throws JavaLayerException, FileNotFoundException {
-        path = "music3.mp3";
+    public Song(String path) throws JavaLayerException, FileNotFoundException {
         file = new File(path);
-        fileInputStream = new FileInputStream(path);
+        fileInputStream = new FileInputStream(file);
         player = new Player(fileInputStream);
         bArray = readFileToByteArray(file);
         String data = "";
@@ -32,13 +31,13 @@ public class Song {
             data = data.concat(String.valueOf((char) bArray[bArray.length - i]));
         }
         title = this.getTitle(data);
-        System.out.println("title : " + title);
+//        System.out.println("title : " + title);
         artist = this.getArtist(data);
-        System.out.println("Artist : " + artist);
+//        System.out.println("Artist : " + artist);
         album = this.getAlbum(data);
-        System.out.println("Album : " + album);
+//        System.out.println("Album : " + album);
         year = this.getYear(data);
-        System.out.println("Year : "+year);
+//        System.out.println("Year : "+year);
     }
 
     private String getYear(String data) {
@@ -48,8 +47,8 @@ public class Song {
     }
 
     private String getTitle(String data) {
-        System.out.println(data);
-        String title = "";
+//        System.out.println(data);
+        String title;
         title = data.substring(3, 33);
         return title;
     }

@@ -1,8 +1,11 @@
+import javazoom.jl.decoder.JavaLayerException;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.TextUI;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.io.FileNotFoundException;
 
 public class MusicBar extends Panel {
     Button play;
@@ -10,19 +13,33 @@ public class MusicBar extends Panel {
     Button stop;
     Button next;
     Button previous;
-    Label songName=new Label("sozngName",3);
-    Label artistName=new Label("ArtistName",3);
-    Label album=new Label("AlbumName",3);
+    Song song;
+
+    {
+        try {
+            song = new Song("music4.mp3");
+        } catch (JavaLayerException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    Label songName=new Label(song.title,3);
+    Label artistName=new Label(song.artist,3);
+    Label album=new Label(song.album,3);
+    Label year=new Label(song.year,3);
     Label icon=new Label(3);
     progress progressBar;
     public MusicBar() {
         super(3);
         this.setLayout(new BorderLayout());
         Panel info=new Panel(3);
-        info.setLayout(new GridLayout(3,1));
+        info.setLayout(new GridLayout(4,1));
         info.add(songName);
         info.add(artistName);
         info.add(album);
+        info.add(year);
         icon.setIcon(new ImageIcon("plus.png"));
         Panel image=new Panel(3);
         image.add(icon);
