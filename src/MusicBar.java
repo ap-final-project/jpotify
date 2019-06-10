@@ -2,6 +2,7 @@ import javazoom.jl.decoder.JavaLayerException;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.TextUI;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
@@ -13,6 +14,9 @@ public class MusicBar extends Panel {
     Button stop;
     Button next;
     Button previous;
+    Button shuffle;
+    Button repeat;
+    Button like;
     Song song;
 
     {
@@ -40,45 +44,43 @@ public class MusicBar extends Panel {
         info.add(artistName);
         info.add(album);
         info.add(year);
-        icon.setIcon(new ImageIcon("plus.png"));
-        Panel image=new Panel(3);
-        image.add(icon);
         Panel up=new Panel(3);
-        up.setLayout(new GridLayout(1,5));
+//        up.setLayout(new GridLayout(1,5));
         progressBar=new progress();
-//        progressBar.setValue(54);
-//        progressBar.setStringPainted(false);
-//        progressBar.setPreferredSize(new Dimension(300,10));
-
         this.add(info,BorderLayout.WEST);
         play = new Button(3);
         pause = new Button(3);
         stop = new Button(3);
         next = new Button(3);
         previous = new Button(3);
-//        play.setBorder(BorderFactory.createEmptyBorder());
-//        pause.setBorder(BorderFactory.createEmptyBorder());
-//        previous.setBorder(BorderFactory.createEmptyBorder());
-//        next.setBorder(BorderFactory.createEmptyBorder());
-//        stop.setBorder(BorderFactory.createEmptyBorder());
+        repeat=new Button(3);
+        shuffle=new Button(3);
+        like=new Button(3);
         play.setIcon(new ImageIcon("img\\play.png"));
         pause.setIcon(new ImageIcon("img\\pause.png"));
         stop.setIcon(new ImageIcon("img\\stop.png"));
-        previous.setIcon(new ImageIcon("back.png"));
+        previous.setIcon(new ImageIcon("img\\back.png"));
         next.setIcon(new ImageIcon("img\\next.png"));
+        shuffle.setIcon(new ImageIcon("img\\shuffle.png"));
+        repeat.setIcon(new ImageIcon("img\\repeat.png"));
+        like.setIcon(new ImageIcon("img\\emptyHeart.png"));
         next.setSize(10,10);
+        FlowLayout flowLayout=new FlowLayout();
+        flowLayout.setHgap(10);
+        up.setLayout(new FlowLayout());
 
+        up.add(like);
+        up.add(shuffle);
         up.add(previous);
-//        up.add(pause);
         up.add(play);
-//        up.add(stop);
         up.add(next);
+        up.add(repeat);
         Panel keke=new Panel(3);
+        keke.setBorder(new EmptyBorder(10,10,10,10));
         keke.setLayout(new BorderLayout());
         keke.add(up,BorderLayout.PAGE_START);
+        progressBar.setBorder(new EmptyBorder(10,0,0,0));
         keke.add(progressBar, BorderLayout.PAGE_END);
-        up.setBackground(dark3);
-//        this.add(image,BorderLayout.CENTER);
         this.add(keke,BorderLayout.CENTER);
         this.add(info,BorderLayout.WEST);
     }

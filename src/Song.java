@@ -31,13 +31,9 @@ public class Song {
             data = data.concat(String.valueOf((char) bArray[bArray.length - i]));
         }
         title = this.getTitle(data);
-//        System.out.println("title : " + title);
         artist = this.getArtist(data);
-//        System.out.println("Artist : " + artist);
         album = this.getAlbum(data);
-//        System.out.println("Album : " + album);
         year = this.getYear(data);
-//        System.out.println("Year : "+year);
     }
 
     private String getYear(String data) {
