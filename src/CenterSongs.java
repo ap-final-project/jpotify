@@ -4,7 +4,6 @@ import javazoom.jl.decoder.JavaLayerException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 public class CenterSongs extends Panel implements AddPlaylistListener{
