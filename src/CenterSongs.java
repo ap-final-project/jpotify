@@ -15,8 +15,8 @@ public class CenterSongs extends Panel implements AddPlaylistListener{
     public CenterSongs() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         super(2);
         GridLayout gridLayout=new GridLayout(0,4);
-        this.setAlignmentX(0);
-        this.setAlignmentY(0);
+        this.setAlignmentX(10);
+        this.setAlignmentY(10);
         this.setLayout(gridLayout);
         songListModel = new DefaultListModel<>();
         this.setVisible(true);
