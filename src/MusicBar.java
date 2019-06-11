@@ -1,3 +1,5 @@
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 
 import javax.swing.*;
@@ -7,6 +9,7 @@ import javax.swing.plaf.TextUI;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class MusicBar extends Panel {
     Button play;
@@ -25,6 +28,12 @@ public class MusicBar extends Panel {
         } catch (JavaLayerException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedTagException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidDataException e) {
             e.printStackTrace();
         }
     }
@@ -45,7 +54,6 @@ public class MusicBar extends Panel {
         info.add(album);
         info.add(year);
         Panel up=new Panel(3);
-//        up.setLayout(new GridLayout(1,5));
         progressBar=new progress();
         this.add(info,BorderLayout.WEST);
         play = new Button(3);
@@ -58,7 +66,6 @@ public class MusicBar extends Panel {
         like=new Button(3);
         play.setIcon(new ImageIcon("img\\play.png"));
         pause.setIcon(new ImageIcon("img\\pause.png"));
-        stop.setIcon(new ImageIcon("img\\stop.png"));
         previous.setIcon(new ImageIcon("img\\back.png"));
         next.setIcon(new ImageIcon("img\\next.png"));
         shuffle.setIcon(new ImageIcon("img\\shuffle.png"));
@@ -66,8 +73,8 @@ public class MusicBar extends Panel {
         like.setIcon(new ImageIcon("img\\emptyHeart.png"));
         next.setSize(10,10);
         FlowLayout flowLayout=new FlowLayout();
-        flowLayout.setHgap(10);
-        up.setLayout(new FlowLayout());
+        flowLayout.setHgap(30);
+        up.setLayout(flowLayout);
 
         up.add(like);
         up.add(shuffle);

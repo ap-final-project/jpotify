@@ -1,19 +1,23 @@
+import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import javafx.scene.media.AudioTrack;
 import javafx.scene.media.MediaPlayer;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import javazoom.jl.*;
+import javazoom.jl.player.advanced.AdvancedPlayer;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.nio.file.Path;
 import java.util.Arrays;
 
 public class Song {
-    Player player;
+    AdvancedPlayer player;
     FileInputStream fileInputStream;
     File file;
     byte[] bArray;
@@ -21,10 +25,24 @@ public class Song {
     String artist;
     String album;
     String year;
-    public Song(String path) throws JavaLayerException, FileNotFoundException {
+
+    public Song(String path) throws JavaLayerException, IOException, InvalidDataException, UnsupportedTagException {
+
         file = new File(path);
         fileInputStream = new FileInputStream(file);
-        player = new Player(fileInputStream);
+        Mp3File mp3file = new Mp3File(path);
+        if (mp3file.hasId3v2Tag()) {
+            ID3v2 id3v2Tag = mp3file.getId3v2Tag();
+            byte[] imageData = id3v2Tag.getAlbumImage();
+            if (imageData != null) {
+                String mimeType = id3v2Tag.getAlbumImageMimeType();
+                // Write image to file - can determine appropriate file extension from the mime type
+                RandomAccessFile file = new RandomAccessFile("album-artwork", "rw");
+                file.write(imageData);
+                file.close();
+            }
+        }
+        player = new AdvancedPlayer(fileInputStream);
         bArray = readFileToByteArray(file);
         String data = "";
         for (int i = 128; i > 1; i--) {

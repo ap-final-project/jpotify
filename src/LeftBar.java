@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,8 +26,8 @@ public class LeftBar extends Panel {
         super(1);
         Color bright = new Color(194, 194, 194);
         Color dark = new Color(24, 24, 24);
-        AddBtn.setIcon(new ImageIcon("plus.png"));
-        text.setText("Your menu kian merge");
+        AddBtn.setIcon(new ImageIcon("img\\plus.png"));
+        text.setText("Menu");
         AddBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,7 +57,12 @@ public class LeftBar extends Panel {
         });
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxLayout);
-
+        text.setBorder(new EmptyBorder(10,5,10,0));
+        btn2.setBorder(new EmptyBorder(10,5,10,0));
+        btn3.setBorder(new EmptyBorder(10,5,10,0));
+        btn4.setBorder(new EmptyBorder(10,5,10,0));
+        btn5.setBorder(new EmptyBorder(10,5,10,0));
+        home.setBorder(new EmptyBorder(10,0,10,0));
         this.add(text);
         this.add(home);
         this.add(btn2);

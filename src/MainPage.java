@@ -1,14 +1,11 @@
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
+import java.io.IOException;
 
 import static javax.swing.BorderFactory.createLineBorder;
 
@@ -17,9 +14,10 @@ public class MainPage extends JFrame {
     private final int HEIGHT = 500, WIDTh = 500;
     LeftBar leftBar = new LeftBar();
     Panel main = new Panel(2);
-    MusicBar musicBar = new MusicBar();
     Center center=new Center();
-    public MainPage() throws FileNotFoundException, JavaLayerException {
+    MusicBar musicBar = new MusicBar();
+    CenterSongs centerSongs =new CenterSongs();
+    public MainPage() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         this.setTitle(TITLE);
         Color bright =new Color(194,194,194);
         Color dark=new Color(24,24,24);
@@ -28,14 +26,12 @@ public class MainPage extends JFrame {
         this.setSize(HEIGHT, WIDTh);
         this.setLocation(500, 200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        leftBar.setBorder(createLineBorder(Color.white, 2));
         main.setLayout(new BorderLayout());
         main.add(leftBar, BorderLayout.WEST);
         main.add(musicBar, BorderLayout.PAGE_END);
+        leftBar.setListener(centerSongs);
         main.add(center,BorderLayout.CENTER);
-        this.add(main);
-        leftBar.setListener(center);
         this.setVisible(true);
-//        this.pack();
+        this.add(main);
     }
 }
