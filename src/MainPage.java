@@ -16,6 +16,7 @@ public class MainPage extends JFrame {
     Panel main = new Panel(2);
     Center center=new Center();
     MusicBar musicBar = new MusicBar();
+    MusicPlayer musicPlayer=new MusicPlayer();
     CenterSongs centerSongs =new CenterSongs();
     public MainPage() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         this.setTitle(TITLE);
@@ -29,7 +30,7 @@ public class MainPage extends JFrame {
         main.setLayout(new BorderLayout());
         main.add(leftBar, BorderLayout.WEST);
         main.add(musicBar, BorderLayout.PAGE_END);
-        leftBar.setListener(centerSongs);
+        leftBar.setListener(musicPlayer);
         main.add(center,BorderLayout.CENTER);
         this.setVisible(true);
         this.add(main);

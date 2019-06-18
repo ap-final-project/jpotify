@@ -21,38 +21,19 @@ public class MusicBar extends Panel {
     Button repeat;
     Button like;
     Song song;
-
-    {
-        try {
-            song = new Song("music4.mp3");
-        } catch (JavaLayerException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedTagException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidDataException e) {
-            e.printStackTrace();
-        }
-    }
-
-    Label songName=new Label(song.title,3);
-    Label artistName=new Label(song.artist,3);
-    Label album=new Label(song.album,3);
-    Label year=new Label(song.year,3);
-    Label icon=new Label(3);
+    Label songName;
+    Label artistName;
+    Label album;
+    Label year;
+    Label icon;
+    Panel info;
     progress progressBar;
+    MusicPlayer musicPlayer=new MusicPlayer();
     public MusicBar() {
         super(3);
         this.setLayout(new BorderLayout());
-        Panel info=new Panel(3);
+        info=new Panel(3);
         info.setLayout(new GridLayout(4,1));
-        info.add(songName);
-        info.add(artistName);
-        info.add(album);
-        info.add(year);
         Panel up=new Panel(3);
         progressBar=new progress();
         this.add(info,BorderLayout.WEST);
@@ -75,7 +56,6 @@ public class MusicBar extends Panel {
         FlowLayout flowLayout=new FlowLayout();
         flowLayout.setHgap(30);
         up.setLayout(flowLayout);
-
         up.add(like);
         up.add(shuffle);
         up.add(previous);
@@ -91,4 +71,11 @@ public class MusicBar extends Panel {
         this.add(keke,BorderLayout.CENTER);
         this.add(info,BorderLayout.WEST);
     }
+public void addInfo(){
+    info.add(songName);
+    info.add(artistName);
+    info.add(album);
+    info.add(year);
+}
+
 }

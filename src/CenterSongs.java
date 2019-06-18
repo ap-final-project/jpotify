@@ -4,10 +4,12 @@ import javazoom.jl.decoder.JavaLayerException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-public class CenterSongs extends Panel implements AddPlaylistListener{
+public class CenterSongs extends Panel{
     JList songJList;
     ArrayList<Song> songs=new ArrayList<>();
     DefaultListModel<String> songListModel;
@@ -22,8 +24,4 @@ public class CenterSongs extends Panel implements AddPlaylistListener{
         this.setVisible(true);
     }
 
-    @Override
-    public void addToPlayList(String path) {
-    //
-    }
 }

@@ -1,3 +1,7 @@
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
+import javazoom.jl.decoder.JavaLayerException;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileSystemView;
@@ -5,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class LeftBar extends Panel {
@@ -49,7 +54,17 @@ public class LeftBar extends Panel {
                     System.out.println("Files Found\n");
                     Arrays.asList(files).forEach(x -> {
                         if (x.isFile()) {
-                            listener.addToPlayList(x.getPath());
+                            try {
+                                listener.addToPlayList(x.getPath());
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            } catch (UnsupportedTagException e1) {
+                                e1.printStackTrace();
+                            } catch (InvalidDataException e1) {
+                                e1.printStackTrace();
+                            } catch (JavaLayerException e1) {
+                                e1.printStackTrace();
+                            }
                         }
                     });
                 }

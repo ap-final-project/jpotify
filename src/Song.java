@@ -16,7 +16,7 @@ import java.io.*;
 import java.nio.file.Path;
 import java.util.Arrays;
 
-public class Song {
+public class Song implements Runnable {
     AdvancedPlayer player;
     FileInputStream fileInputStream;
     File file;
@@ -93,5 +93,10 @@ public class Song {
             ioExp.printStackTrace();
         }
         return bArray;
+    }
+
+    @Override
+    public void run() {
+
     }
 }
