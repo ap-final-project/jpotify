@@ -8,6 +8,7 @@ public class SongGUI extends Panel{
     Label date;
     Label name;
     Label album;
+    Label time;
 //    JList jList;
 //    DefaultListModel<String> songListModel;
     Song song;
@@ -21,12 +22,14 @@ public class SongGUI extends Panel{
         artist=new Label(song.artist,2);
         album=new Label(song.album,2);
         date=new Label(song.year,2);
+        time=new Label(song.lenght,2);
 
-        this.setLayout(new GridLayout(0,4));
+        this.setLayout(new GridLayout(0,5));
 //        this.add(title);
         this.add(name);
         this.add(artist);
         this.add(album);
         this.add(date);
+        this.add(time);
     }
 }

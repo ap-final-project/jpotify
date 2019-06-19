@@ -25,12 +25,21 @@ public class Song implements Runnable {
     String artist;
     String album;
     String year;
+    String lenght;
 
     public Song(String path) throws JavaLayerException, IOException, InvalidDataException, UnsupportedTagException {
 
         file = new File(path);
         fileInputStream = new FileInputStream(file);
         Mp3File mp3file = new Mp3File(path);
+        long time=mp3file.getLengthInSeconds();
+        if(time%60>9)
+        lenght=""+time/60+":"+time%60;
+        else if(time%60<10 && time%60!=0)
+            lenght=""+time/60+":"+0+time%60;
+        else
+            lenght=""+time/60+":"+00+time%60;
+
         if (mp3file.hasId3v2Tag()) {
             ID3v2 id3v2Tag = mp3file.getId3v2Tag();
             byte[] imageData = id3v2Tag.getAlbumImage();
