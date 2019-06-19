@@ -49,7 +49,7 @@ public class MusicPlayer extends Thread implements AddPlaylistListener {
         gui.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Song songClicked=recentlyPlayed.playlistInfo.get(gui);
+                Song songClicked=recentlyPlayed.getSongByGUI(gui);
                 currentSong=songClicked;
                 try {
                     play(songClicked);

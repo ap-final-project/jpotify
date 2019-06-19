@@ -28,5 +28,7 @@ ArrayList<SongGUI> guis=new ArrayList<>();
     public SongGUI previous(SongGUI songGUI){
         return songGUI;
     }
-
+    public Song getSongByGUI(SongGUI songGUI){
+        return songs.get(guis.indexOf(songGUI));
+    }
 }

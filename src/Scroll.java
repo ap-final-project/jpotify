@@ -95,7 +95,7 @@ class MyScrollBarUI extends BasicScrollBarUI {
         g2.setPaint(color);
         g2.fillRoundRect(r.x, r.y, r.width, r.height, 0, 0);
         g2.setPaint(Color.WHITE);
-        g2.drawRoundRect(r.x, r.y, r.width, r.height, 0, 0);
+//        g2.drawRoundRect(r.x, r.y, r.width, r.height, 0, 0);
         g2.dispose();
     }
 
