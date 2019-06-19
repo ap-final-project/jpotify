@@ -11,7 +11,7 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class MusicBar extends Panel {
+public class MusicBar extends Panel implements AddToInfoBar {
     Button play;
     Button pause;
     Button stop;
@@ -21,10 +21,10 @@ public class MusicBar extends Panel {
     Button repeat;
     Button like;
     Song song;
-    Label songName;
-    Label artistName;
-    Label album;
-    Label year;
+    Label songName=new Label(2);
+    Label artistName=new Label(2);
+    Label album=new Label(2);
+    Label year=new Label(2);
     Label icon;
     Panel info;
     progress progressBar;
@@ -69,7 +69,6 @@ public class MusicBar extends Panel {
         progressBar.setBorder(new EmptyBorder(10,0,0,0));
         keke.add(progressBar, BorderLayout.PAGE_END);
         this.add(keke,BorderLayout.CENTER);
-        this.add(info,BorderLayout.WEST);
     }
 public void addInfo(){
     info.add(songName);
@@ -78,4 +77,15 @@ public void addInfo(){
     info.add(year);
 }
 
+    @Override
+    public void addTOInfo(Song song) throws JavaLayerException {
+        songName.setText(song.title);
+        artistName.setText(song.artist);
+        album.setText(song.album);
+        year.setText(song.year);
+//        song.player.play();
+        this.addInfo();
+        this.add(info,BorderLayout.WEST);
+        revalidate();
+    }
 }

@@ -31,7 +31,9 @@ public class MainPage extends JFrame {
         main.add(leftBar, BorderLayout.WEST);
         main.add(musicBar, BorderLayout.PAGE_END);
         leftBar.setListener(musicPlayer);
+        musicPlayer.setInfoBarListener(musicBar);
         main.add(center,BorderLayout.CENTER);
+        musicPlayer.setListener(center);
         this.setVisible(true);
         this.add(main);
     }

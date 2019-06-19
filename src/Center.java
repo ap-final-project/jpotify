@@ -7,9 +7,11 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class Center extends Panel {
+public class Center extends Panel implements addGUIToCenter{
     Label title;
     Scroll scrollpane;
+    CenterSongs centerSongs=new CenterSongs();
+
     public Center() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         super(2);
         try {
@@ -27,9 +29,18 @@ public class Center extends Panel {
         this.setLayout(new BorderLayout());
         title=new Label("your songs",2);
         this.add(title,BorderLayout.PAGE_START);
-        CenterSongs centerSongs=new CenterSongs();
-        centerSongs.setVisible(true);
         scrollpane=new Scroll(centerSongs);
-    this.add(scrollpane);
+        this.add(scrollpane);
+        centerSongs.setVisible(true);
+//        repaint();
     }
-}
+
+    @Override
+    public void addGui(SongGUI songGUI){
+           centerSongs.add(songGUI);
+            System.out.println(songGUI.song.title);
+//            repaint();
+            revalidate();
+    }
+    }
+

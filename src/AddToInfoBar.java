@@ -1,4 +1,5 @@
-package PACKAGE_NAME;
+import javazoom.jl.decoder.JavaLayerException;
 
-public class addToInfoBar {
+public interface AddToInfoBar {
+    void addTOInfo(Song song) throws JavaLayerException;
 }
