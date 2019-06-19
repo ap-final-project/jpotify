@@ -5,6 +5,8 @@
       <root url="jar://E:/libs/mp3agic-0.8.1.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://E:/libs/mp3agic-0.8.1-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

@@ -21,6 +21,7 @@ public class MainPage extends JFrame {
         this.setTitle(TITLE);
         Color bright =new Color(194,194,194);
         Color dark=new Color(24,24,24);
+        this.setSize(800,800);
         this.setBackground(bright);
         this.setForeground(dark);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
