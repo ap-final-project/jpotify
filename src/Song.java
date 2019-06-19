@@ -46,7 +46,7 @@ public class Song {
             ID3v2 id3v2Tag = mp3file.getId3v2Tag();
             byte[] imageData = id3v2Tag.getAlbumImage();
             Image image=new ImageIcon(imageData).getImage();
-            Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+            Image newimg = image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
             ImageIcon imageIcon=new ImageIcon(newimg);
             artWork.setIcon(imageIcon);
         }
@@ -60,7 +60,6 @@ public class Song {
         artist = this.getArtist(data);
         album = this.getAlbum(data);
         year = this.getYear(data);
-    artWork.setSize(new Dimension(100,100));
     }
 
     private String getYear(String data) {

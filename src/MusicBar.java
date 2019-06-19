@@ -22,19 +22,17 @@ public class MusicBar extends Panel implements AddToInfoBar {
     Button shuffle;
     Button repeat;
     Button like;
-    Label songName=new Label(2);
-    Label artistName=new Label(2);
-    Label album=new Label(2);
-    Label year=new Label(2);
-    Label icon;
+    Label songName=new Label(3);
+    Label artistName=new Label(3);
+    Label album=new Label(3);
+    Label year=new Label(3);
     Panel info;
     progress progressBar;
     MusicPlayer musicPlayer=new MusicPlayer();
     public MusicBar() {
         super(3);
         this.setLayout(new BorderLayout());
-        info=new Panel(1);
-        info.setBackground(Color.GREEN);
+        info=new Panel(3);
         info.setLayout(new GridLayout(5,1));
         info.setSize(new Dimension(100,100));
         Panel up=new Panel(3);
@@ -78,8 +76,6 @@ public void addInfo(){
     info.add(artistName);
     info.add(album);
     info.add(year);
-    icon.setSize(new Dimension(100,100));
-    info.add(icon);
 }
 
     @Override
@@ -89,8 +85,6 @@ public void addInfo(){
         album.setText(song.album);
         year.setText(song.year);
         this.add(info,BorderLayout.WEST);
-        icon=song.artWork;
-        if (icon==null) icon.setIcon(new ImageIcon("img\\play.png"));
         this.addInfo();
         revalidate();
     }
