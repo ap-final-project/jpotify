@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.TextUI;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -28,6 +30,7 @@ public class MusicBar extends Panel {
     Label icon;
     Panel info;
     progress progressBar;
+    musicBarListener musicBarL;
     MusicPlayer musicPlayer=new MusicPlayer();
     public MusicBar() {
         super(3);
@@ -70,12 +73,48 @@ public class MusicBar extends Panel {
         keke.add(progressBar, BorderLayout.PAGE_END);
         this.add(keke,BorderLayout.CENTER);
         this.add(info,BorderLayout.WEST);
+    this.setListeners();
     }
-public void addInfo(){
-    info.add(songName);
-    info.add(artistName);
-    info.add(album);
-    info.add(year);
-}
+    public void addInfo(){
+        info.add(songName);
+        info.add(artistName);
+        info.add(album);
+        info.add(year);
+    }
 
+    public void setMusicBarL(musicBarListener L){
+        musicBarL=L;
+    }
+public void setListeners(){
+        play.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                musicBarL.action(0);
+            }
+        });
+        pause.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                musicBarL.action(1);
+            }
+        });
+        next.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                musicBarL.action(2);
+            }
+        });
+        previous.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                musicBarL.action(3);
+            }
+        });
+        like.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                musicBarL.action(4);
+            }
+        });
+    }
 }

@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-public class CenterSongs extends Panel{
+public class CenterSongs extends Panel implements InformCenterSongListener{
     JList songJList;
     ArrayList<Song> songs=new ArrayList<>();
     DefaultListModel<String> songListModel;
@@ -24,4 +24,10 @@ public class CenterSongs extends Panel{
         this.setVisible(true);
     }
 
+    @Override
+    public void addGUI(SongGUI songGUI) {
+        System.out.println("song added");
+        this.add(songGUI);
+        songGUI.setVisible(true);
+    }
 }

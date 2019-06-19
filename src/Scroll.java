@@ -7,7 +7,6 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 public class Scroll extends JScrollPane {
     public Scroll(Panel panel){
         super(panel);
-        panel.setBackground(Color.GREEN);
         this.setBorder(new EmptyBorder(0,0,0,0));
         this.setComponentZOrder(this.getVerticalScrollBar(), 0);
         this.setComponentZOrder(this.getViewport(), 1);
