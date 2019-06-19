@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class LeftBar extends Panel {
+public class LeftBar extends Panel implements InformArtWrok {
     AddPlaylistListener listener = null;
     Button AddBtn = new Button("Add", 1);
     Label text = new Label(1);
@@ -26,6 +26,7 @@ public class LeftBar extends Panel {
     Button btn3 = new Button("Library", 1);
     Button btn4 = new Button("Song", 1);
     Button btn5 = new Button("Albums", 1);
+    Panel artWork=new Panel(3);
 
     public LeftBar() {
         super(1);
@@ -85,6 +86,12 @@ public class LeftBar extends Panel {
         this.add(btn4);
         this.add(btn5);
         this.add(AddBtn, BorderLayout.PAGE_END);
+        this.add(artWork,BorderLayout.PAGE_END);
+    }
+
+    @Override
+    public void setArtwork(Label label) {
+        artWork.add(label);
     }
 }
 

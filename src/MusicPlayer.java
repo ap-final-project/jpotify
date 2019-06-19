@@ -1,41 +1,40 @@
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.advanced.PlaybackEvent;
+import javazoom.jl.player.advanced.PlaybackListener;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MusicPlayer implements Runnable ,AddPlaylistListener {
+public class MusicPlayer extends Thread implements AddPlaylistListener {
     ArrayList<Playlist> playlists=new ArrayList<>();
     Song currentSong;
     addGUIToCenter listener=null;
     AddToInfoBar InfoBarListener=null;
     Playlist currentPlaylist;
-    int state;
     Playlist recentlyPlayed=new Playlist();
     Playlist favorites=new Playlist();
+    InformArtWrok informArtWrok;
+
+    public void setInformArtWrok(InformArtWrok informArtWrok) {
+        this.informArtWrok = informArtWrok;
+    }
+
     @Override
     public void run() {
+        System.out.println("run running");
         if (currentSong!=null){
-            switch (state) {
-                case 1:
                 try {
                     currentSong.player.play();
                 } catch (JavaLayerException e) {
                     e.printStackTrace();
                 }
-                    break;
-                case 2:
-                    currentSong.player.stop();
-                    break;
-                case 3:
-
-                    break;
-            }
         }
-    }
+
+        }
 
     public void setListener(addGUIToCenter listener) {
         this.listener = listener;
@@ -51,6 +50,7 @@ public class MusicPlayer implements Runnable ,AddPlaylistListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Song songClicked=recentlyPlayed.playlistInfo.get(gui);
+                currentSong=songClicked;
                 try {
                     play(songClicked);
                 } catch (JavaLayerException e1) {
@@ -68,7 +68,13 @@ public class MusicPlayer implements Runnable ,AddPlaylistListener {
     }
 
     public void play(Song song) throws JavaLayerException {
-        InfoBarListener.addTOInfo(song);
+        try {
+            InfoBarListener.addTOInfo(song);
+            informArtWrok.setArtwork(song.artWork);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(song.title);
+
     }
 }

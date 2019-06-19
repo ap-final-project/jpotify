@@ -7,6 +7,7 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 public class Scroll extends JScrollPane {
     public Scroll(Panel panel){
         super(panel);
+        panel.setLayout(new GridLayout(0,1));
         this.setBorder(new EmptyBorder(0,0,0,0));
         this.setComponentZOrder(this.getVerticalScrollBar(), 0);
         this.setComponentZOrder(this.getViewport(), 1);
@@ -34,10 +35,10 @@ public class Scroll extends JScrollPane {
                 if (viewport != null) {
                     viewport.setBounds(availR);
                 }
-//                if (vsb != null) {
+                if (vsb != null) {
                     vsb.setVisible(true);
                     vsb.setBounds(vsbR);
-//                }
+                }
             }
         });
         this.getVerticalScrollBar().setUI(new MyScrollBarUI());

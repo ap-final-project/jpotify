@@ -8,8 +8,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.TextUI;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 public class MusicBar extends Panel implements AddToInfoBar {
     Button play;
@@ -20,7 +22,6 @@ public class MusicBar extends Panel implements AddToInfoBar {
     Button shuffle;
     Button repeat;
     Button like;
-    Song song;
     Label songName=new Label(2);
     Label artistName=new Label(2);
     Label album=new Label(2);
@@ -32,8 +33,10 @@ public class MusicBar extends Panel implements AddToInfoBar {
     public MusicBar() {
         super(3);
         this.setLayout(new BorderLayout());
-        info=new Panel(3);
-        info.setLayout(new GridLayout(4,1));
+        info=new Panel(1);
+        info.setBackground(Color.GREEN);
+        info.setLayout(new GridLayout(5,1));
+        info.setSize(new Dimension(100,100));
         Panel up=new Panel(3);
         progressBar=new progress();
         this.add(info,BorderLayout.WEST);
@@ -75,17 +78,20 @@ public void addInfo(){
     info.add(artistName);
     info.add(album);
     info.add(year);
+    icon.setSize(new Dimension(100,100));
+    info.add(icon);
 }
 
     @Override
-    public void addTOInfo(Song song) throws JavaLayerException {
+    public void addTOInfo(Song song) throws JavaLayerException, IOException {
         songName.setText(song.title);
         artistName.setText(song.artist);
         album.setText(song.album);
         year.setText(song.year);
-//        song.player.play();
-        this.addInfo();
         this.add(info,BorderLayout.WEST);
+        icon=song.artWork;
+        if (icon==null) icon.setIcon(new ImageIcon("img\\play.png"));
+        this.addInfo();
         revalidate();
     }
 }

@@ -11,12 +11,14 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Path;
 import java.util.Arrays;
 
-public class Song implements Runnable {
+public class Song {
     AdvancedPlayer player;
     FileInputStream fileInputStream;
     File file;
@@ -26,7 +28,7 @@ public class Song implements Runnable {
     String album;
     String year;
     String lenght;
-
+    Label artWork=new Label(3);
     public Song(String path) throws JavaLayerException, IOException, InvalidDataException, UnsupportedTagException {
 
         file = new File(path);
@@ -43,13 +45,10 @@ public class Song implements Runnable {
         if (mp3file.hasId3v2Tag()) {
             ID3v2 id3v2Tag = mp3file.getId3v2Tag();
             byte[] imageData = id3v2Tag.getAlbumImage();
-            if (imageData != null) {
-                String mimeType = id3v2Tag.getAlbumImageMimeType();
-                // Write image to file - can determine appropriate file extension from the mime type
-                RandomAccessFile file = new RandomAccessFile("album-artwork", "rw");
-                file.write(imageData);
-                file.close();
-            }
+            Image image=new ImageIcon(imageData).getImage();
+            Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+            ImageIcon imageIcon=new ImageIcon(newimg);
+            artWork.setIcon(imageIcon);
         }
         player = new AdvancedPlayer(fileInputStream);
         bArray = readFileToByteArray(file);
@@ -61,6 +60,7 @@ public class Song implements Runnable {
         artist = this.getArtist(data);
         album = this.getAlbum(data);
         year = this.getYear(data);
+    artWork.setSize(new Dimension(100,100));
     }
 
     private String getYear(String data) {
@@ -104,8 +104,4 @@ public class Song implements Runnable {
         return bArray;
     }
 
-    @Override
-    public void run() {
-
-    }
 }
