@@ -11,122 +11,113 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.LockSupport;
 
-public class MusicPlayer extends Thread implements AddPlaylistListener,MusicBarListener {
+public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
     Song currentSong;
-    addGUIToCenter listener=null;
-    AddToInfoBar InfoBarListener=null;
+    PlayBTNListener playBTNListener = null;
+
+    addGUIToCenter listener = null;
+
+    AddToInfoBar InfoBarListener = null;
     Playlist currentPlaylist;
-    Playlist recentlyPlayed=new Playlist();
-    Playlist favorites=new Playlist();
+    Playlist recentlyPlayed = new Playlist();
+    Playlist favorites = new Playlist();
     InformArtWrok informArtWrok;
-    boolean threadStarted=false;
+    boolean threadStarted = false;
     volatile FileInputStream fis;
     BufferedInputStream bufferedInputStream;
-    volatile AdvancedPlayer player;
-    private long pauseLocation;
-    private long songTotalLength;
+
+    boolean isPaused = true;
+    Player player1;
+
+    Thread playerThread;
+    boolean fromThis = true;
+    final AtomicBoolean pause = new AtomicBoolean(false);
+
+    public void setPlayBTNListener(PlayBTNListener playBTNListener) {
+        this.playBTNListener = playBTNListener;
+    }
     public void setInformArtWrok(InformArtWrok informArtWrok) {
         this.informArtWrok = informArtWrok;
     }
-    boolean isPaused=false;
-    @Override
-    public synchronized void run() {
-        System.out.println("run running");
-        System.out.println("pausedLocation"+pauseLocation);
-        System.out.println("total"+songTotalLength);
-        try {
-            player.play();
-        } catch (JavaLayerException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void setListener(addGUIToCenter listener) {
         this.listener = listener;
     }
-    public void pause(){
-        if (player != null) {
-            try {
-                System.out.println("pausing!");
-                pauseLocation=fis.available();
-                System.out.println("paueseed"+pauseLocation);
-                isPaused=true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else
-            System.out.println("what the heck");
-        player.close();
-        this.stop();
-        if (player==null) System.out.println("nulle");
-    }
-    public void stopPLayer(){
-        if (player!=null) {
-            this.stop();        }
-    }
-    public void playPlayer(){
-        try {
-            fis=new FileInputStream(currentSong.getPath());
-            player=new AdvancedPlayer(fis);
-            songTotalLength=fis.available();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (JavaLayerException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public void resumePlayer(){
-        try {
-            fis=new FileInputStream(currentSong.getPath());
-            bufferedInputStream=new BufferedInputStream(fis);
-            player=new AdvancedPlayer(bufferedInputStream);
-//            fis.skip(songTotalLength-pauseLocation);
-            if (isPaused)
-                run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JavaLayerException e) {
-            e.printStackTrace();
-        }
+
+
+    public void makeNewThread(){
+        playerThread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (player1.play(1)) {
+                        if (pause.get()) {
+                            LockSupport.park();
+                        }
+                    }
+                } catch (Exception e) {
+                    System.err.printf("%s\n", e.getMessage());
+                }
+            }
+        };
     }
     @Override
     public void addToPlayList(String path) throws IOException, UnsupportedTagException, InvalidDataException, JavaLayerException {
-        Song song=new Song(path);
-        SongGUI gui=new SongGUI(song);
+        Song song = new Song(path);
+        SongGUI gui = new SongGUI(song);
         listener.addGui(gui);
-        recentlyPlayed.add(gui,song);
+        recentlyPlayed.add(gui, song);
+        fis = new FileInputStream(song.getPath());
+        bufferedInputStream = new BufferedInputStream(fis);
         gui.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Song songClicked=recentlyPlayed.getSongByGUI(gui);
-                currentSong=songClicked;
+                Song songClicked = recentlyPlayed.getSongByGUI(gui);
+                if (threadStarted) {
+                    if (currentSong != null && !currentSong.equals(songClicked)) {
+                        playerThread.stop();
+                        threadStarted = false;
+                        makeNewThread();
+                    }
+                }
+                currentSong = songClicked;
                 try {
                     play(songClicked);
                 } catch (JavaLayerException e1) {
                     e1.printStackTrace();
                 }
             }
+
         });
     }
-    public MusicPlayer(){
-        currentPlaylist=recentlyPlayed;
+
+    public MusicPlayer() throws JavaLayerException {
+        currentPlaylist = recentlyPlayed;
+        makeNewThread();
     }
 
     public void setInfoBarListener(AddToInfoBar infoBarListener) {
         InfoBarListener = infoBarListener;
     }
 
-    public  void  play(Song song) throws JavaLayerException {
+    public void play(Song song) throws JavaLayerException {
         if (!threadStarted) {
             try {
-                playPlayer();
-                this.start();
-                InfoBarListener.addTOInfo(song);
+                if (currentSong.isLiked()) playBTNListener.clicked(1);
+                else playBTNListener.clicked(2);
+                playBTNListener.clicked(0);
+                fromThis = false;
+                fis = new FileInputStream(song.getPath());
+                bufferedInputStream = new BufferedInputStream(fis);
+                player1 = new Player(bufferedInputStream);
+                threadStarted = true;
                 informArtWrok.setArtwork(song.artWork);
+                InfoBarListener.addTOInfo(song);
+                playerThread.start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -136,22 +127,53 @@ public class MusicPlayer extends Thread implements AddPlaylistListener,MusicBarL
 
     @Override
     public void action(int i) {
-        switch (i){
+        switch (i) {
             case 0:
-                System.out.println("play");
-                resumePlayer();
-                break;
-            case 1:
-                System.out.println("stop");
-                pause();
+                if(!fromThis){
+                    pause.set(!pause.get());
+                    if (!pause.get()) {
+                        LockSupport.unpark(playerThread);
+                    }
+                }
+                fromThis = false;
                 break;
             case 2:
-                stopPLayer();
-                break;
+                playerThread.stop();
+                threadStarted = false;
+                fromThis=true;
+                pause.set(false);
+                currentSong=recentlyPlayed.getNextSong(currentSong);
+                makeNewThread();
+                try {
+                    play(currentSong);
+                } catch (JavaLayerException e1) {
+                    e1.printStackTrace();
+                }
+                    break;
             case 3:
-                //pre
+                playerThread.stop();
+                threadStarted = false;
+                fromThis=true;
+                pause.set(false);
+                currentSong=recentlyPlayed.getPreSong(currentSong);
+                makeNewThread();
+                try {
+                    play(currentSong);
+                } catch (JavaLayerException e1) {
+                    e1.printStackTrace();
+                }
                 break;
-            case 4:
+            case 1:
+                if (currentSong.isLiked()) {
+                    playBTNListener.clicked(2);
+                    currentSong.unLike();
+                    //remove from favorites
+                }
+                else {
+                    playBTNListener.clicked(1);
+                    currentSong.like();
+                    favorites.add(recentlyPlayed.getGUIBySong(currentSong),currentSong);
+                }
                 break;
         }
     }

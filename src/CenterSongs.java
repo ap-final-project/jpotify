@@ -17,12 +17,12 @@ public class CenterSongs extends Panel implements addGUIToCenter{
 
     public CenterSongs()  throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         super(2);
-        this.setAlignmentX(10);
-        this.setAlignmentY(10);
-        this.setLayout(new GridBagLayout());
-        GridBagConstraints c=new GridBagConstraints();
-        c.weighty=0;
-        c.weightx=1;
+//        this.setAlignmentX(10);
+//        this.setAlignmentY(10);
+        this.setLayout(new GridLayout(60,0));
+//        GridBagConstraints c=new GridBagConstraints();
+//        c.weighty=9;
+//        c.weightx=1;
         songListModel = new DefaultListModel<>();
         this.setVisible(true);
         title.setText("Title");
@@ -31,12 +31,16 @@ public class CenterSongs extends Panel implements addGUIToCenter{
         year.setText("Year");
         time.setText("Time");
         p.setLayout(new GridLayout(1,5));
+        this.setPreferredSize(new Dimension());
+//        this.setMaximumSize(new Dimension(200,200));
         p.add(title);
         p.add(artist);
         p.add(album);
         p.add(year);
         p.add(time);
         this.add(p);
+//        this.setBounds(10,10,10,10);
+//        p.setLocation(200,200);
 
     }
 

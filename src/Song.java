@@ -29,6 +29,7 @@ public class Song {
     String year;
     String lenght;
     String path;
+    private boolean isLiked=false;
     Label artWork=new Label(3);
     public Song(String path) throws JavaLayerException, IOException, InvalidDataException, UnsupportedTagException {
         this.path=path;
@@ -85,8 +86,6 @@ public class Song {
         artist = data.substring(33, 63);
         return artist;
     }
-
-
     private String getAlbum(String data) {
         String album = "";
         album = data.substring(63, 93);
@@ -107,5 +106,15 @@ public class Song {
         }
         return bArray;
     }
+    public void like(){
+        isLiked=true;
+    }
 
+    public void unLike(){
+        isLiked=false;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
 }

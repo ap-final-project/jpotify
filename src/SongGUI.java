@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -31,5 +32,7 @@ public class SongGUI extends Panel{
         this.add(album);
         this.add(date);
         this.add(time);
+//        name.setBorder(new EmptyBorder(2,2,2,2));
+//        this.setSize(200,120);
     }
 }

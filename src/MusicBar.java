@@ -1,21 +1,13 @@
-import com.mpatric.mp3agic.InvalidDataException;
-import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.TextUI;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 
-public class MusicBar extends Panel implements AddToInfoBar {
+public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     Button play;
     Button pause;
     Button stop;
@@ -102,12 +94,11 @@ public class MusicBar extends Panel implements AddToInfoBar {
         play.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (played) {
-                    musicBarListener.action(0);
-                    play.setIcon(new ImageIcon("img\\pause.png"));
-                }else{
-                    musicBarListener.action(1);
+                musicBarListener.action(0);
+                if (!played) {
                     play.setIcon(new ImageIcon("img\\play.png"));
+                }else{
+                    play.setIcon(new ImageIcon("img\\pause.png"));
                 }
                 played=!played;
             }
@@ -124,5 +115,28 @@ public class MusicBar extends Panel implements AddToInfoBar {
                 musicBarListener.action(3);
             }
         });
+        like.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                musicBarListener.action(1);
+            }
+        });
+    }
+
+    @Override
+    public void clicked(int i) {
+        switch (i) {
+            case 0:
+                played = !played;
+                play.setIcon(new ImageIcon("img\\pause.png"));
+            break;
+            case 1:
+                like.setIcon(new ImageIcon("img\\fullHeart.png"));
+                break;
+
+            case 2:
+                like.setIcon(new ImageIcon("img\\emptyHeart.png"));
+                break;
+        }
     }
 }

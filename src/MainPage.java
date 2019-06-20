@@ -34,6 +34,7 @@ public class MainPage extends JFrame {
         musicPlayer.setListener(centerSongs);
         musicPlayer.setInformArtWrok(leftBar);
         musicBar.setMusicBarListener(musicPlayer);
+        musicPlayer.setPlayBTNListener(musicBar);
         this.setVisible(true);
         this.add(main);
     }
