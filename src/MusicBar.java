@@ -20,13 +20,14 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     Label artistName = new Label(3);
     Label album = new Label(3);
     Label year = new Label(3);
+
     Panel info;
     progress progressBar;
     MusicBarListener musicBarListener;
     boolean played=true;
     private float songLength;
-    private float counter=0;
-    private int progressIncrease=0;
+    private int counter=0;
+    private int formerAmount=0;
     public MusicBar() {
         super(3);
         this.setLayout(new BorderLayout());
@@ -68,7 +69,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         progressBar.setBorder(new EmptyBorder(10, 0, 0, 0));
         keke.add(progressBar, BorderLayout.PAGE_END);
         this.add(keke, BorderLayout.CENTER);
-    this.setListeners();
+        this.setListeners();
     }
 
     public void addInfo() {
@@ -144,9 +145,14 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
                 break;
             case 3:
                 System.out.println(songLength);
+                int temp=(int) ((100*counter)/songLength);
                 counter++;
-                progressBar.setV((int) ((100*counter)/songLength));
-                revalidate();
+                progressBar.setTime(counter);
+                if (formerAmount!=temp) {
+                    formerAmount=temp;
+                    progressBar.setV(temp+1);
+                    revalidate();
+                }
                 break;
             case 4:
                 //progress reset
@@ -154,4 +160,5 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
                 break;
         }
     }
+
 }

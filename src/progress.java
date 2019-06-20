@@ -6,8 +6,11 @@ import javax.swing.*;
 import java.awt.event.*;
 public class progress extends Panel {
     private JProgressBar b;
+    Label currentTime=new Label(3);
 public progress(){
     super(3);
+    this.setLayout(new FlowLayout());
+    this.add(currentTime);
     b = new JProgressBar();
     this.add(b);
     b.setOpaque(true);
@@ -27,5 +30,14 @@ public progress(){
     public void setV(int v){
     b.setValue(v);
     }
-
+    public void setTime(int time){
+        String lenght="";
+        if(time%60>9)
+            lenght=""+time/60+":"+time%60;
+        else if(time%60<10 && time%60!=0)
+            lenght=""+time/60+":"+0+time%60;
+        else
+            lenght=""+time/60+":"+00+time%60;
+        currentTime.setText(lenght);
+    }
 }
