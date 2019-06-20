@@ -28,9 +28,10 @@ public class Song {
     String album;
     String year;
     String lenght;
+    String path;
     Label artWork=new Label(3);
     public Song(String path) throws JavaLayerException, IOException, InvalidDataException, UnsupportedTagException {
-
+        this.path=path;
         file = new File(path);
         fileInputStream = new FileInputStream(file);
         Mp3File mp3file = new Mp3File(path);
@@ -75,11 +76,16 @@ public class Song {
         return title;
     }
 
+    public String getPath() {
+        return path;
+    }
+
     private String getArtist(String data) {
         String artist = "";
         artist = data.substring(33, 63);
         return artist;
     }
+
 
     private String getAlbum(String data) {
         String album = "";
@@ -95,7 +101,6 @@ public class Song {
         try {
             fis = new FileInputStream(file);
             fis.read(bArray);
-            fis.close();
 
         } catch (IOException ioExp) {
             ioExp.printStackTrace();

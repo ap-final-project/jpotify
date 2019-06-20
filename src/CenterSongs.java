@@ -7,16 +7,16 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 public class CenterSongs extends Panel implements addGUIToCenter{
-    JList songJList;
-    ArrayList<Song> songs=new ArrayList<>();
     DefaultListModel<String> songListModel;
 
     public CenterSongs()  throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         super(2);
-        GridLayout gridLayout=new GridLayout(0,1);
         this.setAlignmentX(10);
         this.setAlignmentY(10);
-        this.setLayout(gridLayout);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c=new GridBagConstraints();
+        c.weighty=0;
+        c.weightx=1;
         songListModel = new DefaultListModel<>();
         this.setVisible(true);
     }
