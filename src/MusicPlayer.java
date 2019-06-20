@@ -33,6 +33,7 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
     Thread playerThread;
     boolean fromThis = true;
     private float progress=0;
+    private int i=0;
     final AtomicBoolean pause = new AtomicBoolean(false);
 
     public void setPlayBTNListener(PlayBTNListener playBTNListener) {
@@ -52,10 +53,10 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
                 try {
                     while (player1.play(1)) {
                         int temp=(player1.getPosition()/1000)+1;
-                        System.out.println(temp+""+songTotalLength);
                         if (progress<temp) {
                             progress++;
-                            System.out.println("hi");
+                            System.out.println("hi"+i);
+                            i++;
                             playBTNListener.clicked(3);
                         }
                         if (pause.get()) {

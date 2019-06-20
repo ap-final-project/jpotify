@@ -24,8 +24,8 @@ public progress(){
     public void reset(){
     b.setValue(0);
     }
-    public void increase(){
-        b.setValue(b.getValue()+1);
+    public void setV(int v){
+    b.setValue(v);
     }
 
 }
