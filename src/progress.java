@@ -14,9 +14,9 @@ public progress(){
     b.setBackground(new Color(63,63,63));
     b.setForeground(new Color(176,176,176));
     b.setStringPainted(false);
+    b.setValue(0);
     b.setBorderPainted(false);
     b.setBorder(BorderFactory.createEmptyBorder());
-    b.setValue(54);
     b.setAlignmentX(0);
     b.setAlignmentY(0);
 //    b.setSize(800,5);
@@ -24,22 +24,8 @@ public progress(){
 //        b.setMinimumSize(new Dimension(300,5));
 }
 
-
-    // function to increase progress 
-    public static void fill()
-    {
-        int i = 0;
-        try {
-            while (i <= 100) {
-                // fill the menu bar
-                b.setValue(i + 10);
-
-                // delay the thread
-                Thread.sleep(1000);
-                i += 20;
-            }
-        }
-        catch (Exception e) {
-        }
+    public void increase(){
+        b.setValue(b.getValue()+1);
     }
+
 }

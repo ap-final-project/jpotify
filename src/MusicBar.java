@@ -137,6 +137,10 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
             case 2:
                 like.setIcon(new ImageIcon("img\\emptyHeart.png"));
                 break;
+            case 3:
+                progressBar.increase();
+                revalidate();
+                break;
         }
     }
 }

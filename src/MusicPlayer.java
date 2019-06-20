@@ -29,12 +29,12 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
     boolean threadStarted = false;
     volatile FileInputStream fis;
     BufferedInputStream bufferedInputStream;
-
-    boolean isPaused = true;
+    private long songTotalLength;
     Player player1;
-
+    private long part;
     Thread playerThread;
     boolean fromThis = true;
+    private int progress=-1;
     final AtomicBoolean pause = new AtomicBoolean(false);
 
     public void setPlayBTNListener(PlayBTNListener playBTNListener) {
@@ -55,7 +55,12 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
             public void run() {
                 try {
                     while (player1.play(1)) {
-                        if (pause.get()) {
+                        System.out.println((player1.getPosition()/part)%100);
+                        if ((player1.getPosition()/part)%100>=progress) {
+                            progress++;
+                            System.out.println("hi");
+                            playBTNListener.clicked(3);
+                        }if (pause.get()) {
                             LockSupport.park();
                         }
                     }
@@ -114,6 +119,8 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
                 fis = new FileInputStream(song.getPath());
                 bufferedInputStream = new BufferedInputStream(fis);
                 player1 = new Player(bufferedInputStream);
+                songTotalLength=fis.available();
+                part=songTotalLength/100;
                 threadStarted = true;
                 informArtWrok.setArtwork(song.artWork);
                 InfoBarListener.addTOInfo(song);
@@ -121,7 +128,6 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(song.title);
         }
     }
 

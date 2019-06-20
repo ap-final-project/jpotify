@@ -29,6 +29,12 @@ public class Song {
     String year;
     String lenght;
     String path;
+    private long time;
+
+    public long getTime() {
+        return time;
+    }
+
     private boolean isLiked=false;
     Label artWork=new Label(3);
     public Song(String path) throws JavaLayerException, IOException, InvalidDataException, UnsupportedTagException {
@@ -36,7 +42,7 @@ public class Song {
         file = new File(path);
         fileInputStream = new FileInputStream(file);
         Mp3File mp3file = new Mp3File(path);
-        long time=mp3file.getLengthInSeconds();
+        time=mp3file.getLengthInSeconds();
         if(time%60>9)
         lenght=""+time/60+":"+time%60;
         else if(time%60<10 && time%60!=0)
