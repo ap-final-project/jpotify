@@ -27,8 +27,6 @@ public class LeftBar extends Panel implements InformArtWrok {
     Scroll scrollPane=new Scroll(leftBar);
     public LeftBar() {
         super(1);
-        Color bright = new Color(194, 194, 194);
-        Color dark = new Color(24, 24, 24);
         AddBtn.setIcon(new ImageIcon(new ImageIcon("img\\plus.png").getImage().getScaledInstance(28,28,100)));
         text.setText("Menu");
         AddBtn.addActionListener(new ActionListener() {

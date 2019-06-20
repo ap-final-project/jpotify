@@ -60,6 +60,7 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
                             playBTNListener.clicked(3);
                         }
                         if (pause.get()) {
+                            playBTNListener.clicked(5);
                             LockSupport.park();
                         }
                     }
@@ -111,14 +112,14 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
     public void play(Song song) throws JavaLayerException {
         if (!threadStarted) {
             try {
-                if (currentSong.isLiked()) playBTNListener.clicked(1);
-                else playBTNListener.clicked(2);
-                playBTNListener.clicked(0);
+                if (currentSong.isLiked()) playBTNListener.clicked(1);//liked
+                else playBTNListener.clicked(2);//unliked
+                playBTNListener.clicked(6);//set icon to pause
                 fromThis = false;
                 fis = new FileInputStream(song.getPath());
                 bufferedInputStream = new BufferedInputStream(fis);
                 player1 = new Player(bufferedInputStream);
-                playBTNListener.clicked(4);
+                playBTNListener.clicked(4);//reset progress bar
                 progress=0;
                 songTotalLength=currentSong.getTime();
                 threadStarted = true;
@@ -135,15 +136,13 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
     public void action(int i) {
         switch (i) {
             case 0:
-                if(!fromThis){
-                    pause.set(!pause.get());
-                    if (!pause.get()) {
-                        LockSupport.unpark(playerThread);
-                    }
+                pause.set(!pause.get());
+                if (!pause.get()) {
+                    playBTNListener.clicked(6);
+                    LockSupport.unpark(playerThread);
                 }
-                fromThis = false;
                 break;
-            case 2:
+            case 2://next
                 playerThread.stop();
                 threadStarted = false;
                 fromThis=true;
@@ -156,7 +155,7 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
                     e1.printStackTrace();
                 }
                     break;
-            case 3:
+            case 3://previous
                 playerThread.stop();
                 threadStarted = false;
                 fromThis=true;
@@ -170,6 +169,7 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
                 }
                 break;
             case 1:
+                //heart clicked
                 if (currentSong.isLiked()) {
                     playBTNListener.clicked(2);
                     currentSong.unLike();

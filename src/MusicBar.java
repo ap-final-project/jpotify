@@ -9,7 +9,6 @@ import java.io.IOException;
 
 public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     Button play;
-    Button pause;
     Button stop;
     Button next;
     Button previous;
@@ -20,11 +19,13 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     Label artistName = new Label(3);
     Label album = new Label(3);
     Label year = new Label(3);
-
+    ImageIcon playIcon=new ImageIcon("img\\play.png");
+    ImageIcon pauseIcon=new ImageIcon("img\\pause.png");
+    ImageIcon fullHeartIcon=new ImageIcon("img\\fullHeart.png");
+    ImageIcon emptyHeartIcon=new ImageIcon("img\\emptyHeart.png");
     Panel info;
     progress progressBar;
     MusicBarListener musicBarListener;
-    boolean played=true;
     private float songLength;
     private int counter=0;
     private int formerAmount=0;
@@ -38,21 +39,18 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         progressBar = new progress();
         this.add(info, BorderLayout.WEST);
         play = new Button(3);
-        pause = new Button(3);
         stop = new Button(3);
         next = new Button(3);
         previous = new Button(3);
         repeat = new Button(3);
         shuffle = new Button(3);
         like = new Button(3);
-        play.setIcon(new ImageIcon("img\\play.png"));
-        pause.setIcon(new ImageIcon("img\\pause.png"));
+        play.setIcon(playIcon);
         previous.setIcon(new ImageIcon("img\\back.png"));
         next.setIcon(new ImageIcon("img\\next.png"));
         shuffle.setIcon(new ImageIcon("img\\shuffle.png"));
         repeat.setIcon(new ImageIcon("img\\repeat.png"));
-        like.setIcon(new ImageIcon("img\\emptyHeart.png"));
-        next.setSize(10, 10);
+        like.setIcon(emptyHeartIcon);
         FlowLayout flowLayout = new FlowLayout();
         flowLayout.setHgap(30);
         up.setLayout(flowLayout);
@@ -93,7 +91,6 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         this.addInfo();
         songLength= song.getTime();
         counter=0;
-
         revalidate();
     }
     private void setListeners(){
@@ -101,12 +98,6 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 musicBarListener.action(0);
-                if (!played) {
-                    play.setIcon(new ImageIcon("img\\play.png"));
-                }else{
-                    play.setIcon(new ImageIcon("img\\pause.png"));
-                }
-                played=!played;
             }
         });
         next.addMouseListener(new MouseAdapter() {
@@ -132,10 +123,6 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     @Override
     public void clicked(int i) {
         switch (i) {
-            case 0:
-                played = !played;
-                play.setIcon(new ImageIcon("img\\pause.png"));
-            break;
             case 1:
                 like.setIcon(new ImageIcon("img\\fullHeart.png"));
                 break;
@@ -157,6 +144,14 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
             case 4:
                 //progress reset
                 progressBar.reset();
+                break;
+            case 5:
+                //play
+                play.setIcon(playIcon);
+                break;
+            case 6:
+                //pause
+                play.setIcon(pauseIcon);
                 break;
         }
     }
