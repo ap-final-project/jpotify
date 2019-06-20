@@ -106,6 +106,8 @@ public class LeftBar extends Panel implements InformArtWrok {
     public void setArtwork(Label label) {
         if (artWork.getComponents().length==1) artWork.remove(0);
         artWork.add(label,BorderLayout.PAGE_END);
+        revalidate();
+        repaint();
     }
 }
 
