@@ -24,7 +24,8 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     progress progressBar;
     MusicBarListener musicBarListener;
     boolean played=true;
-
+    private float songLength;
+    private int progressIncrease=0;
     public MusicBar() {
         super(3);
         this.setLayout(new BorderLayout());
@@ -88,6 +89,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         year.setText(song.year);
         this.add(info, BorderLayout.WEST);
         this.addInfo();
+        songLength= song.getTime();
         revalidate();
     }
     private void setListeners(){
@@ -138,8 +140,14 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
                 like.setIcon(new ImageIcon("img\\emptyHeart.png"));
                 break;
             case 3:
+                System.out.println(songLength);
+                float sec=(float) (songLength/100);
                 progressBar.increase();
                 revalidate();
+                break;
+            case 4:
+                //progress reset
+                progressBar.reset();
                 break;
         }
     }

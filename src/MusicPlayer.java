@@ -18,9 +18,7 @@ import java.util.concurrent.locks.LockSupport;
 public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
     Song currentSong;
     PlayBTNListener playBTNListener = null;
-
     addGUIToCenter listener = null;
-
     AddToInfoBar InfoBarListener = null;
     Playlist currentPlaylist;
     Playlist recentlyPlayed = new Playlist();
@@ -34,7 +32,7 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
     private long part;
     Thread playerThread;
     boolean fromThis = true;
-    private int progress=-1;
+    private float progress=0;
     final AtomicBoolean pause = new AtomicBoolean(false);
 
     public void setPlayBTNListener(PlayBTNListener playBTNListener) {
@@ -47,20 +45,20 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
         this.listener = listener;
     }
 
-
-
     public void makeNewThread(){
         playerThread = new Thread() {
             @Override
             public void run() {
                 try {
                     while (player1.play(1)) {
-                        System.out.println((player1.getPosition()/part)%100);
-                        if ((player1.getPosition()/part)%100>=progress) {
+                        int temp=(player1.getPosition()/1000)+1;
+                        System.out.println(temp+""+songTotalLength);
+                        if (progress<temp) {
                             progress++;
                             System.out.println("hi");
                             playBTNListener.clicked(3);
-                        }if (pause.get()) {
+                        }
+                        if (pause.get()) {
                             LockSupport.park();
                         }
                     }
@@ -119,8 +117,9 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
                 fis = new FileInputStream(song.getPath());
                 bufferedInputStream = new BufferedInputStream(fis);
                 player1 = new Player(bufferedInputStream);
-                songTotalLength=fis.available();
-                part=songTotalLength/100;
+                playBTNListener.clicked(4);
+                progress=0;
+                songTotalLength=currentSong.getTime();
                 threadStarted = true;
                 informArtWrok.setArtwork(song.artWork);
                 InfoBarListener.addTOInfo(song);
