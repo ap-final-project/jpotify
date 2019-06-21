@@ -1,3 +1,5 @@
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 
 import javax.swing.*;
@@ -15,7 +17,7 @@ public class MainPage extends JFrame {
     Center center=new Center();
     MusicBar musicBar = new MusicBar();
     CenterSongs centerSongs =new CenterSongs();
-    public MainPage() throws IOException, JavaLayerException{
+    public MainPage() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         this.setTitle(TITLE);
         Color bright =new Color(194,194,194);
         Color dark=new Color(24,24,24);

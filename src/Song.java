@@ -11,6 +11,8 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Path;
@@ -25,22 +27,36 @@ public class Song {
     String artist;
     String album;
     String year;
+    String lenght;
+    String path;
+    private long time;
 
+    public long getTime() {
+        return time;
+    }
+
+    private boolean isLiked=false;
+    Label artWork=new Label(3);
     public Song(String path) throws JavaLayerException, IOException, InvalidDataException, UnsupportedTagException {
-
+        this.path=path;
         file = new File(path);
         fileInputStream = new FileInputStream(file);
         Mp3File mp3file = new Mp3File(path);
+        time=mp3file.getLengthInSeconds();
+        if(time%60>9)
+        lenght=""+time/60+":"+time%60;
+        else if(time%60<10 && time%60!=0)
+            lenght=""+time/60+":"+0+time%60;
+        else
+            lenght=""+time/60+":"+00+time%60;
+
         if (mp3file.hasId3v2Tag()) {
             ID3v2 id3v2Tag = mp3file.getId3v2Tag();
             byte[] imageData = id3v2Tag.getAlbumImage();
-            if (imageData != null) {
-                String mimeType = id3v2Tag.getAlbumImageMimeType();
-                // Write image to file - can determine appropriate file extension from the mime type
-                RandomAccessFile file = new RandomAccessFile("album-artwork", "rw");
-                file.write(imageData);
-                file.close();
-            }
+            Image image=new ImageIcon(imageData).getImage();
+            Image newimg = image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
+            ImageIcon imageIcon=new ImageIcon(newimg);
+            artWork.setIcon(imageIcon);
         }
         player = new AdvancedPlayer(fileInputStream);
         bArray = readFileToByteArray(file);
@@ -67,12 +83,15 @@ public class Song {
         return title;
     }
 
+    public String getPath() {
+        return path;
+    }
+
     private String getArtist(String data) {
         String artist = "";
         artist = data.substring(33, 63);
         return artist;
     }
-
     private String getAlbum(String data) {
         String album = "";
         album = data.substring(63, 93);
@@ -87,11 +106,21 @@ public class Song {
         try {
             fis = new FileInputStream(file);
             fis.read(bArray);
-            fis.close();
 
         } catch (IOException ioExp) {
             ioExp.printStackTrace();
         }
         return bArray;
+    }
+    public void like(){
+        isLiked=true;
+    }
+
+    public void unLike(){
+        isLiked=false;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
     }
 }

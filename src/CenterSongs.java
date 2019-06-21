@@ -1,3 +1,5 @@
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 
 import javax.swing.*;
@@ -10,7 +12,7 @@ public class CenterSongs extends Panel implements AddPlaylistListener{
     ArrayList<Song> songs=new ArrayList<>();
     DefaultListModel<String> songListModel;
 
-    public CenterSongs() throws IOException, JavaLayerException {
+    public CenterSongs() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         super(2);
         GridLayout gridLayout=new GridLayout(0,4);
         this.setAlignmentX(10);
