@@ -20,6 +20,7 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
     PlayBTNListener playBTNListener = null;
     addGUIToCenter listener = null;
     AddToInfoBar InfoBarListener = null;
+    InformEqualizer informEqualizer;
     Playlist currentPlaylist;
     Playlist recentlyPlayed = new Playlist();
     Playlist favorites = new Playlist();
@@ -28,12 +29,10 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
     volatile FileInputStream fis;
     BufferedInputStream bufferedInputStream;
     private long songTotalLength;
-    Player player1;
-    private long part;
+    MyPlayer player1;
     Thread playerThread;
     boolean fromThis = true;
     private float progress=0;
-    private int i=0;
     final AtomicBoolean pause = new AtomicBoolean(false);
 
     public void setPlayBTNListener(PlayBTNListener playBTNListener) {
@@ -52,11 +51,10 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
             public void run() {
                 try {
                     while (player1.play(1)) {
+                        informEqualizer.sendValues(player1.getFrames());
                         int temp=(player1.getPosition()/1000)+1;
                         if (progress<temp) {
                             progress++;
-                            System.out.println("hi"+i);
-                            i++;
                             playBTNListener.clicked(3);
                         }
                         if (pause.get()) {
@@ -105,6 +103,10 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
         makeNewThread();
     }
 
+    public void setInformEqualizer(InformEqualizer informEqualizer) {
+        this.informEqualizer = informEqualizer;
+    }
+
     public void setInfoBarListener(AddToInfoBar infoBarListener) {
         InfoBarListener = infoBarListener;
     }
@@ -118,7 +120,7 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
                 fromThis = false;
                 fis = new FileInputStream(song.getPath());
                 bufferedInputStream = new BufferedInputStream(fis);
-                player1 = new Player(bufferedInputStream);
+                player1 = new MyPlayer(bufferedInputStream);
                 playBTNListener.clicked(4);//reset progress bar
                 progress=0;
                 songTotalLength=currentSong.getTime();

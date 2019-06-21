@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-public class CenterSongs extends Panel implements addGUIToCenter{
+public class CenterSongs extends Panel implements addGUIToCenter,InformEqualizer{
     Label title=new Label(2);
     Label artist=new Label(2);
     Label album=new Label(2);
@@ -14,8 +14,10 @@ public class CenterSongs extends Panel implements addGUIToCenter{
     Label time=new Label(2);
     Panel p=new Panel(3);
     SpringLayout layout;
+    Equalizer equalizer;
     public CenterSongs()  throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         super(2);
+        equalizer=new Equalizer();
         layout=new SpringLayout();
         this.setLayout(layout);
         this.setVisible(true);
@@ -31,7 +33,8 @@ public class CenterSongs extends Panel implements addGUIToCenter{
         title.setFont(new Font("Cambria", Font.BOLD, 14));
         p.setLayout(new GridLayout(1,5));
         this.setPreferredSize(new Dimension());
-        layout.putConstraint(SpringLayout.NORTH,p,10,SpringLayout.NORTH,this);
+        layout.putConstraint(SpringLayout.NORTH,equalizer,40,SpringLayout.NORTH,this);
+        layout.putConstraint(SpringLayout.NORTH,p,10,SpringLayout.SOUTH,equalizer);
         layout.putConstraint(SpringLayout.WEST,p,20,SpringLayout.WEST,this);
         layout.putConstraint(SpringLayout.EAST,p,20,SpringLayout.EAST,this);
         p.add(title);
@@ -39,6 +42,7 @@ public class CenterSongs extends Panel implements addGUIToCenter{
         p.add(album);
         p.add(year);
         p.add(time);
+        this.add(equalizer);
         this.add(p);
         System.out.println(this.getComponents().length);
     }
@@ -58,5 +62,10 @@ public class CenterSongs extends Panel implements addGUIToCenter{
     }
     public void setFrameLocationRelativeTo(Component c) {
 //        c.setPreferredSize(new Dimension((int)this.getPreferredSize().getWidth() -20,20));
+    }
+
+    @Override
+    public void sendValues(short[] V) {
+        equalizer.setValues(V);
     }
 }
