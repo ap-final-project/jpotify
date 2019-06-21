@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="mp3agic-0.6">
+    <CLASSES>
+      <root url="jar://E:/libs/mp3agic-0.6.jar!/" />
+      <root url="jar://E:/libs/mp3agic-0.8.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://E:/libs/mp3agic-0.8.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

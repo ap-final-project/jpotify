@@ -1,5 +1,3 @@
-import com.mpatric.mp3agic.InvalidDataException;
-import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 
 import javax.swing.*;
@@ -10,7 +8,7 @@ import java.io.IOException;
 public class Center extends Panel {
     Label title;
     Scroll scrollpane;
-    public Center() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
+    public Center() throws IOException, JavaLayerException{
         super(2);
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
