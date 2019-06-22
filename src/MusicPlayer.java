@@ -290,7 +290,6 @@ public class MusicPlayer implements MusicBarListener, AddSong,ProgressBarUpdateL
             playerThread.stop();
             lastSec= (int) Math.ceil(percent*songTotalLength/100);
             int framesToPlay= (int) Math.ceil(percent * totalFrames/100);
-            System.out.println("percent: "+percent+"total frames"+totalFrames+" frames to play"+framesToPlay);
             threadStarted = false;
             player1 = new MyPlayer(new BufferedInputStream(new FileInputStream(currentSong.getPath())));
             for (int i = 0; (i < framesToPlay) && player1.skipFrame(); i++) {
