@@ -15,7 +15,7 @@ public class CenterSongs extends Panel implements addGUIToCenter,InformEqualizer
     Panel p=new Panel(3);
     SpringLayout layout;
     Equalizer equalizer;
-    Playlist currentPlayList;
+    static Playlist currentPlayList;
     public CenterSongs()  throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         super(2);
         equalizer=new Equalizer();
@@ -69,6 +69,7 @@ public class CenterSongs extends Panel implements addGUIToCenter,InformEqualizer
 
     public void showPlayList(Playlist playlist){
         currentPlayList=playlist;
+        if (playlist==null) System.out.println(playlist.name+"nameeeeeeeee");
         int comps=this.getComponents().length;
         for (int i = comps-1; i >1 ; i--) {
             this.remove(this.getComponents().length-1);
@@ -77,6 +78,5 @@ public class CenterSongs extends Panel implements addGUIToCenter,InformEqualizer
             addGui(songGUI);
         }
     }
-
 }
 

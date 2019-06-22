@@ -29,16 +29,10 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener {
         PLGUI plgui=new PLGUI(playlist,name,path);
         playlists.add(playlist);
         playlistGUIs.add(plgui);
-        System.out.println("injaaaaaaaaaaaaaaaaaaaaaaa");
-//        for (SongGUI songGUI:playlist.guis) {
-//            System.out.println(playlist.guis.size());
-//            addPlSongs.addGui(songGUI);
-//        }
         plgui.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-//                currentPlaylist=plgui.playlist;
                 choosePlaylistListener.setPlaylist(plgui.getPlaylist());
                 makeVisibilityTrue.makeTrue(0);
             }

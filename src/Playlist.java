@@ -49,4 +49,5 @@ String imgPath="";
     public SongGUI getGUIBySong(Song song){
         return guis.get(songs.indexOf(song));
     }
+
 }

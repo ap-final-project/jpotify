@@ -25,6 +25,8 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
         scrollpane=new Scroll(centerSongs);
         this.add(scrollpane);
         centerSongs.setVisible(true);
+
+        CenterSongs.currentPlayList=playlists.get(0);
         this.setVisible(true);
     }
 
@@ -48,6 +50,7 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
             playlist=playlists.get(0);
         }
         centerSongs.showPlayList(playlist);
+
     }
 }
 

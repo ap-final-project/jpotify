@@ -29,6 +29,7 @@ public class Song {
     String year;
     String lenght;
     String path;
+    ImageIcon defaultIcon=new ImageIcon("img\\fullHeart.png");
     private long time;
 
     public long getTime() {
@@ -53,10 +54,14 @@ public class Song {
         if (mp3file.hasId3v2Tag()) {
             ID3v2 id3v2Tag = mp3file.getId3v2Tag();
             byte[] imageData = id3v2Tag.getAlbumImage();
-            Image image=new ImageIcon(imageData).getImage();
-            Image newimg = image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
-            ImageIcon imageIcon=new ImageIcon(newimg);
-            artWork.setIcon(imageIcon);
+            if (imageData == null) {
+                artWork.setIcon(defaultIcon);
+            } else {
+                Image image = new ImageIcon(imageData).getImage();
+                Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
+                ImageIcon imageIcon = new ImageIcon(newimg);
+                artWork.setIcon(imageIcon);
+            }
         }
         player = new AdvancedPlayer(fileInputStream);
         bArray = readFileToByteArray(file);

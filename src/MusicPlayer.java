@@ -31,7 +31,7 @@ public class MusicPlayer implements MusicBarListener, AddSong,ProgressBarUpdateL
         this.makeVisibilityTrue = makeVisibilityTrue;
     }
 
-    Playlist currentPlaylist;
+    static Playlist currentPlaylist;
     Playlist recentlyPlayed = new Playlist("recentlyPlayed", "img\\play.png");
     Playlist favorites = new Playlist("favorites", "img\\fullHeart.png");
     InformArtWrok informArtWrok;
@@ -80,91 +80,6 @@ public class MusicPlayer implements MusicBarListener, AddSong,ProgressBarUpdateL
             }
         };
     }
-
-/*    @Override
-    public void addToPlayList(String path) throws IOException, UnsupportedTagException, InvalidDataException, JavaLayerException {
-        Song song = new Song(path);
-        SongGUI gui = new SongGUI(song);
-        recentlyPlayed.add(gui, song);
-        //shall remove
-//        for (SongGUI songGUI:recentlyPlayed.guis) {
-//            listener.addGui(gui);
-//        }
-
-        fis = new FileInputStream(song.getPath());
-        bufferedInputStream = new BufferedInputStream(fis);
-        gui.more.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-//                super.mouseClicked(e);
-//                PLGUI chosed=null;
-                JFrame jFrame=new JFrame("choose Player");
-                jFrame.setLayout(new GridLayout(0,1));
-                jFrame.setSize(100,200);
-                jFrame.setLocation(300,100);
-                for (Playlist p:playlists) {
-                    Label label=new Label(p.name,3);
-                    label.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-//                            super.mouseClicked(e);
-                            System.out.println(label.getText());
-                            for (Playlist p:playlists) {
-                                if(p.name.equals(label.getText())){
-                                    p.add(gui,gui.song);
-                                    for (SongGUI songGUI:p.guis) {
-                                        System.out.println(p.guis.size());
-                                        addPlSongs.addGui(gui);
-                                    }
-                                    if(p.equals(favorites)){
-                                        song.like();
-                                        playBTNListener.clicked(1);
-                                    }
-                                }
-                            }
-                        }
-                    });
-                    jFrame.add(label);
-                }
-                Button addBtn=new Button("add",3);
-                jFrame.add(addBtn);
-                jFrame.setVisible(true);
-                addBtn.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        jFrame.setVisible(false);
-                    }
-                });
-            }
-        });
-        gui.checkBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if(e.getStateChange()==1) System.out.println(gui.song.title);
-            }
-        });
-        gui.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                Song songClicked = recentlyPlayed.getSongByGUI(gui);
-                if (threadStarted) {
-                    if (currentSong != null && !currentSong.equals(songClicked)) {
-                        playerThread.stop();
-                        threadStarted = false;
-                        makeNewThread();
-                    }
-                }
-                currentSong = songClicked;
-                try {
-                    play(songClicked);
-                } catch (JavaLayerException e1) {
-                    e1.printStackTrace();
-                }
-            }
-
-        });
-    }
-*/
 
     public MusicPlayer() throws JavaLayerException {
         currentPlaylist = recentlyPlayed;
@@ -220,7 +135,7 @@ public class MusicPlayer implements MusicBarListener, AddSong,ProgressBarUpdateL
                 threadStarted = false;
                 fromThis = true;
                 pause.set(false);
-                currentSong = recentlyPlayed.getNextSong(currentSong);
+                currentSong = currentPlaylist.getNextSong(currentSong);
                 makeNewThread();
                 try {
                     play(currentSong);
@@ -233,7 +148,7 @@ public class MusicPlayer implements MusicBarListener, AddSong,ProgressBarUpdateL
                 threadStarted = false;
                 fromThis = true;
                 pause.set(false);
-                currentSong = recentlyPlayed.getPreSong(currentSong);
+                currentSong = currentPlaylist.getPreSong(currentSong);
                 makeNewThread();
                 try {
                     play(currentSong);
@@ -335,6 +250,7 @@ public class MusicPlayer implements MusicBarListener, AddSong,ProgressBarUpdateL
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     Song songClicked = recentlyPlayed.getSongByGUI(gui);
+                    currentPlaylist=CenterSongs.currentPlayList;
                     if (threadStarted) {
                         if (currentSong != null && !currentSong.equals(songClicked)) {
                             playerThread.stop();
