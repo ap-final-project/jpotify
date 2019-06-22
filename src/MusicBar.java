@@ -27,8 +27,12 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     progress progressBar;
     MusicBarListener musicBarListener;
     private float songLength;
-    private int counter=0;
-    private int formerAmount=0;
+    ProgressBarUpdateListener barUpdateListener;
+    private boolean isPlaying=false;
+    public void setBarUpdateListener(ProgressBarUpdateListener barUpdateListener) {
+        this.barUpdateListener = barUpdateListener;
+    }
+
     public MusicBar() {
         super(3);
         this.setLayout(new BorderLayout());
@@ -90,9 +94,16 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         this.add(info, BorderLayout.WEST);
         this.addInfo();
         songLength= song.getTime();
-        counter=0;
+        isPlaying=true;
         revalidate();
     }
+
+    @Override
+    public void progressBarIncrement(int sec) {
+        progressBar.setV((int) Math.ceil(sec*100/songLength));
+        progressBar.setTime(sec);
+    }
+
     private void setListeners(){
         play.addMouseListener(new MouseAdapter() {
             @Override
@@ -118,6 +129,20 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
                 musicBarListener.action(1);
             }
         });
+        progressBar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                try {
+                    if (isPlaying) {
+                        int relativeX = e.getLocationOnScreen().x - progressBar.getBarLocationOnScreen();
+                        barUpdateListener.update((int) Math.ceil(relativeX * 100 / progressBar.getBarWidth()));
+                        progressBar.setV((int) Math.ceil(relativeX * 100 / progressBar.getBarWidth()));
+                    }
+                } catch (JavaLayerException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -126,23 +151,10 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
             case 1:
                 like.setIcon(new ImageIcon("img\\fullHeart.png"));
                 break;
-
             case 2:
                 like .setIcon(new ImageIcon("img\\emptyHeart.png"));
                 break;
-            case 3:
-                System.out.println(songLength);
-                int temp=(int) ((100*counter)/songLength);
-                counter++;
-                progressBar.setTime(counter);
-                if (formerAmount!=temp) {
-                    formerAmount=temp;
-                    progressBar.setV(temp+1);
-                    revalidate();
-                }
-                break;
             case 4:
-                //progress reset
                 progressBar.reset();
                 break;
             case 5:

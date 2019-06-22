@@ -41,5 +41,6 @@ public class MainPage extends JFrame{
         this.setVisible(true);
         this.add(main);
         leftBar.setaddSongListener(musicPlayer);
+        musicBar.setBarUpdateListener(musicPlayer);
     }
 }

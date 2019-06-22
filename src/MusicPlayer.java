@@ -16,7 +16,7 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.LockSupport;
 
-public class MusicPlayer implements MusicBarListener, AddSong {
+public class MusicPlayer implements MusicBarListener, AddSong,ProgressBarUpdateListener {
     Song currentSong;
     PlayBTNListener playBTNListener = null;
     addGUIToCenter addGUIToCenter = null;
@@ -24,7 +24,9 @@ public class MusicPlayer implements MusicBarListener, AddSong {
     AddToInfoBar InfoBarListener = null;
     InformEqualizer informEqualizer;
     MakeVisibilityTrue makeVisibilityTrue = null;
-
+    private long totalFrames;
+    private int framesPlayed=0;
+    private int lastSec=0;
     public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
         this.makeVisibilityTrue = makeVisibilityTrue;
     }
@@ -40,7 +42,6 @@ public class MusicPlayer implements MusicBarListener, AddSong {
     MyPlayer player1;
     Thread playerThread;
     boolean fromThis = true;
-    private float progress = 0;
     final AtomicBoolean pause = new AtomicBoolean(false);
 
     public void setPlayBTNListener(PlayBTNListener playBTNListener) {
@@ -63,16 +64,16 @@ public class MusicPlayer implements MusicBarListener, AddSong {
                 try {
                     while (player1.play(1)) {
                         informEqualizer.sendValues(player1.getFrames());
-                        int temp = (player1.getPosition() / 1000) + 1;
-                        if (progress < temp) {
-                            progress++;
-                            playBTNListener.clicked(3);
-                        }
+                        framesPlayed++;
+                        int sec=player1.audio.getPosition()/1000;
+                        InfoBarListener.progressBarIncrement(sec+lastSec);
+
                         if (pause.get()) {
                             playBTNListener.clicked(5);
                             LockSupport.park();
                         }
                     }
+                    if (player1.isComplete())action(2);
                 } catch (Exception e) {
                     System.err.printf("%s\n", e.getMessage());
                 }
@@ -187,11 +188,12 @@ public class MusicPlayer implements MusicBarListener, AddSong {
                 else playBTNListener.clicked(2);//unliked
                 playBTNListener.clicked(6);//set icon to pause
                 fromThis = false;
+                player1 = new MyPlayer(new BufferedInputStream(new FileInputStream(currentSong.getPath())));
+                totalFrames = player1.findNumbersOfFrame();
                 fis = new FileInputStream(song.getPath());
                 bufferedInputStream = new BufferedInputStream(fis);
                 player1 = new MyPlayer(bufferedInputStream);
                 playBTNListener.clicked(4);//reset progress bar
-                progress = 0;
                 songTotalLength = currentSong.getTime();
                 threadStarted = true;
                 informArtWrok.setArtwork(song.artWork);
@@ -363,5 +365,27 @@ public class MusicPlayer implements MusicBarListener, AddSong {
 
     public ArrayList<Playlist> getPlaylists() {
         return playlists;
+    }
+
+    @Override
+    public void update(int percent) throws JavaLayerException {
+        try {
+            pause.set(!pause.get());
+            playerThread.stop();
+            lastSec= (int) Math.ceil(percent*songTotalLength/100);
+            int framesToPlay= (int) Math.ceil(percent * totalFrames/100);
+            System.out.println("percent: "+percent+"total frames"+totalFrames+" frames to play"+framesToPlay);
+            threadStarted = false;
+            player1 = new MyPlayer(new BufferedInputStream(new FileInputStream(currentSong.getPath())));
+            for (int i = 0; (i < framesToPlay) && player1.skipFrame(); i++) {
+            }
+            framesPlayed=framesToPlay;
+            pause.set(!pause.get());
+            makeNewThread();
+            threadStarted = true;
+            playerThread.start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

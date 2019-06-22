@@ -5,4 +5,5 @@ import java.io.IOException;
 
 public interface AddToInfoBar {
     void addTOInfo(Song song) throws JavaLayerException, IOException;
+    void progressBarIncrement(int sec);
 }

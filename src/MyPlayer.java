@@ -21,7 +21,7 @@ public class MyPlayer {
     private int frame;
     private Bitstream bitstream;
     private Decoder decoder;
-    private AudioDevice audio;
+    public AudioDevice audio;
     private boolean closed;
     private boolean complete;
     private int lastPosition;
@@ -132,5 +132,26 @@ public class MyPlayer {
     }
     public short[] getFrames(){
         return var3.getBuffer();
+    }
+    public boolean skipFrame() throws JavaLayerException
+    {
+        Header h = bitstream.readFrame();
+        if (h == null) return false;
+        bitstream.closeFrame();
+        return true;
+
+    }
+    public long findNumbersOfFrame() throws JavaLayerException {
+
+        boolean ret = true;
+        long size = 0;
+
+        while ( ret ) {
+
+            ret = skipFrame();
+            size++;
+        }
+
+        return size;
     }
 }

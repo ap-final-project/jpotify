@@ -11,7 +11,7 @@ public progress(){
     super(3);
     this.setLayout(new FlowLayout());
     this.add(currentTime);
-    b = new JProgressBar();
+    b = new JProgressBar(JProgressBar.HORIZONTAL,0,100);
     this.add(b);
     b.setOpaque(true);
     b.setBackground(new Color(63,63,63));
@@ -24,11 +24,14 @@ public progress(){
     b.setAlignmentY(0);
     b.setPreferredSize(new Dimension(800,5));
 }
+    public void setMax(int max){
+        b.setMaximum(max);
+    }
     public void reset(){
     b.setValue(0);
     }
     public void setV(int v){
-    b.setValue(v);
+        b.setValue(v);
     }
     public void setTime(int time){
         String lenght="";
@@ -39,5 +42,11 @@ public progress(){
         else
             lenght=""+time/60+":"+00+time%60;
         currentTime.setText(lenght);
+    }
+    public int getBarWidth(){
+        return b.getWidth();
+    }
+    public int getBarLocationOnScreen(){
+        return b.getLocationOnScreen().x;
     }
 }
