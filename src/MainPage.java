@@ -3,7 +3,6 @@ import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 public class MainPage extends JFrame{
     private final String TITLE = "Kian & Pariya Jpotify";
@@ -12,10 +11,8 @@ public class MainPage extends JFrame{
     MusicBar musicBar = new MusicBar();
     volatile MusicPlayer musicPlayer=new MusicPlayer();
     CenterSongs centerSongs=new CenterSongs();
-    CenterPlayLists centerPlayLists=new CenterPlayLists();
-    Center center=new Center(centerSongs,centerPlayLists);
-
-//    PLGUI plgui=new PLGUI();
+    CenterPlayLists centerPlayLists=new CenterPlayLists(musicPlayer.getPlaylists());
+    Center center=new Center(centerSongs,centerPlayLists,musicPlayer.getPlaylists());
     public MainPage() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         this.setTitle(TITLE);
         Color bright =new Color(194,194,194);
@@ -27,21 +24,22 @@ public class MainPage extends JFrame{
         main.setLayout(new BorderLayout());
         main.add(leftBar, BorderLayout.WEST);
         main.add(musicBar, BorderLayout.PAGE_END);
-        leftBar.setListener(musicPlayer);
         musicPlayer.setInfoBarListener(musicBar);
-//        main.add(centerp,BorderLayout.CENTER);
         main.add(center,BorderLayout.CENTER);
-//        centerp.setVisible(false);
-//        center.setVisible(false);
-        musicPlayer.setListener(centerSongs);
-        musicPlayer.setAddPlGUI(centerPlayLists);
+        leftBar.setaddSongListener(musicPlayer); //addSong
+        musicPlayer.setListener(centerSongs); //addGUI
         musicPlayer.setInformArtWrok(leftBar);
-        musicBar.setMusicBarListener(musicPlayer);
-        musicPlayer.setPlayBTNListener(musicBar);
+        musicBar.setMusicBarListener(musicPlayer);//action
+        musicPlayer.setPlayBTNListener(musicBar);//clicked
         musicPlayer.setInformEqualizer(centerSongs);
         leftBar.setCenterTrue(center);
-//        leftBar.setCenterTrue(centerp);
+        leftBar.setChoosePlaylist(center);
+        centerPlayLists.setChoosePlaylistListener(center);
+        centerPlayLists.setMakeVisibilityTrue(center);
+        leftBar.setmakePlListener(centerPlayLists);
+        musicPlayer.setMakeVisibilityTrue(center);
         this.setVisible(true);
         this.add(main);
+        leftBar.setaddSongListener(musicPlayer);
     }
 }

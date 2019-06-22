@@ -114,7 +114,6 @@ public class MyPlayer {
                     return false;
                 } else {
                     var3 = (SampleBuffer)this.decoder.decodeFrame(var2, this.bitstream);
-                    System.out.println();
                     synchronized(this) {
                         var1 = this.audio;
                         if (var1 != null) {

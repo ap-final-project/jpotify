@@ -16,34 +16,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class LeftBar extends Panel implements InformArtWrok {
-    AddPlaylistListener listener = null;
+public class LeftBar extends Panel implements InformArtWrok{
+    AddPlaylistListener makePlListener = null;
+    AddSong addSongListener=null;
     Button AddBtn = new Button("Add", 1);
     Button PLBtn = new Button("make new Playlist", 1);
     Label text = new Label(1);
     Button home = new Button("Home", 1);
     Button btn2 = new Button("PlayLists", 1);
     Button btn3 = new Button("Library", 1);
-    Button btn4 = new Button("Song", 1);
+    Button songBtn = new Button("Song", 1);
     Button btn5 = new Button("Albums", 1);
     Panel artWork=new Panel(1);
     Panel leftBar=new Panel(1);
     Scroll scrollPane=new Scroll(leftBar);
     MakeVisibilityTrue centerTrue=null;
-    MakeVisibilityTrue centerTrue1=null;
-
+    ChoosePlaylist choosePlaylist;
     public void setCenterTrue(MakeVisibilityTrue centerTrue) {
         this.centerTrue = centerTrue;
     }
 
-    public void setCenterTrue1(MakeVisibilityTrue centerTrue1) {
-        this.centerTrue1 = centerTrue1;
+    public void setaddSongListener(AddSong addSongListener) {
+        this.addSongListener = addSongListener;
     }
 
     public LeftBar() {
         super(1);
         AddBtn.setIcon(new ImageIcon(new ImageIcon("img\\plus.png").getImage().getScaledInstance(28,28,100)));
-        ArrayList<String> PlayLists=new ArrayList<>();
         text.setText("Menu");
         AddBtn.addActionListener(new ActionListener() {
             @Override
@@ -52,7 +51,7 @@ public class LeftBar extends Panel implements InformArtWrok {
                 jfc.setDialogTitle("Multiple file and directory selection:");
                 jfc.setMultiSelectionEnabled(true);
                 jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-                int returnValue = jfc.showDialog(null, "انتخاب موزیک");
+                int returnValue = jfc.showDialog(null, "choose");
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File[] files = jfc.getSelectedFiles();
                     System.out.println("Directories found\n");
@@ -65,17 +64,7 @@ public class LeftBar extends Panel implements InformArtWrok {
                     System.out.println("Files Found\n");
                     Arrays.asList(files).forEach(x -> {
                         if (x.isFile()) {
-                            try {
-                                listener.addToPlayList(x.getPath());
-                            } catch (IOException e1) {
-                                e1.printStackTrace();
-                            } catch (UnsupportedTagException e1) {
-                                e1.printStackTrace();
-                            } catch (InvalidDataException e1) {
-                                e1.printStackTrace();
-                            } catch (JavaLayerException e1) {
-                                e1.printStackTrace();
-                            }
+                            addSongListener.addSong(x.getPath());
                         }
                     })
                     ;
@@ -95,8 +84,8 @@ public class LeftBar extends Panel implements InformArtWrok {
 //                JTextPane textField=new JTextPane();
                 TextField textField=new TextField();
 //                textField.setName("Name");
-                Button button=new Button("Add",1);
-                Label label=new Label("Enter your playlist's name",1);
+                Button addNewPL=new Button("Add",1);
+                Label label= new Label("Enter your playlist's name",1);
                 Button addImg=new Button("select image",3);
                 makePlayList.add(textField,BorderLayout.CENTER);
                 makePlayList.add(label,BorderLayout.PAGE_START);
@@ -104,7 +93,7 @@ public class LeftBar extends Panel implements InformArtWrok {
                 btnPanel.setBorder(new EmptyBorder(2,2,2,2));
                 btnPanel.setLayout(new GridLayout(1,2));
                 btnPanel.add(addImg);
-                btnPanel.add(button);
+                btnPanel.add(addNewPL);
                 makePlayList.add(btnPanel,BorderLayout.PAGE_END);
                 textField.addKeyListener(new KeyAdapter() {
                     @Override
@@ -112,9 +101,7 @@ public class LeftBar extends Panel implements InformArtWrok {
                         super.keyPressed(e);
                         if(e.getKeyCode()==KeyEvent.VK_ENTER) {
                             if(!textField.getText().trim().equals("")){
-                                System.out.println(textField.getText());
-                                PlayLists.add(textField.getText());
-                                listener.makePlayList(textField.getText(), imgPath[0]);
+                                makePlListener.makePlayList(textField.getText(), imgPath[0]);
                                 makePlayList.setVisible(false);
                             }
                         }
@@ -134,62 +121,40 @@ public class LeftBar extends Panel implements InformArtWrok {
                         }
                     }
                 });
-                button.addActionListener(new ActionListener() {
+                addNewPL.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if(!textField.getText().trim().equals("")){
                             System.out.println(textField.getText());
-                            PlayLists.add(textField.getText());
-                            listener.makePlayList(textField.getText(), imgPath[0]);
+                            makePlListener.makePlayList(textField.getText(), imgPath[0]);
                             makePlayList.setVisible(false);
                         }
                     }
                 });
             }
         });
-
-
-//        btn2.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                centerTrue.makeTrue(1);
-//            }
-//        });
         btn2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 centerTrue.makeTrue(1);
             }
         });
-//
-//        btn4.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//            }
-//        });
-        btn4.addMouseListener(new MouseAdapter() {
+        songBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                choosePlaylist.setPlaylist(null);
                 centerTrue.makeTrue(0);
-                System.out.println("hii");
-
             }
         });
 
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-//        GridBagConstraints c = new GridBagConstraints();
-//        c.fill = GridBagConstraints.HORIZONTAL;
-//        c.gridx = 0;
-//        c.gridy = 0;
-//        c.insets = new Insets(0,0,0,0);
-//        c.weighty = 1.0;
         this.add(scrollPane);
         this.add(artWork);
         leftBar.setLayout(new BoxLayout(leftBar,BoxLayout.Y_AXIS));
         text.setBorder(new EmptyBorder(20,15,10,0));
         btn2.setBorder(new EmptyBorder(10,15,10,0));
         btn3.setBorder(new EmptyBorder(10,15,10,0));
-        btn4.setBorder(new EmptyBorder(10,15,10,0));
+        songBtn.setBorder(new EmptyBorder(10,15,10,0));
         btn5.setBorder(new EmptyBorder(10,15,10,0));
         home.setBorder(new EmptyBorder(10,15,10,0));
         AddBtn.setBorder(new EmptyBorder(10,15,10,5));
@@ -198,7 +163,7 @@ public class LeftBar extends Panel implements InformArtWrok {
         leftBar.add(home);
         leftBar.add(btn2);
         leftBar.add(btn3);
-        leftBar.add(btn4);
+        leftBar.add(songBtn);
         leftBar.add(btn5);
         leftBar.add(AddBtn);
         leftBar.add(PLBtn);
@@ -209,8 +174,8 @@ public class LeftBar extends Panel implements InformArtWrok {
         artWork.setMaximumSize(new Dimension(200,200));
         artWork.setMaximumSize(new Dimension(200,200));
     }
-    public void setListener(AddPlaylistListener listener) {
-        this.listener = listener;
+    public void setmakePlListener(AddPlaylistListener makePlListener) {
+        this.makePlListener = makePlListener;
     }
     @Override
     public void setArtwork(Label label) {
@@ -218,6 +183,10 @@ public class LeftBar extends Panel implements InformArtWrok {
         artWork.add(label,BorderLayout.PAGE_END);
         revalidate();
         repaint();
+    }
+
+    public void setChoosePlaylist(ChoosePlaylist choosePlaylist) {
+        this.choosePlaylist = choosePlaylist;
     }
 }
 

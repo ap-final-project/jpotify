@@ -1,3 +1,3 @@
 public interface addGUIToCenter {
-void addGui(SongGUI song);
+void addGui(SongGUI songGUI);
 }

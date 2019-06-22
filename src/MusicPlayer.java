@@ -9,28 +9,29 @@ import javazoom.jl.player.advanced.PlaybackListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.LockSupport;
 
-public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
+public class MusicPlayer implements MusicBarListener, AddSong {
     Song currentSong;
     PlayBTNListener playBTNListener = null;
-    addGUIToCenter listener = null;
-    addPlGUIToCenter addPlGUI=null;
-    ArrayList<Playlist> playlists=new ArrayList<>();
-    ArrayList<PLGUI> playlistGUIs=new ArrayList<>();
+    addGUIToCenter addGUIToCenter = null;
+    ArrayList<Playlist> playlists = new ArrayList<>();
     AddToInfoBar InfoBarListener = null;
     InformEqualizer informEqualizer;
+    MakeVisibilityTrue makeVisibilityTrue = null;
+
+    public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
+        this.makeVisibilityTrue = makeVisibilityTrue;
+    }
+
     Playlist currentPlaylist;
-    Playlist recentlyPlayed = new Playlist("recentlyPlayed","img\\play.png");
-    Playlist favorites = new Playlist("favorites","img\\fullHeart.png");
+    Playlist recentlyPlayed = new Playlist("recentlyPlayed", "img\\play.png");
+    Playlist favorites = new Playlist("favorites", "img\\fullHeart.png");
     InformArtWrok informArtWrok;
     boolean threadStarted = false;
     volatile FileInputStream fis;
@@ -39,32 +40,31 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
     MyPlayer player1;
     Thread playerThread;
     boolean fromThis = true;
-    private float progress=0;
+    private float progress = 0;
     final AtomicBoolean pause = new AtomicBoolean(false);
 
     public void setPlayBTNListener(PlayBTNListener playBTNListener) {
         this.playBTNListener = playBTNListener;
     }
+
     public void setInformArtWrok(InformArtWrok informArtWrok) {
         this.informArtWrok = informArtWrok;
     }
-    public void setListener(addGUIToCenter listener) {
-        this.listener = listener;
+
+    public void setListener(addGUIToCenter addGUIToCenter) {
+        this.addGUIToCenter = addGUIToCenter;
     }
 
-    public void setAddPlGUI(addPlGUIToCenter addPlGUI) {
-        this.addPlGUI = addPlGUI;
-    }
 
-    public void makeNewThread(){
+    public void makeNewThread() {
         playerThread = new Thread() {
             @Override
             public void run() {
                 try {
                     while (player1.play(1)) {
                         informEqualizer.sendValues(player1.getFrames());
-                        int temp=(player1.getPosition()/1000)+1;
-                        if (progress<temp) {
+                        int temp = (player1.getPosition() / 1000) + 1;
+                        if (progress < temp) {
                             progress++;
                             playBTNListener.clicked(3);
                         }
@@ -79,19 +79,24 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
             }
         };
     }
-    @Override
+
+/*    @Override
     public void addToPlayList(String path) throws IOException, UnsupportedTagException, InvalidDataException, JavaLayerException {
         Song song = new Song(path);
         SongGUI gui = new SongGUI(song);
-        listener.addGui(gui);
         recentlyPlayed.add(gui, song);
+        //shall remove
+//        for (SongGUI songGUI:recentlyPlayed.guis) {
+//            listener.addGui(gui);
+//        }
+
         fis = new FileInputStream(song.getPath());
         bufferedInputStream = new BufferedInputStream(fis);
         gui.more.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                PLGUI chosed=null;
+//                super.mouseClicked(e);
+//                PLGUI chosed=null;
                 JFrame jFrame=new JFrame("choose Player");
                 jFrame.setLayout(new GridLayout(0,1));
                 jFrame.setSize(100,200);
@@ -101,11 +106,19 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
                     label.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
-                            super.mouseClicked(e);
+//                            super.mouseClicked(e);
                             System.out.println(label.getText());
                             for (Playlist p:playlists) {
                                 if(p.name.equals(label.getText())){
                                     p.add(gui,gui.song);
+                                    for (SongGUI songGUI:p.guis) {
+                                        System.out.println(p.guis.size());
+                                        addPlSongs.addGui(gui);
+                                    }
+                                    if(p.equals(favorites)){
+                                        song.like();
+                                        playBTNListener.clicked(1);
+                                    }
                                 }
                             }
                         }
@@ -118,10 +131,15 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
                 addBtn.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
                         jFrame.setVisible(false);
                     }
                 });
+            }
+        });
+        gui.checkBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange()==1) System.out.println(gui.song.title);
             }
         });
         gui.addMouseListener(new MouseAdapter() {
@@ -145,26 +163,11 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
 
         });
     }
-
-    @Override
-    public void makePlayList(String name, String path) {
-        Playlist playlist=new Playlist(name,path);
-        PLGUI plgui=new PLGUI(playlist,name,path);
-        playlistGUIs.add(plgui);
-        plgui.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                System.out.println("pl");
-//                currentPlaylist=playlist;
-            }
-        });
-        addPlGUI.makePlayList(plgui);
-        playlists.add(playlist);
-    }
+*/
 
     public MusicPlayer() throws JavaLayerException {
         currentPlaylist = recentlyPlayed;
+        playlists.add(recentlyPlayed);
         playlists.add(favorites);
         makeNewThread();
     }
@@ -188,8 +191,8 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
                 bufferedInputStream = new BufferedInputStream(fis);
                 player1 = new MyPlayer(bufferedInputStream);
                 playBTNListener.clicked(4);//reset progress bar
-                progress=0;
-                songTotalLength=currentSong.getTime();
+                progress = 0;
+                songTotalLength = currentSong.getTime();
                 threadStarted = true;
                 informArtWrok.setArtwork(song.artWork);
                 InfoBarListener.addTOInfo(song);
@@ -213,22 +216,22 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
             case 2://next
                 playerThread.stop();
                 threadStarted = false;
-                fromThis=true;
+                fromThis = true;
                 pause.set(false);
-                currentSong=recentlyPlayed.getNextSong(currentSong);
+                currentSong = recentlyPlayed.getNextSong(currentSong);
                 makeNewThread();
                 try {
                     play(currentSong);
                 } catch (JavaLayerException e1) {
                     e1.printStackTrace();
                 }
-                    break;
+                break;
             case 3://previous
                 playerThread.stop();
                 threadStarted = false;
-                fromThis=true;
+                fromThis = true;
                 pause.set(false);
-                currentSong=recentlyPlayed.getPreSong(currentSong);
+                currentSong = recentlyPlayed.getPreSong(currentSong);
                 makeNewThread();
                 try {
                     play(currentSong);
@@ -242,13 +245,123 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
                     playBTNListener.clicked(2);
                     currentSong.unLike();
                     //remove from favorites
-                }
-                else {
+                } else {
                     playBTNListener.clicked(1);
                     currentSong.like();
-                    favorites.add(recentlyPlayed.getGUIBySong(currentSong),currentSong);
+                    favorites.add(recentlyPlayed.getGUIBySong(currentSong), currentSong);
                 }
                 break;
         }
+    }
+
+    @Override
+    public void addSong(String path) {
+        Song song;
+        try {
+            song = new Song(path);
+            SongGUI gui = new SongGUI(song);
+            recentlyPlayed.add(gui, song);
+            addGUIToCenter.addGui(gui);
+            gui.more.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    JPopupMenu popupMenu = new JPopupMenu();
+                    JMenuItem remove = new JMenuItem("remove . . .");
+                    JMenuItem addPl = new JMenuItem("add to PlayList");
+                    JMenuItem kian = new JMenuItem("kian");
+                    popupMenu.add(addPl);
+                    popupMenu.add(remove);
+                    popupMenu.add(kian);
+                    popupMenu.show(gui.more, e.getX(), e.getY());
+                    popupMenu.setVisible(true);
+                    addPl.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            System.out.println("dare mirize . . .");
+                            JFrame jFrame=new JFrame("choose Player");
+                            jFrame.setLayout(new GridLayout(0,1));
+                            jFrame.setSize(100,200);
+                            jFrame.setLocation(300,100);
+//                            jFrame.setVisible(true);
+                            for (Playlist p:playlists) {
+                                Label label=new Label(p.name,3);
+                                label.addMouseListener(new MouseAdapter() {
+                                    @Override
+                                    public void mouseClicked(MouseEvent e) {
+//                            super.mouseClicked(e);
+                                        System.out.println(label.getText());
+                                        for (Playlist p:playlists) {
+                                            if(p.name.equals(label.getText())){
+                                                p.add(gui,gui.song);
+                                                for (SongGUI songGUI:p.guis) {
+                                                    System.out.println(p.guis.size());
+//                                                    addPlSongs.addGui(gui);
+                                                }
+                                                if(p.equals(favorites)){
+                                                    song.like();
+                                                    playBTNListener.clicked(1);
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                                jFrame.add(label);
+                            }
+                            Button addBtn=new Button("add",3);
+                            jFrame.add(addBtn);
+                            jFrame.setVisible(true);
+                            addBtn.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    jFrame.setVisible(false);
+                                }
+                            });
+                        }
+                    });
+                    /*
+
+*/
+                }
+            });
+            gui.checkBox.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    if (e.getStateChange() == 1) System.out.println(gui.song.title);
+                }
+            });
+            gui.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    Song songClicked = recentlyPlayed.getSongByGUI(gui);
+                    if (threadStarted) {
+                        if (currentSong != null && !currentSong.equals(songClicked)) {
+                            playerThread.stop();
+                            threadStarted = false;
+                            makeNewThread();
+                        }
+                    }
+                    currentSong = songClicked;
+                    try {
+                        play(songClicked);
+                    } catch (JavaLayerException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+
+            });
+
+        } catch (JavaLayerException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidDataException e) {
+            e.printStackTrace();
+        } catch (UnsupportedTagException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Playlist> getPlaylists() {
+        return playlists;
     }
 }

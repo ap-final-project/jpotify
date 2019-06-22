@@ -6,6 +6,5 @@ import java.io.File;
 import java.io.IOException;
 
 public interface AddPlaylistListener {
-public void addToPlayList(String path) throws IOException, UnsupportedTagException, InvalidDataException, JavaLayerException;
 void makePlayList(String name,String path);
 }

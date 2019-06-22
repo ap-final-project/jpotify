@@ -9,8 +9,15 @@ public class PLGUI extends Panel {
     Label name;
     Label nums;
     Label pic;
-    public PLGUI(Playlist playlist,String songName,String path){
+    Playlist playlist;
+
+    public Playlist getPlaylist() {
+        return playlist;
+    }
+
+    public PLGUI(Playlist playlist, String songName, String path){
         super(3);
+        this.playlist=playlist;
         pic=new Label(3);
         Image image=Toolkit.getDefaultToolkit().getImage(path);
         Image newimg = image.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH);

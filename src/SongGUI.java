@@ -12,18 +12,25 @@ public class SongGUI extends Panel {
     Label time;
     Label more;
     Song song;
-
+    JCheckBox checkBox;
     public SongGUI(Song song) {
         super(2);
+        Color bright=new Color(194,194,194);
+        Color dark1=new Color(24,24,24);
+        Color dark2=new Color(18,18,18);
+        Color dark3=new Color(40,40,40);
+        checkBox=new JCheckBox();
         this.song = song;
         more=new Label(2);
-        more.setIcon(new ImageIcon("img\\more.png"));
+        more.setIcon(new ImageIcon("img\\moreIcon.png"));
         name = new Label(song.title, 2);
         artist = new Label(song.artist, 2);
         album = new Label(song.album, 2);
         date = new Label(song.year, 2);
         time = new Label(song.lenght, 2);
-        this.setLayout(new GridLayout(1,6));
+        this.setLayout(new GridLayout(1,7));
+        checkBox.setBackground(dark2);
+        this.add(checkBox);
         this.add(name);
         this.add(artist);
         this.add(album);

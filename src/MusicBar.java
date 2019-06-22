@@ -128,7 +128,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
                 break;
 
             case 2:
-                like.setIcon(new ImageIcon("img\\emptyHeart.png"));
+                like .setIcon(new ImageIcon("img\\emptyHeart.png"));
                 break;
             case 3:
                 System.out.println(songLength);
