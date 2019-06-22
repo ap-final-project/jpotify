@@ -42,11 +42,15 @@ public class Scroll extends JScrollPane {
         });
         this.getVerticalScrollBar().setUI(new MyScrollBarUI());
     }
+    public void setPanel(Panel p){
+        this.setViewportView(p);
+    }
 }
 
 class MyScrollBarUI extends BasicScrollBarUI {
-    private final Dimension d = new Dimension(20,20);
 
+
+    private final Dimension d = new Dimension(20,20);
     @Override
     protected JButton createDecreaseButton(int orientation) {
         Button btn =new Button(2) {

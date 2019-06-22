@@ -6,8 +6,11 @@ import java.util.Stack;
 public class Playlist {
 ArrayList<Song> songs=new ArrayList<>();
 ArrayList<SongGUI> guis=new ArrayList<>();
-    public Playlist(){
-
+String name="";
+String imgPath="";
+    public Playlist(String name,String imgPath){
+        this.name=name;
+        this.imgPath=imgPath;
         }
     public void add(SongGUI songGUI,Song song){
     songs.add(song);

@@ -7,6 +7,10 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
@@ -19,11 +23,14 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
     Song currentSong;
     PlayBTNListener playBTNListener = null;
     addGUIToCenter listener = null;
+    addPlGUIToCenter addPlGUI=null;
+    ArrayList<Playlist> playlists=new ArrayList<>();
+    ArrayList<PLGUI> playlistGUIs=new ArrayList<>();
     AddToInfoBar InfoBarListener = null;
     InformEqualizer informEqualizer;
     Playlist currentPlaylist;
-    Playlist recentlyPlayed = new Playlist();
-    Playlist favorites = new Playlist();
+    Playlist recentlyPlayed = new Playlist("recentlyPlayed","img\\play.png");
+    Playlist favorites = new Playlist("favorites","img\\fullHeart.png");
     InformArtWrok informArtWrok;
     boolean threadStarted = false;
     volatile FileInputStream fis;
@@ -43,6 +50,10 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
     }
     public void setListener(addGUIToCenter listener) {
         this.listener = listener;
+    }
+
+    public void setAddPlGUI(addPlGUIToCenter addPlGUI) {
+        this.addPlGUI = addPlGUI;
     }
 
     public void makeNewThread(){
@@ -76,6 +87,43 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
         recentlyPlayed.add(gui, song);
         fis = new FileInputStream(song.getPath());
         bufferedInputStream = new BufferedInputStream(fis);
+        gui.more.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                PLGUI chosed=null;
+                JFrame jFrame=new JFrame("choose Player");
+                jFrame.setLayout(new GridLayout(0,1));
+                jFrame.setSize(100,200);
+                jFrame.setLocation(300,100);
+                for (Playlist p:playlists) {
+                    Label label=new Label(p.name,3);
+                    label.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            super.mouseClicked(e);
+                            System.out.println(label.getText());
+                            for (Playlist p:playlists) {
+                                if(p.name.equals(label.getText())){
+                                    p.add(gui,gui.song);
+                                }
+                            }
+                        }
+                    });
+                    jFrame.add(label);
+                }
+                Button addBtn=new Button("add",3);
+                jFrame.add(addBtn);
+                jFrame.setVisible(true);
+                addBtn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        jFrame.setVisible(false);
+                    }
+                });
+            }
+        });
         gui.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -98,8 +146,26 @@ public class MusicPlayer implements AddPlaylistListener, MusicBarListener {
         });
     }
 
+    @Override
+    public void makePlayList(String name, String path) {
+        Playlist playlist=new Playlist(name,path);
+        PLGUI plgui=new PLGUI(playlist,name,path);
+        playlistGUIs.add(plgui);
+        plgui.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                System.out.println("pl");
+//                currentPlaylist=playlist;
+            }
+        });
+        addPlGUI.makePlayList(plgui);
+        playlists.add(playlist);
+    }
+
     public MusicPlayer() throws JavaLayerException {
         currentPlaylist = recentlyPlayed;
+        playlists.add(favorites);
         makeNewThread();
     }
 
