@@ -94,6 +94,7 @@ public class LeftBar extends Panel implements InformArtWrok{
                         if (x.isFile()) {
                             Song song= null;
                             SongGUI songGUI=null;
+
                             try {
                                 song = new Song(x.getPath());
                                 songGUI=new SongGUI(song);
@@ -107,6 +108,7 @@ public class LeftBar extends Panel implements InformArtWrok{
                                 e1.printStackTrace();
                             }
                             addSongListener.addSong(song,songGUI);
+                            makeAlbum.makeAlbumS(song.album,song,songGUI);
                         }
                     })
                     ;

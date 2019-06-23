@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class CenterAlbum extends Panel implements MakeAlbumListener {
     ArrayList<Album> albums = new ArrayList<>();
     ChoosePlaylist choosePlaylist = null;
-    MakeVisibilityTrue makeVisibilityTrue=null;
+    MakeVisibilityTrue makeVisibilityTrue = null;
+    boolean flag=false;
 
     public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
         this.makeVisibilityTrue = makeVisibilityTrue;
@@ -24,8 +25,8 @@ public class CenterAlbum extends Panel implements MakeAlbumListener {
     }
 
     @Override
-    public void makeAlbum(String name, ArrayList<Song> songs,ArrayList<SongGUI> songGUIS) {
-        Album album = new Album(name, songs,songGUIS);
+    public void makeAlbum(String name, ArrayList<Song> songs, ArrayList<SongGUI> songGUIS) {
+        Album album = new Album(name, songs, songGUIS);
         AlbumGUI albumGUI = new AlbumGUI(album);
         albums.add(album);
         this.add(albumGUI);
@@ -35,10 +36,34 @@ public class CenterAlbum extends Panel implements MakeAlbumListener {
                 super.mouseClicked(e);
                 choosePlaylist.setAlbum(album);
                 makeVisibilityTrue.makeTrue(0);
-
             }
         });
         this.add(albumGUI);
         revalidate();
+    }
+
+    @Override
+    public void makeAlbumS(String name, Song song, SongGUI songGUI) {
+        for (Album album : albums) {
+            if (album.getName().equals(song.album)) {
+                album.addSong(song, songGUI);
+                flag=true;
+                break;
+            }
+        }
+        if(!flag) {
+            Album album = new Album(name, song, songGUI);
+            AlbumGUI albumGUI = new AlbumGUI(album);
+            albums.add(album);
+            this.add(albumGUI);
+            albumGUI.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    choosePlaylist.setAlbum(album);
+                    makeVisibilityTrue.makeTrue(0);
+                }
+            });
+        }
     }
 }

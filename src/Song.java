@@ -29,6 +29,7 @@ public class Song {
     String year;
     String lenght;
     String path;
+    ImageIcon imageIcon;
     ImageIcon defaultIcon=new ImageIcon("img\\fullHeart.png");
     private long time;
 
@@ -59,7 +60,7 @@ public class Song {
             } else {
                 Image image = new ImageIcon(imageData).getImage();
                 Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
-                ImageIcon imageIcon = new ImageIcon(newimg);
+                imageIcon = new ImageIcon(newimg);
                 artWork.setIcon(imageIcon);
             }
         }

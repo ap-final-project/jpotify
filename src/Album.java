@@ -47,4 +47,17 @@ public class Album {
         num = songs.size();
         artist = songs.get(0).artist;
     }
+    public  Album(String name,Song song,SongGUI songGUI){
+        this.name=name;
+        songs.add(song);
+        guis.add(songGUI);
+        num=songs.size();
+        artist=song.artist;
+    }
+
+    public void addSong(Song song,SongGUI gui){
+        songs.add(song);
+        guis.add(gui);
+        num++;
+    }
 }
