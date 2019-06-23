@@ -75,7 +75,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                             LockSupport.park();
                         }
                     }
-                    if (player1.isComplete()) action(2);
+                    action(2);
                 } catch (Exception e) {
                     System.err.printf("%s\n", e.getMessage());
                 }
@@ -134,11 +134,11 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 }
                 break;
             case 2://next
-                playerThread.stop();
+                currentSong = currentPlaylist.getNextSong(currentSong);
                 threadStarted = false;
                 fromThis = true;
                 pause.set(false);
-                currentSong = currentPlaylist.getNextSong(currentSong);
+                playerThread.stop();
                 makeNewThread();
                 try {
                     play(currentSong);

@@ -43,7 +43,9 @@ public class Scroll extends JScrollPane {
         this.getVerticalScrollBar().setUI(new MyScrollBarUI());
     }
     public void setPanel(Panel p){
-        this.setViewportView(p);
+        this.viewport.remove(0);
+        this.viewport.add(p);
+        this.getViewport().revalidate();
     }
 }
 
