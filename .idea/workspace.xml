@@ -2,23 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7575882-8480-4156-bbb2-1bf419b33540" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/SaveDate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SaveInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/WrapLayout.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/parseSavedInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ApProject-Test/MainPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ApProject-Test/MainPage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AlbumGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlbumGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CenterAlbum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CenterAlbum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CenterPlayLists.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CenterPlayLists.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CenterSongs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CenterSongs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MusicBarListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MusicBarListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MusicPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MusicPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PLGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PLGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Playlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Playlist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Song.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SongGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SongGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ApProject-Test/LeftBar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ApProject-Test/LeftBar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ApProject-Test/MusicBar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ApProject-Test/MusicBar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LeftBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LeftBar.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -68,26 +55,26 @@
         <counts>
           <entry key="class" value="1" />
           <entry key="gitignore" value="1" />
-          <entry key="java" value="192" />
+          <entry key="java" value="195" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="192" />
+          <entry key="JAVA" value="195" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="10869" />
-          <entry key="txt" value="158" />
+          <entry key="java" value="10899" />
+          <entry key="txt" value="176" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="10869" />
-          <entry key="PLAIN_TEXT" value="158" />
+          <entry key="JAVA" value="10899" />
+          <entry key="PLAIN_TEXT" value="176" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -128,11 +115,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CenterPlayLists.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="45" column="5" lean-forward="true" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+            <state relative-caret-position="282">
+              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -145,6 +132,37 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="248">
               <caret line="39" selection-start-line="39" selection-end-line="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/LeftBar.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="118" column="29" selection-start-line="118" selection-start-column="29" selection-end-line="118" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/MusicBar.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="196">
+              <caret line="170" column="38" lean-forward="true" selection-start-line="170" selection-start-column="38" selection-end-line="170" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.desktop/javax/swing/JSlider.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="169">
+              <caret line="314" column="16" selection-start-line="314" selection-start-column="16" selection-end-line="314" selection-end-column="16" />
+              <folding>
+                <element signature="e#9782#9783#0" expanded="true" />
+                <element signature="e#9813#9814#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -191,54 +209,6 @@
                 <element signature="e#1398#1399#0" expanded="true" />
                 <element signature="e#1450#1451#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MusicPlayer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="85" column="11" selection-start-line="85" selection-start-column="11" selection-end-line="85" selection-end-column="11" />
-              <folding>
-                <element signature="e#2152#2946#0" expanded="true" />
-                <element signature="e#2945#2946#0" expanded="true" />
-                <element signature="e#7328#8023#0" expanded="true" />
-                <element signature="e#8022#8023#0" expanded="true" />
-                <element signature="e#8750#8903#0" expanded="true" />
-                <element signature="e#8902#8903#0" expanded="true" />
-                <element signature="e#10741#10742#0" expanded="true" />
-                <element signature="e#10773#10774#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/WrapLayout.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="180" column="1" lean-forward="true" selection-start-line="180" selection-start-column="1" selection-end-line="180" selection-end-column="1" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#423#424#0" expanded="true" />
-                <element signature="e#446#447#0" expanded="true" />
-                <element signature="e#826#827#0" expanded="true" />
-                <element signature="e#854#855#0" expanded="true" />
-                <element signature="e#1368#1369#0" expanded="true" />
-                <element signature="e#1408#1409#0" expanded="true" />
-                <element signature="e#1803#1804#0" expanded="true" />
-                <element signature="e#1850#1851#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MusicBarListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -329,7 +299,6 @@
         <option value="$PROJECT_DIR$/src/Center.java" />
         <option value="$PROJECT_DIR$/src/AddSong.java" />
         <option value="$PROJECT_DIR$/src/MakeAlbumListener.java" />
-        <option value="$PROJECT_DIR$/src/LeftBar.java" />
         <option value="$PROJECT_DIR$/src/Album.java" />
         <option value="$PROJECT_DIR$/src/ChoosePlaylist.java" />
         <option value="$PROJECT_DIR$/src/MainPage.java" />
@@ -347,6 +316,7 @@
         <option value="$PROJECT_DIR$/src/PLGUI.java" />
         <option value="$PROJECT_DIR$/src/CenterSongs.java" />
         <option value="$PROJECT_DIR$/src/SongGUI.java" />
+        <option value="$PROJECT_DIR$/src/LeftBar.java" />
       </list>
     </option>
   </component>
@@ -511,7 +481,7 @@
       <workItem from="1561173488668" duration="41878000" />
       <workItem from="1561240728300" duration="10455000" />
       <workItem from="1561283365214" duration="19426000" />
-      <workItem from="1561320199657" duration="11655000" />
+      <workItem from="1561320199657" duration="12847000" />
     </task>
     <task id="LOCAL-00001" summary="playList logic started">
       <created>1561179605320</created>
@@ -555,11 +525,18 @@
       <option name="project" value="LOCAL" />
       <updated>1561298138538</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="GUI bugs fixed">
+      <created>1561332179855</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1561332179855</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="136197000" />
+    <option name="totallyTimeSpent" value="137389000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -645,20 +622,14 @@
     <MESSAGE value="Album almost completed:)" />
     <MESSAGE value="Album gui completed" />
     <MESSAGE value="album 2.0.0 finished !!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="album 2.0.0 finished !!!" />
+    <MESSAGE value="GUI bugs fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI bugs fixed" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://E:/JLayer1.0.1/src/javazoom/jl/player/AudioDevice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="103" selection-start-line="103" selection-end-line="103" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://E:/JLayer1.0.1/src/javazoom/jl/player/advanced/AdvancedPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -782,24 +753,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MusicBar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="125" column="34" selection-start-line="125" selection-start-column="34" selection-end-line="125" selection-end-column="34" />
-          <folding>
-            <element signature="e#3525#3688#0" expanded="true" />
-            <element signature="e#3687#3688#0" expanded="true" />
-            <element signature="e#3721#3884#0" expanded="true" />
-            <element signature="e#3883#3884#0" expanded="true" />
-            <element signature="e#3921#4084#0" expanded="true" />
-            <element signature="e#4083#4084#0" expanded="true" />
-            <element signature="e#4279#4280#0" expanded="true" />
-            <element signature="e#4320#4953#0" expanded="true" />
-            <element signature="e#4952#4953#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AddToInfoBar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -916,13 +869,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LeftBar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2176">
-          <caret line="153" column="21" selection-start-line="153" selection-start-column="21" selection-end-line="153" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Song.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -963,7 +909,6 @@
           <caret line="85" column="11" selection-start-line="85" selection-start-column="11" selection-end-line="85" selection-end-column="11" />
           <folding>
             <element signature="e#2152#2946#0" expanded="true" />
-            <element signature="e#2945#2946#0" expanded="true" />
             <element signature="e#7328#8023#0" expanded="true" />
             <element signature="e#8022#8023#0" expanded="true" />
             <element signature="e#8750#8903#0" expanded="true" />
@@ -1061,11 +1006,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CenterPlayLists.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="45" column="5" lean-forward="true" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+        <state relative-caret-position="282">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LeftBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="118" column="29" selection-start-line="118" selection-start-column="29" selection-end-line="118" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.desktop/javax/swing/JSlider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="314" column="16" selection-start-line="314" selection-start-column="16" selection-end-line="314" selection-end-column="16" />
+          <folding>
+            <element signature="e#9782#9783#0" expanded="true" />
+            <element signature="e#9813#9814#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MusicBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="170" column="38" lean-forward="true" selection-start-line="170" selection-start-column="38" selection-end-line="170" selection-end-column="38" />
         </state>
       </provider>
     </entry>
