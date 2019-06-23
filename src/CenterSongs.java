@@ -65,6 +65,7 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         layout.putConstraint(SpringLayout.WEST, songGUI, 20, SpringLayout.WEST, this);
         layout.putConstraint(SpringLayout.EAST, songGUI, 20, SpringLayout.EAST, this);
         this.add(songGUI);
+
         revalidate();
     }
 
