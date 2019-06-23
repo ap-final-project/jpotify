@@ -27,7 +27,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     private long totalFrames;
     private int framesPlayed = 0;
     private int lastSec = 0;
-
+    Thread thread=null;
     public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
         this.makeVisibilityTrue = makeVisibilityTrue;
     }
@@ -74,7 +74,13 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                             LockSupport.park();
                         }
                     }
-                    action(2);
+                    thread=new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            action(2);
+
+                        }
+                    });
                 } catch (Exception e) {
                     System.err.printf("%s\n", e.getMessage());
                 }
@@ -134,16 +140,22 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 break;
             case 2://next
                 currentSong = currentPlaylist.getNextSong(currentSong);
+//                System.out.println("jeeelooo1");
                 threadStarted = false;
                 fromThis = true;
+//                System.out.println("jeeelooo2");
                 pause.set(false);
                 playerThread.stop();
+//                System.out.println("jeeelooo");
                 makeNewThread();
+                System.out.println("helooooo");
                 try {
                     play(currentSong);
                 } catch (JavaLayerException e1) {
                     e1.printStackTrace();
                 }
+
+                if (thread!=null && thread.isAlive()) thread.stop();
                 break;
             case 3://previous
                 playerThread.stop();
