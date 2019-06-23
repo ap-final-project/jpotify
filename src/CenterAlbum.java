@@ -17,7 +17,7 @@ public class CenterAlbum extends Panel implements MakeAlbumListener {
 
     public CenterAlbum() {
         super(3);
-        this.setLayout(new FlowLayout());
+        this.setLayout(new WrapLayout(WrapLayout.LEFT));
     }
 
     public void setChoosePlaylist(ChoosePlaylist choosePlaylist) {
@@ -65,5 +65,6 @@ public class CenterAlbum extends Panel implements MakeAlbumListener {
                 }
             });
         }
+        flag=false;
     }
 }

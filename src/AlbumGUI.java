@@ -1,28 +1,23 @@
+import javax.swing.*;
+import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class AlbumGUI extends Panel {
-    Label name;
-    Label artist;
-    Label num;
     Album album;
     Label picture;
+    Label label;
 
     public AlbumGUI(Album album) {
         super(3);
         this.album = album;
-        artist = new Label(album.getSongs().get(0).artist, 3);
-        num = new Label(String.valueOf(album.getSongs().size()), 3);
-        name = new Label(album.getName(), 3);
+        label=new Label("<html>"+album.getName()+album.getNum()+" songs"+"<br>"+album.getArtist()+"</html>",3);
         picture = new Label(3);
         picture.setIcon(album.getSongs().get(0).imageIcon);
-        Panel description = new Panel(3);
-        description.setLayout(new GridLayout(2, 2));
-        description.add(name);
-        description.add(num);
-        description.add(artist);
-        this.setLayout(new GridLayout(2, 1));
-        this.add(picture);
-        this.add(description);
+        this.setLayout(new BorderLayout());
+        this.add(picture,BorderLayout.CENTER);
+        this.add(label,BorderLayout.PAGE_END);
+        this.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.black));
+//        this.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED,Color.DARK_GRAY,Color.MAGENTA));
     }
 }

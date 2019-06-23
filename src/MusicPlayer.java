@@ -44,6 +44,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     Thread playerThread;
     boolean fromThis = true;
     final AtomicBoolean pause = new AtomicBoolean(false);
+    boolean firstTime=true;
 
     public void setPlayBTNListener(PlayBTNListener playBTNListener) {
         this.playBTNListener = playBTNListener;
@@ -160,6 +161,60 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 break;
             case 1:
                 //heart clicked
+             if (currentSong.isLiked()) {
+                    playBTNListener.clicked(2);
+                    currentSong.unLike();
+                    //remove from favorites
+                } else {
+                    playBTNListener.clicked(1);
+                    currentSong.like();
+                    favorites.add(recentlyPlayed.getGUIBySong(currentSong), currentSong);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void action(int i,SongGUI gui) {
+        switch (i) {
+            case 0:
+                pause.set(!pause.get());
+                if (!pause.get()) {
+                    playBTNListener.clicked(6);
+                    LockSupport.unpark(playerThread);
+                }
+                break;
+            case 2://next
+                playerThread.stop();
+                threadStarted = false;
+                fromThis = true;
+                pause.set(false);
+                currentSong = currentPlaylist.getNextSong(currentSong);
+                makeNewThread();
+                try {
+                    play(currentSong);
+                } catch (JavaLayerException e1) {
+                    e1.printStackTrace();
+                }
+                break;
+            case 3://previous
+                playerThread.stop();
+                threadStarted = false;
+                fromThis = true;
+                pause.set(false);
+                currentSong = currentPlaylist.getPreSong(currentSong);
+                makeNewThread();
+                try {
+                    play(currentSong);
+                } catch (JavaLayerException e1) {
+                    e1.printStackTrace();
+                }
+                break;
+            case 1:
+                //heart clicked
+                if(firstTime){
+                    currentSong=gui.song;
+                }
                 if (currentSong.isLiked()) {
                     playBTNListener.clicked(2);
                     currentSong.unLike();
@@ -202,7 +257,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                                     p.add(gui, gui.song);
                                     if (p.equals(favorites)) {
                                         gui.song.like();
-                                        action(1);
+                                        action(1,gui);
                                         playBTNListener.clicked(1);
                                     }
                                 }
@@ -271,7 +326,6 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                         }
                     }
                     currentSong = songClicked;
-
                     try {
                         play(songClicked);
                     } catch (JavaLayerException e1) {

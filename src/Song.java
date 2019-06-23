@@ -16,9 +16,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
-public class Song {
+public class Song implements Serializable{
     AdvancedPlayer player;
     FileInputStream fileInputStream;
     File file;
@@ -29,6 +31,7 @@ public class Song {
     String year;
     String lenght;
     String path;
+    HashMap<Playlist,Integer> playlists=new HashMap<>();
     ImageIcon imageIcon;
     ImageIcon defaultIcon=new ImageIcon("img\\fullHeart.png");
     private long time;
