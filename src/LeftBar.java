@@ -34,6 +34,7 @@ public class LeftBar extends Panel implements InformArtWrok{
     MakeVisibilityTrue centerTrue=null;
     ChoosePlaylist choosePlaylist;
     ArrayList<Song> songs=new ArrayList<>();
+    ArrayList<SongGUI> songGUIS=new ArrayList<>();
     public void setCenterTrue(MakeVisibilityTrue centerTrue) {
         this.centerTrue = centerTrue;
     }
@@ -66,9 +67,12 @@ public class LeftBar extends Panel implements InformArtWrok{
                             ArrayList<String> path=new ArrayList<>();
                             for (int i = 0; i <x.listFiles().length ; i++) {
                                 Song song= null;
+                                SongGUI songGUI= null;
                                 try {
                                     song = new Song(x.listFiles()[i].getPath());
+                                    songGUI=new SongGUI(song);
                                     songs.add(song);
+                                    songGUIS.add(songGUI);
                                 } catch (JavaLayerException e1) {
                                     e1.printStackTrace();
                                 } catch (IOException e1) {
@@ -78,12 +82,10 @@ public class LeftBar extends Panel implements InformArtWrok{
                                 } catch (UnsupportedTagException e1) {
                                     e1.printStackTrace();
                                 }
-                                addSongListener.addSong(song);
+                                addSongListener.addSong(song,songGUI);
                                 path.add(x.listFiles()[i].getPath());
                             }
-                            for (int i = 0; i <x.list().length ; i++) {
-                            }
-                            makeAlbum.makeAlbum(x.getName(),songs);
+                            makeAlbum.makeAlbum(x.getName(),songs,songGUIS);
                         }
                     });
                     System.out.println("\n- - - - - - - - - - -\n");
@@ -91,8 +93,10 @@ public class LeftBar extends Panel implements InformArtWrok{
                     Arrays.asList(files).forEach(x -> {
                         if (x.isFile()) {
                             Song song= null;
+                            SongGUI songGUI=null;
                             try {
                                 song = new Song(x.getPath());
+                                songGUI=new SongGUI(song);
                             } catch (JavaLayerException e1) {
                                 e1.printStackTrace();
                             } catch (IOException e1) {
@@ -102,7 +106,7 @@ public class LeftBar extends Panel implements InformArtWrok{
                             } catch (UnsupportedTagException e1) {
                                 e1.printStackTrace();
                             }
-                            addSongListener.addSong(song);
+                            addSongListener.addSong(song,songGUI);
                         }
                     })
                     ;

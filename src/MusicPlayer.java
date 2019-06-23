@@ -226,11 +226,10 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     }
 
     @Override
-    public void addSong(Song song1) {
+    public void addSong(Song song1,SongGUI songGUI1) {
         Song song;
-
         song = song1;
-        SongGUI gui = new SongGUI(song);
+        SongGUI gui = songGUI1;
         recentlyPlayed.add(gui, song);
         addGUIToCenter.addGui(gui);
         gui.more.addMouseListener(new MouseAdapter() {

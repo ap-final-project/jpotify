@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 public class Album {
     private ArrayList<Song> songs = new ArrayList<>();
+    private ArrayList<SongGUI> guis = new ArrayList<>();
+
 
     public ArrayList<SongGUI> getGuis() {
         return guis;
     }
-
-    private ArrayList<SongGUI> guis = new ArrayList<>();
 
     public ArrayList<Song> getSongs() {
         return songs;
@@ -39,14 +39,11 @@ public class Album {
     private String path;
     private int num;
 
-    public Album(String name, ArrayList<Song> songs) {
+    public Album(String name, ArrayList<Song> songs,ArrayList<SongGUI> songGUIS) {
         this.name = name;
-
         //getting songs
         this.songs=songs;
-        for (Song song:songs) {
-            guis.add(new SongGUI(song));
-        }
+        guis=songGUIS;
         num = songs.size();
         artist = songs.get(0).artist;
     }

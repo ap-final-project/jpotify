@@ -24,9 +24,8 @@ public class CenterAlbum extends Panel implements MakeAlbumListener {
     }
 
     @Override
-    public void makeAlbum(String name, ArrayList<Song> songs) {
-        System.out.println("dare mirize");
-        Album album = new Album(name, songs);
+    public void makeAlbum(String name, ArrayList<Song> songs,ArrayList<SongGUI> songGUIS) {
+        Album album = new Album(name, songs,songGUIS);
         AlbumGUI albumGUI = new AlbumGUI(album);
         albums.add(album);
         this.add(albumGUI);
@@ -36,9 +35,10 @@ public class CenterAlbum extends Panel implements MakeAlbumListener {
                 super.mouseClicked(e);
                 choosePlaylist.setAlbum(album);
                 makeVisibilityTrue.makeTrue(0);
+
             }
         });
-        choosePlaylist.setAlbum(album);
+        this.add(albumGUI);
         revalidate();
     }
 }
