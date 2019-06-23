@@ -1,3 +1,3 @@
 public interface AddSong {
-void addSong(String path);
+void addSong(Song song);
 }

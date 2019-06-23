@@ -1,10 +1,7 @@
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
-
-import javax.swing.*;
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -14,8 +11,10 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
     CenterSongs centerSongs;
     CenterPlayLists centerPlayLists;
     ArrayList<Playlist> playlists;
-    public Center(CenterSongs centerSongs, CenterPlayLists centerPlayLists,ArrayList<Playlist> playlists) throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
+    CenterAlbum centerAlbum;
+    public Center(CenterSongs centerSongs, CenterPlayLists centerPlayLists,ArrayList<Playlist> playlists,CenterAlbum centerAlbum) throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         super(2);
+        this.centerAlbum=centerAlbum;
         this.playlists=playlists;
         this.centerPlayLists=centerPlayLists;
         this.centerSongs=centerSongs;
@@ -25,8 +24,8 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
         scrollpane=new Scroll(centerSongs);
         this.add(scrollpane);
         centerSongs.setVisible(true);
-
         CenterSongs.currentPlayList=playlists.get(0);
+//        centerPlayLists.favs();
         this.setVisible(true);
     }
 
@@ -41,6 +40,10 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
                 scrollpane.setPanel(centerPlayLists);
                 centerPlayLists.setVisible(true);
                 break;
+            case 2:
+                scrollpane.setPanel(centerAlbum);
+                centerAlbum.setVisible(true);
+                break;
         }
     }
 
@@ -50,7 +53,11 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
             playlist=playlists.get(0);
         }
         centerSongs.showPlayList(playlist);
+    }
 
+    @Override
+    public void setAlbum(Album album) {
+        centerSongs.showAlbum(album);
     }
 }
 

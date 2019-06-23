@@ -12,7 +12,8 @@ public class MainPage extends JFrame{
     volatile MusicPlayer musicPlayer=new MusicPlayer();
     CenterSongs centerSongs=new CenterSongs();
     CenterPlayLists centerPlayLists=new CenterPlayLists(musicPlayer.getPlaylists());
-    Center center=new Center(centerSongs,centerPlayLists,musicPlayer.getPlaylists());
+    CenterAlbum centerAlbum=new CenterAlbum();
+    Center center=new Center(centerSongs,centerPlayLists,musicPlayer.getPlaylists(),centerAlbum);
     public MainPage() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         this.setTitle(TITLE);
         Color bright =new Color(194,194,194);
@@ -38,9 +39,12 @@ public class MainPage extends JFrame{
         centerPlayLists.setMakeVisibilityTrue(center);
         leftBar.setmakePlListener(centerPlayLists);
         musicPlayer.setMakeVisibilityTrue(center);
+        centerAlbum.setChoosePlaylist(center);
+        centerAlbum.setMakeVisibilityTrue(center);
         this.setVisible(true);
         this.add(main);
         leftBar.setaddSongListener(musicPlayer);
+        leftBar.setMakeAlbum(centerAlbum);
         musicBar.setBarUpdateListener(musicPlayer);
     }
 }

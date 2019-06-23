@@ -11,6 +11,10 @@ public class Main{
 //        {
 //            System.out.println(fonts[i]);
 //        }
+//        WelcomeJFrame welcome=new WelcomeJFrame();
+//        welcome.setVisible(true);
+//        Thread.sleep(4000);
+//        welcome.setVisible(false);
         MainPage mainPage=new MainPage();
     }
 }

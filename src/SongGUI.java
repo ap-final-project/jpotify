@@ -22,7 +22,7 @@ public class SongGUI extends Panel {
         checkBox=new JCheckBox();
         this.song = song;
         more=new Label(2);
-        more.setIcon(new ImageIcon("img\\moreIcon.png"));
+        more.setIcon(new ImageIcon("img\\more24.png"));
         name = new Label(song.title, 2);
         artist = new Label(song.artist, 2);
         album = new Label(song.album, 2);

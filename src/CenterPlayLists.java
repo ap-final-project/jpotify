@@ -20,8 +20,18 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener {
         super(1);
         this.playlists=playlists;
         this.setLayout(new FlowLayout());
+        PLGUI favGUI=new PLGUI(playlists.get(1),playlists.get(1).name,playlists.get(1).imgPath);
+        favGUI.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                choosePlaylistListener.setPlaylist(playlists.get(1));
+                makeVisibilityTrue.makeTrue(0);
+            }
+        });
+        this.add(favGUI);
+        revalidate();
     }
-
 
     @Override
     public void makePlayList(String name, String path) {
