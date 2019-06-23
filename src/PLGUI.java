@@ -6,8 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class PLGUI extends Panel {
-    Label name;
-    Label nums;
+    Label label;
     Label pic;
     Playlist playlist;
 
@@ -23,21 +22,11 @@ public class PLGUI extends Panel {
         Image newimg = image.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH);
         ImageIcon imageIcon=new ImageIcon(newimg);
         pic.setIcon(imageIcon);
-        name=new Label(songName,3);
-        nums=new Label("23 song",3);
+        label=new Label("<html>"+playlist.name+"<br>"+playlist.songs.size()+"songs"+"</html>",3);
         this.setLayout(new BorderLayout());
-        Panel panel=new Panel(3);
-        Panel details=new Panel(3);
-        details.setLayout(new GridLayout(1,2));
         pic.setSize(200,200);
-        details.add(name);
-        details.add(nums);
-        panel.setLayout(new GridLayout(2,1));
-        Panel pp=new Panel(3);
-        pp.add(pic);
-        panel.add(pp);
         pic.setSize(200,200);
-        panel.add(details);
-        this.add(panel,BorderLayout.CENTER);
+        this.add(pic,BorderLayout.CENTER);
+        this.add(label,BorderLayout.PAGE_END);
     }
 }

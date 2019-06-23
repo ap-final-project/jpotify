@@ -19,7 +19,7 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener {
     public CenterPlayLists(ArrayList<Playlist> playlists) {
         super(1);
         this.playlists=playlists;
-        this.setLayout(new FlowLayout());
+        this.setLayout(new WrapLayout(WrapLayout.LEFT));
         PLGUI favGUI=new PLGUI(playlists.get(1),playlists.get(1).name,playlists.get(1).imgPath);
         favGUI.addMouseListener(new MouseAdapter() {
             @Override

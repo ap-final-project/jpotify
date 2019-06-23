@@ -127,6 +127,7 @@ public class LeftBar extends Panel implements InformArtWrok{
                 makePlayList.setLayout(new BorderLayout());
 //                JTextPane textField=new JTextPane();
                 TextField textField=new TextField();
+                TextArea textArea=new TextArea();
 //                textField.setName("Name");
                 Button addNewPL=new Button("Add",1);
                 Label label= new Label("Enter your playlist's name",1);
@@ -135,8 +136,9 @@ public class LeftBar extends Panel implements InformArtWrok{
                 makePlayList.add(label,BorderLayout.PAGE_START);
                 Panel btnPanel=new Panel(3);
                 btnPanel.setBorder(new EmptyBorder(2,2,2,2));
-                btnPanel.setLayout(new GridLayout(1,2));
+                btnPanel.setLayout(new GridLayout(1,3));
                 btnPanel.add(addImg);
+                makePlayList.add(textArea);
                 btnPanel.add(addNewPL);
                 makePlayList.add(btnPanel,BorderLayout.PAGE_END);
                 textField.addKeyListener(new KeyAdapter() {
