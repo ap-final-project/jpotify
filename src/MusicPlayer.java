@@ -11,7 +11,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.security.KeyStore;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.LockSupport;
@@ -28,13 +30,14 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     private int framesPlayed = 0;
     private int lastSec = 0;
 
+
     public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
         this.makeVisibilityTrue = makeVisibilityTrue;
     }
 
     static Playlist currentPlaylist;
-    Playlist recentlyPlayed = new Playlist("recentlyPlayed","All songs", "img\\play.png");
-    Playlist favorites = new Playlist("favorites", "Your favorite songs","img\\fullHeart.png");
+    Playlist recentlyPlayed = new Playlist("recentlyPlayed", "All songs", "img\\play.png");
+    Playlist favorites = new Playlist("favorites", "Your favorite songs", "img\\fullHeart.png");
     InformArtWrok informArtWrok;
     boolean threadStarted = false;
     volatile FileInputStream fis;
@@ -44,7 +47,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     Thread playerThread;
     boolean fromThis = true;
     final AtomicBoolean pause = new AtomicBoolean(false);
-    boolean firstTime=true;
+    boolean firstTime = true;
 
     public void setPlayBTNListener(PlayBTNListener playBTNListener) {
         this.playBTNListener = playBTNListener;
@@ -161,7 +164,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 break;
             case 1:
                 //heart clicked
-             if (currentSong.isLiked()) {
+                if (currentSong.isLiked()) {
                     playBTNListener.clicked(2);
                     currentSong.unLike();
                     //remove from favorites
@@ -175,7 +178,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     }
 
     @Override
-    public void action(int i,SongGUI gui) {
+    public void action(int i, SongGUI gui) {
         switch (i) {
             case 0:
                 pause.set(!pause.get());
@@ -212,8 +215,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 break;
             case 1:
                 //heart clicked
-                if(firstTime){
-                    currentSong=gui.song;
+                if (firstTime) {
+                    currentSong = gui.song;
                 }
                 if (currentSong.isLiked()) {
                     playBTNListener.clicked(2);
@@ -238,10 +241,29 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         popupMenu.add(kian);
         popupMenu.show(e.getComponent(), e.getX(), e.getY());
         popupMenu.setVisible(true);
+        remove.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("removing");
+                if(CenterSongs.currentPlayList.equals(recentlyPlayed)) {
+                    for (Playlist p:playlists) {
+                        if(p.guis.contains(gui)){
+                            p.remove(gui.song);
+                            p.guis.remove(gui);
+                        }
+                    }
+                }
+                else{
+                    CenterSongs.currentPlayList.guis.remove(gui);
+                    CenterSongs.currentPlayList.remove(gui.song);
+                }
+                makeVisibilityTrue.makeTrue(0);
+            }
+        });
         addPl.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame jFrame = new JFrame("choose Player");
+                JFrame jFrame = new JFrame("choose Playlist");
                 jFrame.setLayout(new GridLayout(0, 1));
                 jFrame.setSize(100, 200);
                 jFrame.setLocation(300, 100);
@@ -257,7 +279,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                                     p.add(gui, gui.song);
                                     if (p.equals(favorites)) {
                                         gui.song.like();
-                                        action(1,gui);
+                                        action(1, gui);
                                         playBTNListener.clicked(1);
                                     }
                                 }
@@ -281,7 +303,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     }
 
     @Override
-    public void addSong(Song song1,SongGUI songGUI1) {
+    public void addSong(Song song1, SongGUI songGUI1) {
         Song song;
         song = song1;
         SongGUI gui = songGUI1;

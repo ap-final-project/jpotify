@@ -38,6 +38,11 @@ public class Album {
     private String artist;
     private String path;
     private int num;
+//    PanelGuiInformer informPLGUI=null;
+
+//    public void setInformPLGUI(PanelGuiInformer informPLGUI) {
+//        this.informPLGUI = informPLGUI;
+//    }
 
     public Album(String name, ArrayList<Song> songs,ArrayList<SongGUI> songGUIS) {
         this.name = name;
@@ -52,6 +57,7 @@ public class Album {
         songs.add(song);
         guis.add(songGUI);
         num=songs.size();
+//        informPLGUI.updateGui();
         artist=song.artist;
     }
 

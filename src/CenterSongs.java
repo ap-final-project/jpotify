@@ -13,20 +13,19 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
     Label album = new Label(2);
     Label year = new Label(2);
     Label time = new Label(2);
-    Label test = new Label("More",2);
-//    Label test2 = new Label(2);
+    Label test = new Label("More", 2);
+    //    Label test2 = new Label(2);
     Panel p = new Panel(3);
     SpringLayout layout;
     Equalizer equalizer;
     static Playlist currentPlayList;
     static Album currentAlbum;
+
     public CenterSongs() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         super(2);
         equalizer = new Equalizer();
         layout = new SpringLayout();
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-//        this.setVisible(true);
-        this.setPreferredSize(new Dimension());
         title.setText("Title");
         artist.setText("Artist");
         album.setText("Album");
@@ -38,21 +37,14 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         year.setFont(new Font("Cambria", Font.BOLD, 14));
         title.setFont(new Font("Cambria", Font.BOLD, 14));
         p.setLayout(new GridLayout(1, 6));
-//        this.setPreferredSize(new Dimension());
-//        layout.putConstraint(SpringLayout.NORTH, equalizer, 40, SpringLayout.NORTH, this);
-//        layout.putConstraint(SpringLayout.NORTH, p, 10, SpringLayout.SOUTH, equalizer);
-//        layout.putConstraint(SpringLayout.WEST, p, 20, SprixngLayout.WEST, this);
-//        layout.putConstraint(SpringLayout.EAST, p, 20, SpringLayout.EAST, this);
         p.add(title);
         p.add(artist);
         p.add(album);
         p.add(year);
         p.add(time);
         p.add(test);
-//        p.add(test2);
         this.add(equalizer);
         this.add(p);
-        System.out.println(this.getComponents().length);
     }
 
     @Override
@@ -78,6 +70,7 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
 
     public void showPlayList(Playlist playlist) {
         currentPlayList = playlist;
+
         int comps = this.getComponents().length;
         for (int i = comps - 1; i > 1; i--) {
             this.remove(this.getComponents().length - 1);

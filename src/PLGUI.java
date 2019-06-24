@@ -1,3 +1,5 @@
+import javafx.scene.layout.Pane;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -5,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class PLGUI extends Panel {
+public class PLGUI extends Panel implements PanelGuiInformer {
     Label label;
     Label pic;
     Playlist playlist;
@@ -27,7 +29,13 @@ public class PLGUI extends Panel {
         this.setLayout(new BorderLayout());
         pic.setSize(200,200);
         pic.setSize(200,200);
+        playlist.setInformPLGUI(this);
         this.add(pic,BorderLayout.CENTER);
         this.add(label,BorderLayout.PAGE_END);
+    }
+
+    @Override
+    public void updateGui() {
+        label.setText("<html>"+playlist.name+"<br>"+playlist.description+"<br>"+playlist.songs.size()+"songs"+"</html>");
     }
 }

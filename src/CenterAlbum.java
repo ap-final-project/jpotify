@@ -5,7 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class CenterAlbum extends Panel implements MakeAlbumListener {
+public class CenterAlbum extends Panel implements MakeAlbumListener{
     ArrayList<Album> albums = new ArrayList<>();
     ChoosePlaylist choosePlaylist = null;
     MakeVisibilityTrue makeVisibilityTrue = null;
@@ -57,6 +57,7 @@ public class CenterAlbum extends Panel implements MakeAlbumListener {
             albums.add(album);
             this.add(albumGUI);
             albumGUI.addMouseListener(new MouseAdapter() {
+
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     super.mouseClicked(e);

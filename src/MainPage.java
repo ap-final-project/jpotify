@@ -42,6 +42,7 @@ public class MainPage extends JFrame{
         musicPlayer.setMakeVisibilityTrue(center);
         centerAlbum.setChoosePlaylist(center);
         centerAlbum.setMakeVisibilityTrue(center);
+
         this.setVisible(true);
 //        this.setMinimumSize(new Dimension(1400,800));
         this.add(main);

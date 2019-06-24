@@ -9,6 +9,11 @@ public class Playlist {
     String name = "";
     String imgPath = "";
     String description="";
+    PanelGuiInformer informPLGUI=null;
+
+    public void setInformPLGUI(PanelGuiInformer informPLGUI) {
+        this.informPLGUI = informPLGUI;
+    }
 
     public Playlist(String name, String description,String imgPath) {
         this.name = name;
@@ -20,7 +25,12 @@ public class Playlist {
         songs.add(song);
         guis.add(songGUI);
         song.playlists.put(this,songs.size());
-        System.out.println(song.playlists.size());
+        if(!this.name.equals("recentlyPlayed"))
+        informPLGUI.updateGui();
+    }
+    public void remove(Song song){
+        this.songs.remove(song);
+//        informPLGUI.updateGui();
     }
 
     public Song next(Song song) {
