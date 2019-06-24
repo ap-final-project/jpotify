@@ -1,6 +1,8 @@
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
+
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
         this.add(scrollpane);
         centerSongs.setVisible(true);
         CenterSongs.currentPlayList=playlists.get(0);
-        scrollpane.getViewport().revalidate();
+//        scrollpane.getViewport().revalidate();
         this.setVisible(true);
     }
 
@@ -61,5 +63,6 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
     public void setAlbum(Album album) {
         centerSongs.showAlbum(album);
     }
+
 }
 

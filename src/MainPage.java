@@ -25,12 +25,9 @@ public class MainPage extends JFrame {
 
     public MainPage() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         this.setTitle(TITLE);
-        Color bright = new Color(194, 194, 194);
         Color dark = new Color(24, 24, 24);
-        this.setSize(800, 800);
-        this.setBackground(bright);
+        this.setBackground(dark);
         this.setForeground(dark);
-//        this.setMinimumSize(new Dimension(800,800));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         main.setLayout(new BorderLayout());
         main.add(leftBar, BorderLayout.WEST);
@@ -53,10 +50,10 @@ public class MainPage extends JFrame {
         centerAlbum.setChoosePlaylist(center);
         centerAlbum.setMakeVisibilityTrue(center);
         this.setVisible(true);
-//        this.setMinimumSize(new Dimension(1400,800));
         this.add(main);
         leftBar.setaddSongListener(musicPlayer);
         leftBar.setMakeAlbum(centerAlbum);
         musicBar.setBarUpdateListener(musicPlayer);
+        this.setBackground(dark);
     }
 }

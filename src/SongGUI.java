@@ -19,7 +19,7 @@ public class SongGUI extends Panel {
         Color dark1=new Color(24,24,24);
         Color dark2=new Color(18,18,18);
         Color dark3=new Color(40,40,40);
-//        this.setMaximumSize(new Dimension(400,10));
+        this.setPreferredSize(new Dimension(800,20));
         checkBox=new JCheckBox();
         this.song = song;
         more=new Label(2);
@@ -29,7 +29,7 @@ public class SongGUI extends Panel {
         album = new Label(song.album, 2);
         date = new Label(song.year, 2);
         time = new Label(song.lenght, 2);
-        this.setLayout(new GridLayout(1,6));
+        this.setLayout(new GridLayout(1,5));
         checkBox.setBackground(dark2);
 //        this.add(checkBox);
         this.add(name);
