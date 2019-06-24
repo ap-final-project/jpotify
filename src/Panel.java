@@ -16,6 +16,7 @@ public class Panel extends JPanel {
             case 1:color=dark1; break;
             case 2:color=dark2; break;
             case 3:color=dark3; break;
+            case 4:color=bright; break;
             default: color=dark1;
         }
         this.setOpaque(true);

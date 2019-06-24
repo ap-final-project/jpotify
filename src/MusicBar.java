@@ -36,7 +36,6 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     ImageIcon mute=new ImageIcon("img\\mute.png");
     Panel info;
     JSlider jSlider=new JSlider();
-
     progress progressBar;
     MusicBarListener musicBarListener;
     private float songLength;
