@@ -18,15 +18,15 @@ public class Main {
 //        welcome.setVisible(true);
 //        Thread.sleep(4000);
 //        welcome.setVisible(false);
-        File tempFile = new File("data.bin");
+        File tempFile = new File("data.txt");
         boolean exists = tempFile.exists();
         if (exists) {
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(tempFile));
             SaveInfo saved = (SaveInfo) objectInputStream.readObject();
             if (saved != null) {
-                Playlist recentlyPlayedAtLast = new Playlist("recentlyPlayed2", "All your Songs", "play.png");
+                ArrayList<Song> recentlyPlayedAtLast= new ArrayList<>();
                 for (String path : saved.songPaths) {
-                    recentlyPlayedAtLast.songs.add(new Song(path));
+                    recentlyPlayedAtLast.add(new Song(path));
                 }
                 ArrayList<Playlist> playlists = new ArrayList<>();
                 for (int i = 0; i < saved.playlistName.size(); i++) {
@@ -41,31 +41,31 @@ public class Main {
                     playlists.add(new Playlist(name, description, imgPath));
                 }
                 for (Playlist p : playlists) {
-                    System.out.println("play : " + p.name);
-                    ArrayList<Integer> indexs = new ArrayList<>();
-                    for (int i=0;i<recentlyPlayedAtLast.songs.size();i++) {
-//                        for (Map.Entry<String,Integer> entry  : saved.playlistsAndItsPositiom.get(i).entrySet()) {
-                            if (saved.playlistsAndItsPositiom.get(i).get(p.name)!=null) {
-//                                System.out.println(entry.getKey()+"=="+p.name);
-                                System.out.println(recentlyPlayedAtLast.songs.get(i).title+" is in "+p.name);
-                                p.add(new SongGUI(recentlyPlayedAtLast.songs.get(i)), recentlyPlayedAtLast.songs.get(i));
-                                indexs.add(saved.playlistsAndItsPositiom.get(i).get(p.name));
+//                    System.out.println("play : " + p.name);
+                    ArrayList<Integer> indexes = new ArrayList<>();
+                    for (int i=0;i<recentlyPlayedAtLast.size();i++) {
+                            if (saved.playlistsAndItsPositiom.get(i).containsKey(p.name)) {
+//                                System.out.println(recentlyPlayedAtLast.get(i).title+" is in "+p.name);
+                                p.add(new SongGUI(recentlyPlayedAtLast.get(i)), recentlyPlayedAtLast.get(i));
+                                indexes.add(saved.playlistsAndItsPositiom.get(i).get(p.name));
                             }
-
                     }
-                    for (int i = 0; i < p.songs.size(); i++) {
-                        for (int j = 0; j < p.songs.size() - 1; j++) {
-                            if (indexs.get(j) > indexs.get(j + 1)) {
-                                Integer t = indexs.get(j);
-                                indexs.set(j, indexs.get(j + 1));
-                                indexs.set(j + 1, t);
-                                Song temp = p.songs.get(j);
-                                p.songs.set(j, p.songs.get(j + 1));
-                                p.songs.set(j + 1, temp);
-                            }
-                        }
-                    }
-
+//                    for (int i = 0; i < p.songs.size(); i++) {
+//                        for (int j = 0; j < p.songs.size() - 1; j++) {
+//                            if (indexs.get(j) > indexs.get(j + 1)) {
+//                                Integer t = indexs.get(j);
+//                                indexs.set(j, indexs.get(j + 1));
+//                                indexs.set(j + 1, t);
+//                                Song temp = p.songs.get(j);
+//                                p.songs.set(j, p.songs.get(j + 1));
+//                                p.songs.set(j + 1, temp);
+//                            }
+//                        }
+//                    }
+                System.out.println(p.name+" contains :");
+                for (int i=0;i<p.songs.size();i++){
+                    System.out.println(" "+p.songs.get(i).title);
+                }
                 }
             }
         }
@@ -85,17 +85,25 @@ public class Main {
                     saveInfo.playlistDescription.add(p.description);
                 }
                 for (int i=0;i<mainPage.musicPlayer.recentlyPlayed.songs.size();i++) {
+                    Song current=mainPage.musicPlayer.recentlyPlayed.songs.get(i);
                     HashMap<String, Integer> songPlAndLocation = new HashMap<>();
                     for (Playlist p : mainPage.centerPlayLists.playlists) {
-                        if (p.songs.contains(mainPage.musicPlayer.recentlyPlayed.songs.get(i))) {
-                            songPlAndLocation.put(p.name , i);
-//                            System.out.println("we put"+mainPage.musicPlayer.recentlyPlayed.songs.get(i).title+"in"+p.name);
+                        if (p.songs.contains(current)) {
+                            songPlAndLocation.put(p.name , p.songs.indexOf(mainPage.musicPlayer.recentlyPlayed.songs.get(i)));
+                            System.out.println("we put"+mainPage.musicPlayer.recentlyPlayed.songs.get(i).title+"in"+p.name);
                         }
-                        saveInfo.playlistsAndItsPositiom.add(songPlAndLocation);
                     }
+                    saveInfo.playlistsAndItsPositiom.add(songPlAndLocation);
+                }
+
+                for (int i=0;i<mainPage.musicPlayer.recentlyPlayed.songs.size();i++){
+                    System.out.println(mainPage.musicPlayer.recentlyPlayed.songs.get(i).title);
+                        for (Map.Entry<String,Integer> entry:saveInfo.playlistsAndItsPositiom.get(i).entrySet()) {
+                            System.out.println("  is"+entry.getValue()+" om in "+entry.getKey());
+                        }
                 }
                 try {
-                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(new File("data.bin")));
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(new File("data.txt")));
                     objectOutputStream.writeObject(saveInfo);
 
                     for (int i = 0; i <saveInfo.playlistsAndItsPositiom.size() ; i++) {

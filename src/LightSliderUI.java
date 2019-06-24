@@ -11,7 +11,7 @@ public class LightSliderUI extends BasicSliderUI {
 
     Color dark3 = new Color(40, 40, 40);
     Color bright = new Color(194, 194, 194);
-    private final Color rangeColor = Color.BLUE;
+    private final Color rangeColor = Color.WHITE;
     private final BasicStroke stroke = new BasicStroke(2f);
 
     private transient boolean upperDragging;

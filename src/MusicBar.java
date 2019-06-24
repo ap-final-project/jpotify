@@ -74,8 +74,16 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         jSlider.setOpaque(true);
         jSlider.setPaintTicks(true);
         jSlider.setUI(new LightSliderUI(jSlider));
-
-//        jSlider.setPaintTicks(false);
+        Panel volume=new Panel(3);
+        BorderLayout layout=new BorderLayout();
+        layout.setHgap(10);
+        volume.setLayout(layout);
+        sound.setBorder(BorderFactory.createEmptyBorder(0,0,8,0));
+        volume.setPreferredSize(new Dimension(120,30));
+        sound.setIcon(low);
+        volume.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
+        volume.add(sound,BorderLayout.WEST);
+        volume.add(jSlider,BorderLayout.CENTER);
         up.setLayout(flowLayout);
         up.add(like);
         up.add(shuffle);
@@ -83,8 +91,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         up.add(play);
         up.add(next);
         up.add(repeat);
-        up.add(sound);
-        up.add(jSlider);
+        this.add(volume,BorderLayout.EAST);
         Panel keke = new Panel(3);
         keke.setBorder(new EmptyBorder(10, 10, 10, 10));
         keke.setLayout(new BorderLayout());
