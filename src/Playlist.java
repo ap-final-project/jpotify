@@ -8,9 +8,11 @@ public class Playlist {
     ArrayList<SongGUI> guis = new ArrayList<>();
     String name = "";
     String imgPath = "";
+    String description="";
 
-    public Playlist(String name, String imgPath) {
+    public Playlist(String name, String description,String imgPath) {
         this.name = name;
+        this.description=description;
         this.imgPath = imgPath;
     }
 

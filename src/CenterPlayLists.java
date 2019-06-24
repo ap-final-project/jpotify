@@ -34,8 +34,8 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener {
     }
 
     @Override
-    public void makePlayList(String name, String path) {
-        Playlist playlist=new Playlist(name,path);
+    public void makePlayList(String name,String description,String path) {
+        Playlist playlist=new Playlist(name,description,path);
         PLGUI plgui=new PLGUI(playlist,name,path);
         playlists.add(playlist);
         playlistGUIs.add(plgui);

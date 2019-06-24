@@ -62,7 +62,7 @@ public class Song implements Serializable{
                 artWork.setIcon(defaultIcon);
             } else {
                 Image image = new ImageIcon(imageData).getImage();
-                Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
+                Image newimg = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
                 imageIcon = new ImageIcon(newimg);
                 artWork.setIcon(imageIcon);
             }
