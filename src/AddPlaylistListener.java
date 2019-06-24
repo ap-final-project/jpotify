@@ -5,5 +5,5 @@ import java.io.File;
 import java.io.IOException;
 
 public interface AddPlaylistListener {
-void makePlayList(String name,String path);
+void makePlayList(String name,String description,String path);
 }

@@ -132,13 +132,21 @@ public class LeftBar extends Panel implements InformArtWrok{
                 Button addNewPL=new Button("Add",1);
                 Label label= new Label("Enter your playlist's name",1);
                 Button addImg=new Button("select image",3);
-                makePlayList.add(textField,BorderLayout.CENTER);
-                makePlayList.add(label,BorderLayout.PAGE_START);
+                Panel p=new Panel(3);
+                p.setLayout(new GridLayout(2,1));
+                p.add(label);
+                p.add(textField);
+                makePlayList.add(p,BorderLayout.PAGE_START);
                 Panel btnPanel=new Panel(3);
+                Label description=new Label("Description",3);
+                Panel p1=new Panel(3);
+                p1.setLayout(new BorderLayout());
+                p1.add(description,BorderLayout.PAGE_START);
+                p1.add(textArea,BorderLayout.CENTER);
                 btnPanel.setBorder(new EmptyBorder(2,2,2,2));
-                btnPanel.setLayout(new GridLayout(1,3));
+                btnPanel.setLayout(new GridLayout(1,2));
                 btnPanel.add(addImg);
-                makePlayList.add(textArea);
+                makePlayList.add(p1,BorderLayout.CENTER);
                 btnPanel.add(addNewPL);
                 makePlayList.add(btnPanel,BorderLayout.PAGE_END);
                 textField.addKeyListener(new KeyAdapter() {
@@ -147,7 +155,7 @@ public class LeftBar extends Panel implements InformArtWrok{
                         super.keyPressed(e);
                         if(e.getKeyCode()==KeyEvent.VK_ENTER) {
                             if(!textField.getText().trim().equals("")){
-                                makePlListener.makePlayList(textField.getText(), imgPath[0]);
+                                makePlListener.makePlayList(textField.getText(),textArea.getText(), imgPath[0]);
                                 makePlayList.setVisible(false);
                             }
                         }
@@ -171,7 +179,7 @@ public class LeftBar extends Panel implements InformArtWrok{
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if(!textField.getText().trim().equals("")){
-                            makePlListener.makePlayList(textField.getText(), imgPath[0]);
+                            makePlListener.makePlayList(textField.getText(),textArea.getText(), imgPath[0]);
                             makePlayList.setVisible(false);
                         }
                     }
