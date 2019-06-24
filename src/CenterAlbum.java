@@ -17,7 +17,7 @@ public class CenterAlbum extends Panel implements MakeAlbumListener{
 
     public CenterAlbum() {
         super(2);
-        this.setLayout(new WrapLayout(WrapLayout.CENTER));
+        this.setLayout(new WrapLayout(WrapLayout.LEFT));
     }
 
     public void setChoosePlaylist(ChoosePlaylist choosePlaylist) {
@@ -56,8 +56,8 @@ public class CenterAlbum extends Panel implements MakeAlbumListener{
             AlbumGUI albumGUI = new AlbumGUI(album);
             albums.add(album);
             this.add(albumGUI);
+            System.out.println("miad inja : "+songGUI.song.title);
             albumGUI.addMouseListener(new MouseAdapter() {
-
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     super.mouseClicked(e);

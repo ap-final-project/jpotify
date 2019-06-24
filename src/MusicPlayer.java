@@ -23,6 +23,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     PlayBTNListener playBTNListener = null;
     addGUIToCenter addGUIToCenter = null;
     ArrayList<Playlist> playlists = new ArrayList<>();
+    ArrayList<Album> albums = new ArrayList<>();
     AddToInfoBar InfoBarListener = null;
     InformEqualizer informEqualizer;
     MakeVisibilityTrue makeVisibilityTrue = null;
@@ -269,12 +270,13 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                             p.guis.remove(gui);
                         }
                     }
+//                    for (Album a:)
                 }
                 else{
                     CenterSongs.currentPlayList.guis.remove(gui);
                     CenterSongs.currentPlayList.remove(gui.song);
                 }
-                makeVisibilityTrue.makeTrue(0);
+                makeVisibilityTrue.makeTrue(4);
             }
         });
         addPl.addActionListener(new ActionListener() {

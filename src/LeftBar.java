@@ -51,53 +51,26 @@ public class LeftBar extends Panel implements InformArtWrok{
         super(1);
         AddBtn.setIcon(new ImageIcon(new ImageIcon("img\\plus.png").getImage().getScaledInstance(28,28,100)));
         text.setText("Menu");
-        AddBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-                jfc.setDialogTitle("Multiple file and directory selection:");
-                jfc.setMultiSelectionEnabled(true);
-                jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-                int returnValue = jfc.showDialog(null, "choose");
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File[] files = jfc.getSelectedFiles();
-                    System.out.println("Directories found\n");
-                    Arrays.asList(files).forEach(x -> {
-                        if (x.isDirectory()) {
-                            ArrayList<String> path=new ArrayList<>();
-                            for (int i = 0; i <x.listFiles().length ; i++) {
-                                Song song= null;
-                                SongGUI songGUI= null;
-                                try {
-                                    song = new Song(x.listFiles()[i].getPath());
-                                    songGUI=new SongGUI(song);
-                                    songs.add(song);
-                                    songGUIS.add(songGUI);
-                                } catch (JavaLayerException e1) {
-                                    e1.printStackTrace();
-                                } catch (IOException e1) {
-                                    e1.printStackTrace();
-                                } catch (InvalidDataException e1) {
-                                    e1.printStackTrace();
-                                } catch (UnsupportedTagException e1) {
-                                    e1.printStackTrace();
-                                }
-                                addSongListener.addSong(song,songGUI);
-                                path.add(x.listFiles()[i].getPath());
-                            }
-                            makeAlbum.makeAlbum(x.getName(),songs,songGUIS);
-                        }
-                    });
-                    System.out.println("\n- - - - - - - - - - -\n");
-                    System.out.println("Files Found\n");
-                    Arrays.asList(files).forEach(x -> {
-                        if (x.isFile()) {
+        AddBtn.addActionListener(e -> {
+            JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+            jfc.setDialogTitle("Multiple file and directory selection:");
+            jfc.setMultiSelectionEnabled(true);
+            jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            int returnValue = jfc.showDialog(null, "choose");
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File[] files = jfc.getSelectedFiles();
+                System.out.println("Directories found\n");
+                Arrays.asList(files).forEach(x -> {
+                    if (x.isDirectory()) {
+                        ArrayList<String> path=new ArrayList<>();
+                        for (int i = 0; i <x.listFiles().length ; i++) {
                             Song song= null;
-                            SongGUI songGUI=null;
-
+                            SongGUI songGUI= null;
                             try {
-                                song = new Song(x.getPath());
+                                song = new Song(x.listFiles()[i].getPath());
                                 songGUI=new SongGUI(song);
+                                songs.add(song);
+                                songGUIS.add(songGUI);
                             } catch (JavaLayerException e1) {
                                 e1.printStackTrace();
                             } catch (IOException e1) {
@@ -108,11 +81,34 @@ public class LeftBar extends Panel implements InformArtWrok{
                                 e1.printStackTrace();
                             }
                             addSongListener.addSong(song,songGUI);
-                            makeAlbum.makeAlbumS(song.album,song,songGUI);
+                            path.add(x.listFiles()[i].getPath());
                         }
-                    })
-                    ;
-                }
+                        makeAlbum.makeAlbum(x.getName(),songs,songGUIS);
+                    }
+                });
+                System.out.println("\n- - - - - - - - - - -\n");
+                System.out.println("Files Found\n");
+                Arrays.asList(files).forEach(x -> {
+                    if (x.isFile()) {
+                        Song song= null;
+                        SongGUI songGUI=null;
+                        try {
+                            song = new Song(x.getPath());
+                            songGUI=new SongGUI(song);
+                        } catch (JavaLayerException e1) {
+                            e1.printStackTrace();
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        } catch (InvalidDataException e1) {
+                            e1.printStackTrace();
+                        } catch (UnsupportedTagException e1) {
+                            e1.printStackTrace();
+                        }
+                        addSongListener.addSong(song,songGUI);
+                        makeAlbum.makeAlbumS(song.album,song,songGUI);
+                    }
+                })
+                ;
             }
         });
 

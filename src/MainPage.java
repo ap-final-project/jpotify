@@ -53,10 +53,10 @@ public class MainPage extends JFrame {
         centerAlbum.setChoosePlaylist(center);
         centerAlbum.setMakeVisibilityTrue(center);
         this.setVisible(true);
-//        this.setMinimumSize(new Dimension(1400,800));
         this.add(main);
         leftBar.setaddSongListener(musicPlayer);
         leftBar.setMakeAlbum(centerAlbum);
         musicBar.setBarUpdateListener(musicPlayer);
+//        this.setMinimumSize(new Dimension(1400,800));
     }
 }

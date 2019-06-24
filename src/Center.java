@@ -35,7 +35,6 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
             case 0:
                 scrollpane.setPanel(centerSongs);
                 centerSongs.setVisible(true);
-                centerSongs.showPlayList(CenterSongs.currentPlayList);
                 break;
             case 1:
                 scrollpane.setPanel(centerPlayLists);
@@ -45,6 +44,11 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
             case 2:
                 scrollpane.setPanel(centerAlbum);
                 centerAlbum.setVisible(true);
+                break;
+            case 4:
+                scrollpane.setPanel(centerSongs);
+                centerSongs.setVisible(true);
+                centerSongs.showPlayList(CenterSongs.currentPlayList);
                 break;
         }
     }
