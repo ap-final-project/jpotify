@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 
 public class LeftBar extends Panel implements InformArtWrok{
     AddPlaylistListener makePlListener = null;
@@ -35,6 +36,8 @@ public class LeftBar extends Panel implements InformArtWrok{
     ChoosePlaylist choosePlaylist;
     ArrayList<Song> songs=new ArrayList<>();
     ArrayList<SongGUI> songGUIS=new ArrayList<>();
+    String[] playlistDefaultIMGS=new String[3];
+
     public void setCenterTrue(MakeVisibilityTrue centerTrue) {
         this.centerTrue = centerTrue;
     }
@@ -51,7 +54,12 @@ public class LeftBar extends Panel implements InformArtWrok{
         super(1);
         AddBtn.setIcon(new ImageIcon(new ImageIcon("img\\plus.png").getImage().getScaledInstance(28,28,100)));
         text.setText("Menu");
+
+        playlistDefaultIMGS[0]="img\\PLDefault (1).jpg";
+        playlistDefaultIMGS[1]="img\\PLDefault (2).jpg";
+        playlistDefaultIMGS[2]="img\\PLDefault (3).jpg";
         AddBtn.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -125,10 +133,8 @@ public class LeftBar extends Panel implements InformArtWrok{
                 makePlayList.setSize(150,150);
                 makePlayList.setLocation(200,100);
                 makePlayList.setLayout(new BorderLayout());
-//                JTextPane textField=new JTextPane();
                 TextField textField=new TextField();
                 TextArea textArea=new TextArea();
-//                textField.setName("Name");
                 Button addNewPL=new Button("Add",1);
                 Label label= new Label("Enter your playlist's name",1);
                 Button addImg=new Button("select image",3);
@@ -155,6 +161,11 @@ public class LeftBar extends Panel implements InformArtWrok{
                         super.keyPressed(e);
                         if(e.getKeyCode()==KeyEvent.VK_ENTER) {
                             if(!textField.getText().trim().equals("")){
+                                Random random=new Random();
+                                if (imgPath[0].equals("")) {
+                                    imgPath[0] = playlistDefaultIMGS[Math.abs(random.nextInt()%3)];
+                                    System.out.println("ey baba");
+                                }
                                 makePlListener.makePlayList(textField.getText(),textArea.getText(), imgPath[0]);
                                 makePlayList.setVisible(false);
                             }
@@ -205,7 +216,6 @@ public class LeftBar extends Panel implements InformArtWrok{
                 centerTrue.makeTrue(2);
             }
         });
-
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         this.add(scrollPane);
         this.add(artWork);
