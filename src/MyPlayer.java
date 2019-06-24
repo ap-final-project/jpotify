@@ -28,7 +28,7 @@ public class MyPlayer {
     private SampleBuffer var3;
     private short[] Equalizers=new short[32];
     public MyPlayer(InputStream var1) throws JavaLayerException {
-        this(var1, (AudioDevice)null);
+        this(var1, null);
     }
 
     public MyPlayer(InputStream var1, AudioDevice var2) throws JavaLayerException {
@@ -55,7 +55,6 @@ public class MyPlayer {
     public boolean play(int var1) throws JavaLayerException {
         boolean var2;
         for(var2 = true; var1-- > 0 && var2; var2 = this.decodeFrame()) {
-            ;
         }
 
         if (!var2) {
@@ -83,7 +82,6 @@ public class MyPlayer {
             try {
                 this.bitstream.close();
             } catch (BitstreamException var3) {
-                ;
             }
         }
 

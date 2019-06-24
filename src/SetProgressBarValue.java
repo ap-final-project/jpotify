@@ -1,3 +1,3 @@
 public interface SetProgressBarValue {
-public void setProgreeValue(int sec);
+void setProgreeValue(int sec);
 }

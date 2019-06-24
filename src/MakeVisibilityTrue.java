@@ -1,3 +1,3 @@
 public interface MakeVisibilityTrue {
-    public void makeTrue(int i);
+    void makeTrue(int i);
 }

@@ -107,7 +107,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     }
 
     @Override
-    public void addTOInfo(Song song) throws JavaLayerException, IOException {
+    public void addTOInfo(Song song) {
         songName.setText(song.title);
         artistName.setText(song.artist);
         album.setText(song.album);

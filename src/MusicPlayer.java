@@ -101,7 +101,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         };
     }
 
-    public MusicPlayer() throws JavaLayerException {
+    public MusicPlayer() {
         currentPlaylist = recentlyPlayed;
         playlists.add(recentlyPlayed);
         playlists.add(favorites);
@@ -384,7 +384,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     }
 
     @Override
-    public void update(int percent) throws JavaLayerException {
+    public void update(int percent) {
         try {
             pause.set(!pause.get());
             playerThread.stop();

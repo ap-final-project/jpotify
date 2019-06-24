@@ -25,8 +25,8 @@ public class Playlist {
         songs.add(song);
         guis.add(songGUI);
         song.playlists.put(this,songs.size());
-        if(!this.name.equals("recentlyPlayed"))
-        informPLGUI.updateGui();
+//        if(!this.name.equals("recentlyPlayed"))
+//        informPLGUI.updateGui();
     }
     public void remove(Song song){
         this.songs.remove(song);

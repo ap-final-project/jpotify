@@ -1,3 +1,3 @@
 public interface InformEqualizer {
-    public void sendValues(short[] V);
+    void sendValues(short[] V);
 }

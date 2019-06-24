@@ -3,7 +3,7 @@ import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class AlbumGUI extends Panel implements PanelGuiInformer{
+public class AlbumGUI extends Panel{
     Album album;
     Label picture;
     Label label;
@@ -23,8 +23,8 @@ public class AlbumGUI extends Panel implements PanelGuiInformer{
         this.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.black));
     }
 
-    @Override
-    public void updateGui() {
-        label.setText("<html>"+"<div>"+album.getName()+album.getNum()+" songs"+album.getSongs().size()+"</div>"+"</html>");
-    }
+//    @Override
+//    public void updateGui() {
+//        label.setText("<html>"+"<div>"+album.getName()+album.getNum()+" songs"+album.getSongs().size()+"</div>"+"</html>");
+//    }
 }

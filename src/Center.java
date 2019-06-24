@@ -12,7 +12,7 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
     CenterPlayLists centerPlayLists;
     ArrayList<Playlist> playlists;
     CenterAlbum centerAlbum;
-    public Center(CenterSongs centerSongs, CenterPlayLists centerPlayLists,ArrayList<Playlist> playlists,CenterAlbum centerAlbum) throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
+    public Center(CenterSongs centerSongs, CenterPlayLists centerPlayLists,ArrayList<Playlist> playlists,CenterAlbum centerAlbum) {
         super(2);
         this.centerAlbum=centerAlbum;
         this.playlists=playlists;
