@@ -7,13 +7,6 @@ import java.io.IOException;
 public class MainPage extends JFrame{
     private final String TITLE = "Kian & Pariya Jpotify";
     LeftBar leftBar = new LeftBar();
-
-    @Override
-    public void setMinimumSize(Dimension minimumSize) {
-        super.setMinimumSize(minimumSize);
-        setSize(800,800);
-    }
-
     Panel main = new Panel(2);
     MusicBar musicBar = new MusicBar();
     volatile MusicPlayer musicPlayer=new MusicPlayer();
@@ -28,6 +21,7 @@ public class MainPage extends JFrame{
         this.setSize(800,800);
         this.setBackground(bright);
         this.setForeground(dark);
+        this.setMinimumSize(new Dimension(800,800));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         main.setLayout(new BorderLayout());
         main.add(leftBar, BorderLayout.WEST);

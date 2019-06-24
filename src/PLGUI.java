@@ -23,6 +23,7 @@ public class PLGUI extends Panel {
         ImageIcon imageIcon=new ImageIcon(newimg);
         pic.setIcon(imageIcon);
         label=new Label("<html>"+playlist.name+"<br>"+playlist.description+"<br>"+playlist.songs.size()+"songs"+"</html>",3);
+        this.setPreferredSize(new Dimension(200+this.label.getWidth(),200+this.label.getHeight()));
         this.setLayout(new BorderLayout());
         pic.setSize(200,200);
         pic.setSize(200,200);

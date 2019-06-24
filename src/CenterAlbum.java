@@ -17,7 +17,7 @@ public class CenterAlbum extends Panel implements MakeAlbumListener {
 
     public CenterAlbum() {
         super(3);
-        this.setLayout(new WrapLayout(WrapLayout.LEFT));
+        this.setLayout(new WrapLayout(WrapLayout.CENTER));
     }
 
     public void setChoosePlaylist(ChoosePlaylist choosePlaylist) {
