@@ -26,6 +26,7 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         layout = new SpringLayout();
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 //        this.setVisible(true);
+        this.setPreferredSize(new Dimension());
         title.setText("Title");
         artist.setText("Artist");
         album.setText("Album");

@@ -11,7 +11,9 @@ public class AlbumGUI extends Panel {
     public AlbumGUI(Album album) {
         super(3);
         this.album = album;
-        label=new Label("<html>"+album.getName()+"<br>"+album.getNum()+" songs"+"<br>"+album.getArtist()+"</html>",3);
+        label=new Label(3);
+        label.setText("<html>"+"<div>"+album.getName()+album.getNum()+" songs"+album.getArtist()+"</div>"+"</html>");
+        this.setPreferredSize(new Dimension(200+this.label.getWidth(),200+this.label.getHeight()));
         picture = new Label(3);
         picture.setIcon(album.getSongs().get(0).imageIcon);
         this.setLayout(new BorderLayout());
