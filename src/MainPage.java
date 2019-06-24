@@ -1,24 +1,33 @@
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-public class MainPage extends JFrame{
+import java.io.ObjectOutputStream;
+
+public class MainPage extends JFrame {
     private final String TITLE = "Kian & Pariya Jpotify";
     LeftBar leftBar = new LeftBar();
     Panel main = new Panel(2);
     MusicBar musicBar = new MusicBar();
-    volatile MusicPlayer musicPlayer=new MusicPlayer();
-    CenterSongs centerSongs=new CenterSongs();
-    CenterPlayLists centerPlayLists=new CenterPlayLists(musicPlayer.getPlaylists());
-    CenterAlbum centerAlbum=new CenterAlbum();
-    Center center=new Center(centerSongs,centerPlayLists,musicPlayer.getPlaylists(),centerAlbum);
+    FriendActivity friendActivity = new FriendActivity();
+    volatile MusicPlayer musicPlayer = new MusicPlayer();
+    CenterSongs centerSongs = new CenterSongs();
+    CenterPlayLists centerPlayLists = new CenterPlayLists(musicPlayer.getPlaylists());
+    CenterAlbum centerAlbum = new CenterAlbum();
+    Center center = new Center(centerSongs, centerPlayLists, musicPlayer.getPlaylists(), centerAlbum);
+
     public MainPage() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         this.setTitle(TITLE);
-        Color bright =new Color(194,194,194);
-        Color dark=new Color(24,24,24);
-        this.setSize(800,800);
+        Color bright = new Color(194, 194, 194);
+        Color dark = new Color(24, 24, 24);
+        this.setSize(800, 800);
         this.setBackground(bright);
         this.setForeground(dark);
 //        this.setMinimumSize(new Dimension(800,800));
@@ -26,8 +35,9 @@ public class MainPage extends JFrame{
         main.setLayout(new BorderLayout());
         main.add(leftBar, BorderLayout.WEST);
         main.add(musicBar, BorderLayout.PAGE_END);
+        main.add(friendActivity,BorderLayout.EAST);
         musicPlayer.setInfoBarListener(musicBar);
-        main.add(center,BorderLayout.CENTER);
+        main.add(center, BorderLayout.CENTER);
         leftBar.setaddSongListener(musicPlayer); //addSong
         musicPlayer.setListener(centerSongs); //addGUI
         musicPlayer.setInformArtWrok(leftBar);
@@ -42,7 +52,6 @@ public class MainPage extends JFrame{
         musicPlayer.setMakeVisibilityTrue(center);
         centerAlbum.setChoosePlaylist(center);
         centerAlbum.setMakeVisibilityTrue(center);
-
         this.setVisible(true);
 //        this.setMinimumSize(new Dimension(1400,800));
         this.add(main);

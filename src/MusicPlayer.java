@@ -45,6 +45,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     private long songTotalLength;
     MyPlayer player1;
     Thread playerThread;
+    short[] data=new short[64];
     boolean fromThis = true;
     final AtomicBoolean pause = new AtomicBoolean(false);
     boolean firstTime = true;
@@ -62,14 +63,28 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     }
 
 
-    public void makeNewThread() {
-        playerThread = new Thread() {
+    public Thread makeNewThread() {
+        return new Thread() {
             @Override
             public void run() {
                 try {
                     while (player1.play(1)) {
-                        informEqualizer.sendValues(player1.getFrames());
+//                        informEqualizer.sendValues(player1.getFrames());
                         framesPlayed++;
+
+                        if (framesPlayed%2==0){
+                            short[] thisFrame=player1.getFrames();
+                            for (int i = 0; i <32 ; i++) {
+                                data[i]=thisFrame[i];
+                            }
+                        }else {
+
+                            short[] thisFrame=player1.getFrames();
+                            for (int i = 32; i <64 ; i++) {
+                                data[i]=thisFrame[i-32];
+                            }
+                            informEqualizer.sendValues(data);
+                        }
                         int sec = player1.audio.getPosition() / 1000;
                         InfoBarListener.progressBarIncrement(sec + lastSec);
 
@@ -90,7 +105,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         currentPlaylist = recentlyPlayed;
         playlists.add(recentlyPlayed);
         playlists.add(favorites);
-        makeNewThread();
+        playerThread=makeNewThread();
     }
 
     public void setInformEqualizer(InformEqualizer informEqualizer) {
@@ -141,13 +156,14 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 threadStarted = false;
                 fromThis = true;
                 pause.set(false);
-                playerThread.stop();
-                makeNewThread();
+                Thread thread=playerThread;
+                playerThread=makeNewThread();
                 try {
                     play(currentSong);
                 } catch (JavaLayerException e1) {
                     e1.printStackTrace();
                 }
+                thread.stop();
                 break;
             case 3://previous
                 playerThread.stop();
@@ -155,7 +171,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 fromThis = true;
                 pause.set(false);
                 currentSong = currentPlaylist.getPreSong(currentSong);
-                makeNewThread();
+                playerThread=makeNewThread();
                 try {
                     play(currentSong);
                 } catch (JavaLayerException e1) {
@@ -188,12 +204,13 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 }
                 break;
             case 2://next
-                playerThread.stop();
                 threadStarted = false;
                 fromThis = true;
                 pause.set(false);
                 currentSong = currentPlaylist.getNextSong(currentSong);
-                makeNewThread();
+                Thread thread=playerThread;
+                playerThread=makeNewThread();
+                thread.stop();
                 try {
                     play(currentSong);
                 } catch (JavaLayerException e1) {
@@ -206,7 +223,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 fromThis = true;
                 pause.set(false);
                 currentSong = currentPlaylist.getPreSong(currentSong);
-                makeNewThread();
+                playerThread=makeNewThread();
                 try {
                     play(currentSong);
                 } catch (JavaLayerException e1) {
@@ -344,7 +361,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                         if (currentSong != null && !currentSong.equals(songClicked)) {
                             playerThread.stop();
                             threadStarted = false;
-                            makeNewThread();
+                            playerThread=makeNewThread();
                         }
                     }
                     currentSong = songClicked;
@@ -379,7 +396,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
             }
             framesPlayed = framesToPlay;
             pause.set(!pause.get());
-            makeNewThread();
+            playerThread=makeNewThread();
             threadStarted = true;
             playerThread.start();
         } catch (Exception e) {

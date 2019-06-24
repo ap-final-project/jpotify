@@ -23,16 +23,15 @@ public class Equalizer extends Panel {
         colors.add(c2);
         colors.add(c3);
         colors.add(c4);
-        this.setMaximumSize(new Dimension(600,100));
-        this.setPreferredSize(new Dimension(600,100));
-        this.setMinimumSize(new Dimension(600,100));
+        this.setMaximumSize(new Dimension(800,300));
+        this.setPreferredSize(new Dimension(800,300));
+        this.setMinimumSize(new Dimension(800,300));
         FlowLayout flowLayout=new FlowLayout();
         flowLayout.setHgap(0);
         lower.setLayout(flowLayout);
         upper.setLayout(flowLayout);
         this.add(upper);
         this.add(lower);
-//        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         for (int i = 0; i <64 ; i++) {
             JProgressBar jpU=new JProgressBar(JProgressBar.VERTICAL,0,10000);
 //            GridLayout layout=new GridLayout(2,64);

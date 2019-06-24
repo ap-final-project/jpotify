@@ -15,6 +15,8 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
     Label time = new Label(2);
     Label test = new Label("More",2);
 //    Label test2 = new Label(2);
+    Panel songs=new Panel(2);
+
     Panel p = new Panel(3);
     SpringLayout layout;
     Equalizer equalizer;
@@ -25,8 +27,7 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         equalizer = new Equalizer();
         layout = new SpringLayout();
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-//        this.setVisible(true);
-        this.setPreferredSize(new Dimension());
+//        this.setPreferredSize(new Dimension());
         title.setText("Title");
         artist.setText("Artist");
         album.setText("Album");
@@ -51,7 +52,10 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         p.add(test);
 //        p.add(test2);
         this.add(equalizer);
-        this.add(p);
+        this.add(songs);
+        songs.setLayout(new BoxLayout(songs,1));
+        songs.add(p);
+        songs.setBorder(BorderFactory.createEmptyBorder(10,40,10,100));
         System.out.println(this.getComponents().length);
     }
 
@@ -65,7 +69,7 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
 //        layout.putConstraint(SpringLayout.NORTH, songGUI, 10, SpringLayout.SOUTH, component);
 //        layout.putConstraint(SpringLayout.WEST, songGUI, 20, SpringLayout.WEST, this);
 //        layout.putConstraint(SpringLayout.EAST, songGUI, 20, SpringLayout.EAST, this);
-        this.add(songGUI);
+        songs.add(songGUI);
 
         revalidate();
     }
