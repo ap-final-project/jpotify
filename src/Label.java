@@ -14,6 +14,7 @@ public class Label extends JLabel {
             case 1:color=dark1; break;
             case 2:color=dark2; break;
             case 3:color=dark3; break;
+            case 4:color=bright; break;
             default: color=dark1;
         }
         this.setOpaque(true);
@@ -29,6 +30,7 @@ public class Label extends JLabel {
             case 1:color=dark1; break;
             case 2:color=dark2; break;
             case 3:color=dark3; break;
+            case 4:color=bright; break;
             default: color=dark1;
         }
         this.setOpaque(true);
@@ -45,6 +47,7 @@ public class Label extends JLabel {
             case 1:color=dark1; break;
             case 2:color=dark2; break;
             case 3:color=dark3; break;
+            case 4:color=bright; break;
             default: color=dark1;
         }
         this.setOpaque(true);
@@ -61,6 +64,7 @@ public class Label extends JLabel {
             case 1:color=dark1; break;
             case 2:color=dark2; break;
             case 3:color=dark3; break;
+            case 4:color=bright; break;
             default: color=dark1;
         }
         this.setOpaque(true);
@@ -77,13 +81,13 @@ public class Label extends JLabel {
             case 1:color=dark1; break;
             case 2:color=dark2; break;
             case 3:color=dark3; break;
+            case 4:color=bright; break;
             default: color=dark1;
         }
         this.setOpaque(true);
         this.setBackground(color);
         this.setForeground(bright);
         this.setBorder(BorderFactory.createEmptyBorder());
-
     }
 
     public Label(int c) {
@@ -92,6 +96,7 @@ public class Label extends JLabel {
             case 1:color=dark1; break;
             case 2:color=dark2; break;
             case 3:color=dark3; break;
+            case 4:color=bright; break;
             default: color=dark1;
         }
         this.setOpaque(true);

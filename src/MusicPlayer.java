@@ -37,8 +37,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     }
 
     static Playlist currentPlaylist;
-    Playlist recentlyPlayed = new Playlist("recentlyPlayed", "All songs", "img\\play.png");
-    Playlist favorites = new Playlist("favorites", "Your favorite songs", "img\\fullHeart.png");
+    Playlist recentlyPlayed = new Playlist("recentlyPlayed", "All songs", "img\\playlistdefault2.jpg");
+    Playlist favorites = new Playlist("favorites", "Your favorite songs", "img\\favoriteCover.png");
     InformArtWrok informArtWrok;
     boolean threadStarted = false;
     volatile FileInputStream fis;
