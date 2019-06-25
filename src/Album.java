@@ -66,4 +66,9 @@ public class Album {
         guis.add(gui);
         num++;
     }
+    public void remove(Song song,SongGUI gui){
+        songs.remove(song);
+        guis.remove(gui);
+        num--;
+    }
 }

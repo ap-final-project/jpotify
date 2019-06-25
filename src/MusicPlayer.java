@@ -334,7 +334,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 jFrame.setLocation(300, 100);
 //                            jFrame.setVisible(true);
                 for (Playlist p : playlists) {
-                    if (p.equals(recentlyPlayed)) continue;
+                    if (p.equals(recentlyPlayed)||p.equals(favorites)) continue;
                     Label label = new Label(p.name, 3);
                     label.addMouseListener(new MouseAdapter() {
                         @Override
@@ -373,18 +373,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         recentlyPlayed.add(gui, song);
 //        addGUIToCenter.addGui(gui);
         makeVisibilityTrue.makeTrue(0);
-        gui.more.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                settings(gui, e);
-            }
-        });
-        gui.checkBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == 1) System.out.println(gui.song.title);
-            }
-        });
+
         gui.addMouseListener(new MouseAdapter() {
 
             @Override

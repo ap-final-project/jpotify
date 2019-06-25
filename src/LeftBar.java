@@ -156,20 +156,10 @@ public class LeftBar extends Panel implements InformArtWrok{
                 btnPanel.add(addNewPL);
                 makePlayList.add(btnPanel,BorderLayout.PAGE_END);
                 textField.addKeyListener(new KeyAdapter() {
-                    @Override
                     public void keyPressed(KeyEvent e) {
                         super.keyPressed(e);
-                        if(e.getKeyCode()==KeyEvent.VK_ENTER) {
-                            if(!textField.getText().trim().equals("")){
-                                Random random=new Random();
-                                if (imgPath[0].equals("")) {
-                                    imgPath[0] = playlistDefaultIMGS[Math.abs(random.nextInt()%3)];
-                                    System.out.println("ey baba");
-                                }
-                                makePlListener.makePlayList(textField.getText(),textArea.getText(), imgPath[0]);
-                                makePlayList.setVisible(false);
-                            }
-                        }
+                        if(e.getKeyCode()==KeyEvent.VK_ENTER)
+                            addNewPL.doClick();
                     }
                 });
                 addImg.addActionListener(new ActionListener() {

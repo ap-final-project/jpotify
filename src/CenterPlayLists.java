@@ -87,7 +87,8 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener {
                                     @Override
                                     public void keyPressed(KeyEvent e) {
                                         super.keyPressed(e);
-                                        addImg.doClick();
+                                        if(e.getKeyCode()==KeyEvent.VK_ENTER)
+                                        addNewPL.doClick();
                                     }
                                 });
                                 addImg.addActionListener(new ActionListener() {
@@ -221,25 +222,10 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener {
                         btnPanel.add(addNewPL);
                         makePlayList.add(btnPanel, BorderLayout.PAGE_END);
                         textField.addKeyListener(new KeyAdapter() {
-                            @Override
-                            public void keyPressed(KeyEvent e) {
-                                super.keyPressed(e);
-                                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                                    if (!textField.getText().trim().equals("")) {
-                                        if (imgPath[0].equals("")) {
-                                            imgPath[0] = plgui.playlist.imgPath;
-                                        }
-                                        plgui.playlist.name = textField.getText();
-                                        plgui.playlist.description = textArea.getText();
-                                        plgui.playlist.imgPath = imgPath[0];
-                                        plgui.label.setText("<html>" + " " + playlist.name + "<br>" + " " + playlist.description + "<br>" + " " + playlist.songs.size() + "songs" + "</html>");
-                                        Image image=Toolkit.getDefaultToolkit().getImage(imgPath[0]);
-                                        Image newimg = image.getScaledInstance(200, 200,  Image.SCALE_SMOOTH);
-                                        ImageIcon imageIcon=new ImageIcon(newimg);
-                                        plgui.pic.setIcon(imageIcon);
-                                        makePlayList.setVisible(false);
-                                    }
-                                }
+                                public void keyPressed(KeyEvent e) {
+                                    super.keyPressed(e);
+                                    if(e.getKeyCode()==KeyEvent.VK_ENTER)
+                                        addNewPL.doClick();
                             }
                         });
                         addImg.addActionListener(new ActionListener() {
