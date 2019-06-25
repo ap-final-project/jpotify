@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class SongGUI extends Panel {
+public class SongGUI extends JPanel {
     Label artist;
     Label date;
     Label name;
@@ -14,7 +14,7 @@ public class SongGUI extends Panel {
     Song song;
     JCheckBox checkBox;
     public SongGUI(Song song) {
-        super(2);
+        super();
         Color bright=new Color(194,194,194);
         Color dark1=new Color(24,24,24);
         Color dark2=new Color(18,18,18);

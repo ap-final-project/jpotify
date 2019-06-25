@@ -70,5 +70,20 @@ public class Playlist {
     public SongGUI getGUIBySong(Song song) {
         return guis.get(songs.indexOf(song));
     }
-
+    public void swap(int firtIndex,int secIndex){
+        Song song=songs.get(firtIndex);
+        SongGUI songGUI= guis.get(firtIndex);
+        System.out.println("moving "+song.title+"from"+firtIndex+"to"+secIndex);
+        if (firtIndex>secIndex){
+            songs.remove(song);
+            guis.remove(songGUI);
+            songs.add(secIndex,song);
+            guis.add(secIndex,songGUI);
+        }else {
+            songs.remove(song);
+            guis.remove(songGUI);
+            songs.add(secIndex,song);
+            guis.add(secIndex,songGUI);
+        }
+    }
 }
