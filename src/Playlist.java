@@ -8,26 +8,35 @@ public class Playlist {
     ArrayList<SongGUI> guis = new ArrayList<>();
     String name = "";
     String imgPath = "";
-    String description="";
-    PanelGuiInformer informPLGUI=null;
+    String description = "";
 
-    public void setInformPLGUI(PanelGuiInformer informPLGUI) {
-        this.informPLGUI = informPLGUI;
-    }
-
-    public Playlist(String name, String description,String imgPath) {
+    public Playlist(String name, String description, String imgPath) {
         this.name = name;
-        this.description=description;
+        this.description = description;
         this.imgPath = imgPath;
     }
 
     public void add(SongGUI songGUI, Song song) {
         songs.add(song);
         guis.add(songGUI);
+        for (PLGUI plGui : CenterPlayLists.playlistGUIs
+        ) {
+            if (plGui.playlist.equals(this)) {
+                plGui.label.setText("<html>" + this.name + "<br>" + this.description + "<br>" + this.songs.size() + "songs" + "</html>");
+                break;
+            }
+        }
     }
-    public void remove(Song song){
+
+    public void remove(Song song) {
         this.songs.remove(song);
-//        informPLGUI.updateGui();
+        for (PLGUI plGui : CenterPlayLists.playlistGUIs
+        ) {
+            if (plGui.playlist.equals(this)) {
+                plGui.label.setText("<html>" + this.name + "<br>" + this.description + "<br>" + this.songs.size() + "songs" + "</html>");
+                break;
+            }
+        }
     }
 
     public Song next(Song song) {
@@ -67,20 +76,21 @@ public class Playlist {
     public SongGUI getGUIBySong(Song song) {
         return guis.get(songs.indexOf(song));
     }
-    public void swap(int firtIndex,int secIndex){
-        Song song=songs.get(firtIndex);
-        SongGUI songGUI= guis.get(firtIndex);
-        System.out.println("moving "+song.title+"from"+firtIndex+"to"+secIndex);
-        if (firtIndex>secIndex){
+
+    public void swap(int firtIndex, int secIndex) {
+        Song song = songs.get(firtIndex);
+        SongGUI songGUI = guis.get(firtIndex);
+        System.out.println("moving " + song.title + "from" + firtIndex + "to" + secIndex);
+        if (firtIndex > secIndex) {
             songs.remove(song);
             guis.remove(songGUI);
-            songs.add(secIndex,song);
-            guis.add(secIndex,songGUI);
-        }else {
+            songs.add(secIndex, song);
+            guis.add(secIndex, songGUI);
+        } else {
             songs.remove(song);
             guis.remove(songGUI);
-            songs.add(secIndex,song);
-            guis.add(secIndex,songGUI);
+            songs.add(secIndex, song);
+            guis.add(secIndex, songGUI);
         }
     }
 }

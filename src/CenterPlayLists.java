@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class CenterPlayLists extends Panel implements AddPlaylistListener {
-    ArrayList<PLGUI> playlistGUIs = new ArrayList<>();
+    static ArrayList<PLGUI> playlistGUIs = new ArrayList<>();
     MakeVisibilityTrue makeVisibilityTrue = null;
     ChoosePlaylist choosePlaylistListener = null;
     ArrayList<Playlist> playlists;

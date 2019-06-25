@@ -7,8 +7,10 @@ import java.util.ArrayList;
 
 public class CenterAlbum extends Panel implements MakeAlbumListener{
     ArrayList<Album> albums = new ArrayList<>();
+    ArrayList<AlbumGUI> albumGuis = new ArrayList<>();
     ChoosePlaylist choosePlaylist = null;
     MakeVisibilityTrue makeVisibilityTrue = null;
+
     boolean flag=false;
 
     public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
@@ -47,6 +49,11 @@ public class CenterAlbum extends Panel implements MakeAlbumListener{
         for (Album album : albums) {
             if (album.getName().equals(song.album)) {
                 album.addSong(song, songGUI);
+                for (AlbumGUI albumGUI:albumGuis){
+                    if(albumGUI.album.equals(album))
+                        albumGUI.label.setText("<html>"+"<div>"+album.getName()+"<br>"+album.getSongs().size()+" songs"+"</html>");
+                        break;
+                }
                 flag=true;
                 break;
             }
@@ -55,8 +62,9 @@ public class CenterAlbum extends Panel implements MakeAlbumListener{
             Album album = new Album(name, song, songGUI);
             AlbumGUI albumGUI = new AlbumGUI(album);
             albums.add(album);
+            albumGuis.add(albumGUI);
             this.add(albumGUI);
-            System.out.println("miad inja : "+songGUI.song.title);
+
             albumGUI.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {

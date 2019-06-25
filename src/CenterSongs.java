@@ -77,6 +77,7 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         for (int i = comps - 1; i > 1; i--) {
             songs.remove(songs.getComponents().length - 1);
         }
+        System.out.println("kinjqjrnfe : "+currentAlbum.getGuis().size());
         for (SongGUI songGUI : currentAlbum.getGuis()) {
             addGui(songGUI);
         }

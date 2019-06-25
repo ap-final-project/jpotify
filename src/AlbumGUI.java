@@ -1,9 +1,7 @@
 import javax.swing.*;
-import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
-public class AlbumGUI extends Panel{
+public class AlbumGUI extends Panel implements PanelGuiInformer{
     Album album;
     Label picture;
     Label label;
@@ -12,7 +10,7 @@ public class AlbumGUI extends Panel{
         super(3);
         this.album = album;
         label=new Label(3);
-        label.setText("<html>"+"<div>"+album.getName()+album.getNum()+" songs"+album.getArtist()+"</div>"+"</html>");
+        label.setText("<html>"+"<div>"+album.getName()+album.getSongs().size()+" songs"+album.getArtist()+"</div>"+"</html>");
         this.setPreferredSize(new Dimension(200+this.label.getWidth(),200+this.label.getHeight()));
         picture = new Label(3);
         picture.setIcon(album.getSongs().get(0).imageIcon);
@@ -23,8 +21,8 @@ public class AlbumGUI extends Panel{
         this.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.black));
     }
 
-//    @Override
-//    public void updateGui() {
-//        label.setText("<html>"+"<div>"+album.getName()+album.getNum()+" songs"+album.getSongs().size()+"</div>"+"</html>");
-//    }
+    @Override
+    public void updateGui() {
+        label.setText("<html>"+"<div>"+album.getName()+album.getNum()+" songs"+album.getSongs().size()+"</div>"+"</html>");
+    }
 }
