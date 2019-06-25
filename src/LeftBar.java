@@ -59,6 +59,7 @@ public class LeftBar extends Panel implements InformArtWrok{
         playlistDefaultIMGS[1]="img\\PLDefault (2).jpg";
         playlistDefaultIMGS[2]="img\\PLDefault (3).jpg";
         AddBtn.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -132,10 +133,8 @@ public class LeftBar extends Panel implements InformArtWrok{
                 makePlayList.setSize(150,150);
                 makePlayList.setLocation(200,100);
                 makePlayList.setLayout(new BorderLayout());
-//                JTextPane textField=new JTextPane();
                 TextField textField=new TextField();
                 TextArea textArea=new TextArea();
-//                textField.setName("Name");
                 Button addNewPL=new Button("Add",1);
                 Label label= new Label("Enter your playlist's name",1);
                 Button addImg=new Button("select image",3);
@@ -222,7 +221,6 @@ public class LeftBar extends Panel implements InformArtWrok{
                 centerTrue.makeTrue(2);
             }
         });
-
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         this.add(scrollPane);
         this.add(artWork);

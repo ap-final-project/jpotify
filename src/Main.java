@@ -13,7 +13,6 @@ import static javafx.scene.input.KeyCode.T;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-
 //        WelcomeJFrame welcome=new WelcomeJFrame();
 //        welcome.setVisible(true);
 //        Thread.sleep(4000);
@@ -32,7 +31,8 @@ public class Main {
             if (saved != null) {
                 for (String path : saved.songPaths) {
                     Song song=new Song(path);
-                    recentlyPlayedAtLast.add(new SongGUI(song),song);
+                    SongGUI songGUI=new SongGUI(song);
+                    recentlyPlayedAtLast.add(songGUI,song);
                 }
                 for (int i = 2; i < saved.playlistName.size(); i++) {
                     String name = saved.playlistName.get(i);
@@ -45,9 +45,9 @@ public class Main {
                     ArrayList<Integer> indexes = new ArrayList<>();
                     int size=recentlyPlayedAtLast.songs.size();
                     for (int i=0;i<size;i++) {
-                        System.out.println("hashmap!?"+i);
+//                        System.out.println("hashmap!?"+i);
                         if (saved.playlistsAndItsPositiom.get(i).containsKey(p.name)) {
-                                p.add(new SongGUI(recentlyPlayedAtLast.songs.get(i)), recentlyPlayedAtLast.songs.get(i));
+                                p.add((recentlyPlayedAtLast.guis.get(i)), recentlyPlayedAtLast.songs.get(i));
                                 indexes.add(saved.playlistsAndItsPositiom.get(i).get(p.name));
                             }
                     }

@@ -39,6 +39,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     private long songTotalLength;
     MyPlayer player1;
     Thread playerThread;
+
     short[] data=new short[64];
     boolean fromThis = true;
     final AtomicBoolean pause = new AtomicBoolean(false);
@@ -100,7 +101,6 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         favorites=playlists.get(1);
         for (SongGUI gui:recentlyPlayed.guis  ) {
             gui.addMouseListener(new MouseAdapter() {
-
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() == 2) {
