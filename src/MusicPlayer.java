@@ -30,7 +30,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     private int framesPlayed = 0;
     private int lastSec = 0;
     static Playlist currentPlaylist;
-    Playlist recentlyPlayed ;
+    Playlist recentlyPlayed;
     Playlist favorites;
     InformArtWrok informArtWrok;
     boolean threadStarted = false;
@@ -40,7 +40,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     MyPlayer player1;
     Thread playerThread;
 
-    short[] data=new short[64];
+    short[] data = new short[64];
     boolean fromThis = true;
     final AtomicBoolean pause = new AtomicBoolean(false);
     boolean firstTime = true;
@@ -67,16 +67,16 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
 //                        informEqualizer.sendValues(player1.getFrames());
                         framesPlayed++;
 
-                        if (framesPlayed%2==0){
-                            short[] thisFrame=player1.getFrames();
-                            for (int i = 0; i <32 ; i++) {
-                                data[i]=thisFrame[i];
+                        if (framesPlayed % 2 == 0) {
+                            short[] thisFrame = player1.getFrames();
+                            for (int i = 0; i < 32; i++) {
+                                data[i] = thisFrame[i];
                             }
-                        }else {
+                        } else {
 
-                            short[] thisFrame=player1.getFrames();
-                            for (int i = 32; i <64 ; i++) {
-                                data[i]=thisFrame[i-32];
+                            short[] thisFrame = player1.getFrames();
+                            for (int i = 32; i < 64; i++) {
+                                data[i] = thisFrame[i - 32];
                             }
                             informEqualizer.sendValues(data);
                         }
@@ -97,22 +97,18 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     }
 
     public MusicPlayer(ArrayList<Playlist> playlists) {
-        recentlyPlayed=playlists.get(0);
-        favorites=playlists.get(1);
-        for (SongGUI gui:recentlyPlayed.guis  ) {
+        recentlyPlayed = playlists.get(0);
+        favorites = playlists.get(1);
+        for (SongGUI gui : recentlyPlayed.guis) {
+            if (favorites.songs.contains(gui.song)) {
+                gui.song.like();
+            }
             gui.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() == 2) {
-//                        if (!gui.song.isLiked()) {
-                        gui.song.like();
                         action(1);
-                        playBTNListener.clicked(1);
-//                        }
-//                        else{
-//                            gui.song.unLike();
-//                            playBTNListener.clicked(2);
-//                        }
+
                     } else if (e.getButton() == MouseEvent.BUTTON3) {
                         settings(gui, e);
                     } else if (e.getClickCount() == 1) {
@@ -122,7 +118,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                             if (currentSong != null && !currentSong.equals(songClicked)) {
                                 playerThread.stop();
                                 threadStarted = false;
-                                playerThread=makeNewThread();
+                                playerThread = makeNewThread();
                             }
                         }
                         currentSong = songClicked;
@@ -138,8 +134,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
             });
         }
         currentPlaylist = recentlyPlayed;
-        this.playlists=playlists;
-        playerThread=makeNewThread();
+        this.playlists = playlists;
+        playerThread = makeNewThread();
     }
 
     public void setInformEqualizer(InformEqualizer informEqualizer) {
@@ -190,8 +186,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 threadStarted = false;
                 fromThis = true;
                 pause.set(false);
-                Thread thread=playerThread;
-                playerThread=makeNewThread();
+                Thread thread = playerThread;
+                playerThread = makeNewThread();
                 try {
                     play(currentSong);
                 } catch (JavaLayerException e1) {
@@ -205,7 +201,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 fromThis = true;
                 pause.set(false);
                 currentSong = currentPlaylist.getPreSong(currentSong);
-                playerThread=makeNewThread();
+                playerThread = makeNewThread();
                 try {
                     play(currentSong);
                 } catch (JavaLayerException e1) {
@@ -217,11 +213,20 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 if (currentSong.isLiked()) {
                     playBTNListener.clicked(2);
                     currentSong.unLike();
-                    //remove from favorites
+                    favorites.remove(currentSong);
+                    for (SongGUI songGUI : favorites.guis) {
+                        if (songGUI.song.equals(currentSong)) {
+                            favorites.guis.remove(songGUI);
+                            break;
+                        }
+                    }
+                    makeVisibilityTrue.makeTrue(4);
+
                 } else {
                     playBTNListener.clicked(1);
                     currentSong.like();
                     favorites.add(recentlyPlayed.getGUIBySong(currentSong), currentSong);
+                    makeVisibilityTrue.makeTrue(4);
                 }
                 break;
         }
@@ -242,8 +247,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 fromThis = true;
                 pause.set(false);
                 currentSong = currentPlaylist.getNextSong(currentSong);
-                Thread thread=playerThread;
-                playerThread=makeNewThread();
+                Thread thread = playerThread;
+                playerThread = makeNewThread();
                 thread.stop();
                 try {
                     play(currentSong);
@@ -257,7 +262,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 fromThis = true;
                 pause.set(false);
                 currentSong = currentPlaylist.getPreSong(currentSong);
-                playerThread=makeNewThread();
+                playerThread = makeNewThread();
                 try {
                     play(currentSong);
                 } catch (JavaLayerException e1) {
@@ -272,11 +277,20 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 if (currentSong.isLiked()) {
                     playBTNListener.clicked(2);
                     currentSong.unLike();
-                    //remove from favorites
+                    favorites.remove(currentSong);
+                    for (SongGUI songGUI : favorites.guis) {
+                        if (songGUI.song.equals(currentSong)) {
+                            favorites.guis.remove(songGUI);
+                            break;
+                        }
+                    }
+                    makeVisibilityTrue.makeTrue(4);
                 } else {
                     playBTNListener.clicked(1);
                     currentSong.like();
                     favorites.add(recentlyPlayed.getGUIBySong(currentSong), currentSong);
+                    makeVisibilityTrue.makeTrue(4);
+
                 }
                 break;
         }
@@ -295,20 +309,19 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         remove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("removing");
-                if(CenterSongs.currentPlayList.equals(recentlyPlayed)) {
-                    for (Playlist p:playlists) {
-                        if(p.guis.contains(gui)){
+                if (CenterSongs.currentPlayList.equals(recentlyPlayed)) {
+                    for (Playlist p : playlists) {
+                        if (p.guis.contains(gui)) {
                             p.remove(gui.song);
                             p.guis.remove(gui);
                         }
                     }
 //                    for (Album a:)
-                }
-                else{
+                } else {
                     CenterSongs.currentPlayList.guis.remove(gui);
                     CenterSongs.currentPlayList.remove(gui.song);
                 }
+//                for (Album album:)
                 makeVisibilityTrue.makeTrue(4);
             }
         });
@@ -330,9 +343,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                                 if (p.name.equals(label.getText())) {
                                     p.add(gui, gui.song);
                                     if (p.equals(favorites)) {
-                                        gui.song.like();
                                         action(1, gui);
-                                        playBTNListener.clicked(1);
                                     }
                                 }
                             }
@@ -360,7 +371,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         song = song1;
         SongGUI gui = songGUI1;
         recentlyPlayed.add(gui, song);
-        addGUIToCenter.addGui(gui);
+//        addGUIToCenter.addGui(gui);
+        makeVisibilityTrue.makeTrue(0);
         gui.more.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -378,15 +390,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-//                        if (!gui.song.isLiked()) {
-                    gui.song.like();
                     action(1);
-                    playBTNListener.clicked(1);
-//                        }
-//                        else{
-//                            gui.song.unLike();
-//                            playBTNListener.clicked(2);
-//                        }
                 } else if (e.getButton() == MouseEvent.BUTTON3) {
                     settings(gui, e);
                 } else if (e.getClickCount() == 1) {
@@ -396,7 +400,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                         if (currentSong != null && !currentSong.equals(songClicked)) {
                             playerThread.stop();
                             threadStarted = false;
-                            playerThread=makeNewThread();
+                            playerThread = makeNewThread();
                         }
                     }
                     currentSong = songClicked;
@@ -431,7 +435,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
             }
             framesPlayed = framesToPlay;
             pause.set(!pause.get());
-            playerThread=makeNewThread();
+            playerThread = makeNewThread();
             threadStarted = true;
             playerThread.start();
         } catch (Exception e) {

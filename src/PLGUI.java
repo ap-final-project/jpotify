@@ -10,6 +10,7 @@ import java.io.IOException;
 public class PLGUI extends Panel implements PanelGuiInformer {
     Label label;
     Label pic;
+    Label more;
     Playlist playlist;
     public Playlist getPlaylist() {
         return playlist;
@@ -17,6 +18,8 @@ public class PLGUI extends Panel implements PanelGuiInformer {
 
     public PLGUI(Playlist playlist, String songName, String path){
         super(3);
+        more=new Label(3);
+        more.setIcon(new ImageIcon("img\\moreIcon.png"));
         this.playlist=playlist;
         pic=new Label(3);
         Image image=Toolkit.getDefaultToolkit().getImage(path);
@@ -32,8 +35,12 @@ public class PLGUI extends Panel implements PanelGuiInformer {
         layout.putConstraint(SpringLayout.WEST,pic,10,SpringLayout.WEST,this);
         layout.putConstraint(SpringLayout.EAST,pic,10,SpringLayout.EAST,this);
         layout.putConstraint(SpringLayout.NORTH,label,10,SpringLayout.SOUTH,pic);
+        layout.putConstraint(SpringLayout.EAST,more,1,SpringLayout.EAST,this);
+//        layout.putConstraint(SpringLayout.SOUTH,more,1,SpringLayout.SOUTH,this);
+        layout.putConstraint(SpringLayout.NORTH,more,40,SpringLayout.SOUTH,pic);
         this.add(pic);
         this.add(label);
+        this.add(more);
     }
 
     @Override

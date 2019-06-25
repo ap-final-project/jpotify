@@ -31,7 +31,7 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         album.setFont(new Font("Cambria", Font.BOLD, 14));
         time.setFont(new Font("Cambria", Font.BOLD, 14));
         year.setFont(new Font("Cambria", Font.BOLD, 14));
-//        title.setFont(new Font("Cambria", Font.BOLD, 14));
+        title.setFont(new Font("Cambria", Font.BOLD, 14));
         songs.setLayout(new BoxLayout(songs,1));
         songs.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
         p.setLayout(new GridLayout(1, 5));

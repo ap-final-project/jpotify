@@ -31,7 +31,6 @@ public class Song implements Serializable{
     String year;
     String lenght;
     String path;
-    HashMap<Playlist,Integer> playlists=new HashMap<>();
     ImageIcon imageIcon;
     ImageIcon defaultIcon=new ImageIcon("img\\fullHeart.png");
     private long time;

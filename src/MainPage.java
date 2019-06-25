@@ -51,9 +51,9 @@ public class MainPage extends JFrame {
         main.add(center, BorderLayout.CENTER);
         leftBar.setaddSongListener(musicPlayer); //addSong
         musicPlayer.setListener(centerSongs); //addGUI
+        musicPlayer.setPlayBTNListener(musicBar);//clicked
         musicPlayer.setInformArtWrok(leftBar);
         musicBar.setMusicBarListener(musicPlayer);//action
-        musicPlayer.setPlayBTNListener(musicBar);//clicked
         musicPlayer.setInformEqualizer(centerSongs);
         leftBar.setCenterTrue(center);
         leftBar.setChoosePlaylist(center);

@@ -24,9 +24,6 @@ public class Playlist {
     public void add(SongGUI songGUI, Song song) {
         songs.add(song);
         guis.add(songGUI);
-        song.playlists.put(this,songs.size());/////in moheme?????Q!!!
-//        if(!this.name.equals("recentlyPlayed"))
-//        informPLGUI.updateGui();
     }
     public void remove(Song song){
         this.songs.remove(song);
