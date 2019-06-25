@@ -15,9 +15,10 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
     Label time = new Label(2);
     Panel p = new Panel(2);
     Equalizer equalizer;
+    CenterPanelOrderable centerPanelOrderable=new CenterPanelOrderable();
     static Playlist currentPlayList;
     static Album currentAlbum;
-    Panel songs=new Panel(2);
+    JPanel songs=new JPanel();
     public CenterSongs() {
         super(2);
         equalizer = new Equalizer();
@@ -34,6 +35,8 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         title.setFont(new Font("Cambria", Font.BOLD, 14));
         songs.setLayout(new BoxLayout(songs,1));
         songs.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
+        centerPanelOrderable.makeUI(MusicPlayer.currentPlaylist.guis);
+        songs=centerPanelOrderable.panel;
         p.setLayout(new GridLayout(1, 5));
         p.add(title);
         p.add(artist);
@@ -50,12 +53,14 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
 
     @Override
     public void addGui(SongGUI songGUI) {
-        songs.add(songGUI);
+        addToPanel(songGUI);
         songs.add(Box.createVerticalGlue());
         revalidate();
     }
 
-
+    public void addToPanel(SongGUI songGUI){
+        centerPanelOrderable.add(songGUI);
+    }
     @Override
     public void sendValues(short[] V) {
         equalizer.setValues(V);
@@ -63,14 +68,7 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
 
     public void showPlayList(Playlist playlist) {
         currentPlayList = playlist;
-
-        int comps = songs.getComponents().length;
-        for (int i = comps - 1; i > 1; i--) {
-            songs.remove(songs.getComponents().length - 1);
-        }
-        for (SongGUI songGUI : currentPlayList.guis) {
-            addGui(songGUI);
-        }
+        songs=centerPanelOrderable.changePlayList(playlist);
     }
 
     public void showAlbum(Album album) {

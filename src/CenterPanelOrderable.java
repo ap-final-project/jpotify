@@ -40,6 +40,7 @@ public class CenterPanelOrderable{
     }
     public JPanel changePlayList(Playlist playlist){
         idx=0;
+        panel.remove(songs);
         songs = Box.createVerticalBox();
         DragMouseAdapter dh = new DragMouseAdapter();
         songs.addMouseListener(dh);
