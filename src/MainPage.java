@@ -32,10 +32,10 @@ public class MainPage extends JFrame {
         for (SongGUI gui:playlists.get(0).guis) {
             makeAlbumListener.makeAlbumS(gui.song.album,gui.song,gui);
         }
+        centerSongs = new CenterSongs();
         this.setTitle(TITLE);
         musicBar = new MusicBar();
         friendActivity = new FriendActivity();
-        centerSongs = new CenterSongs();
         centerPlayLists= new CenterPlayLists(musicPlayer.getPlaylists());
         center = new Center(centerSongs, centerPlayLists, musicPlayer.getPlaylists(), centerAlbum);
         Color dark = new Color(24, 24, 24);
