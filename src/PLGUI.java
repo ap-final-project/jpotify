@@ -24,7 +24,6 @@ public class PLGUI extends Panel implements PanelGuiInformer {
         ImageIcon imageIcon=new ImageIcon(newimg);
         pic.setIcon(imageIcon);
         label=new Label("<html>"+" "+playlist.name+"<br>"+" "+playlist.description+"<br>"+" "+playlist.songs.size()+"songs"+"</html>",3);
-        System.out.println("ajiban ghariba!"+label.getHeight());
         this.setPreferredSize(new Dimension(220,280));
         SpringLayout layout=new SpringLayout();
         this.setLayout(layout);

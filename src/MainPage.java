@@ -10,21 +10,29 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class MainPage extends JFrame {
     private final String TITLE = "Kian & Pariya Jpotify";
     LeftBar leftBar = new LeftBar();
     Panel main = new Panel(2);
-    MusicBar musicBar = new MusicBar();
-    FriendActivity friendActivity = new FriendActivity();
-    volatile MusicPlayer musicPlayer = new MusicPlayer();
-    CenterSongs centerSongs = new CenterSongs();
-    CenterPlayLists centerPlayLists = new CenterPlayLists(musicPlayer.getPlaylists());
-    CenterAlbum centerAlbum = new CenterAlbum();
-    Center center = new Center(centerSongs, centerPlayLists, musicPlayer.getPlaylists(), centerAlbum);
+    MusicBar musicBar;
+    FriendActivity friendActivity ;
+    volatile MusicPlayer musicPlayer;
+    CenterSongs centerSongs ;
+    CenterPlayLists centerPlayLists;
+    CenterAlbum centerAlbum;
+    Center center;
 
-    public MainPage() throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
+    public MainPage(ArrayList<Playlist> playlists) throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         this.setTitle(TITLE);
+        musicBar = new MusicBar();
+        friendActivity = new FriendActivity();
+        musicPlayer = new MusicPlayer(playlists);
+        centerSongs = new CenterSongs();
+        centerPlayLists= new CenterPlayLists(musicPlayer.getPlaylists());
+        centerAlbum = new CenterAlbum();
+        center = new Center(centerSongs, centerPlayLists, musicPlayer.getPlaylists(), centerAlbum);
         Color dark = new Color(24, 24, 24);
         this.setBackground(dark);
         this.setForeground(dark);

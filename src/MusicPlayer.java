@@ -22,22 +22,16 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     Song currentSong;
     PlayBTNListener playBTNListener = null;
     addGUIToCenter addGUIToCenter = null;
-    ArrayList<Playlist> playlists = new ArrayList<>();
+    ArrayList<Playlist> playlists;
     AddToInfoBar InfoBarListener = null;
     InformEqualizer informEqualizer;
     MakeVisibilityTrue makeVisibilityTrue = null;
     private long totalFrames;
     private int framesPlayed = 0;
     private int lastSec = 0;
-
-
-    public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
-        this.makeVisibilityTrue = makeVisibilityTrue;
-    }
-
     static Playlist currentPlaylist;
-    Playlist recentlyPlayed = new Playlist("recentlyPlayed", "All songs", "img\\playlistdefault2.jpg");
-    Playlist favorites = new Playlist("favorites", "Your favorite songs", "img\\favoriteCover.png");
+    Playlist recentlyPlayed ;
+    Playlist favorites;
     InformArtWrok informArtWrok;
     boolean threadStarted = false;
     volatile FileInputStream fis;
@@ -49,7 +43,6 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     boolean fromThis = true;
     final AtomicBoolean pause = new AtomicBoolean(false);
     boolean firstTime = true;
-
     public void setPlayBTNListener(PlayBTNListener playBTNListener) {
         this.playBTNListener = playBTNListener;
     }
@@ -101,10 +94,11 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         };
     }
 
-    public MusicPlayer() {
+    public MusicPlayer(ArrayList<Playlist> playlists) {
+        recentlyPlayed=playlists.get(0);
+        favorites=playlists.get(1);
         currentPlaylist = recentlyPlayed;
-        playlists.add(recentlyPlayed);
-        playlists.add(favorites);
+        this.playlists=playlists;
         playerThread=makeNewThread();
     }
 
@@ -402,5 +396,9 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
+        this.makeVisibilityTrue = makeVisibilityTrue;
     }
 }

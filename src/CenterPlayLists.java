@@ -18,17 +18,32 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener {
     public CenterPlayLists(ArrayList<Playlist> playlists) {
         super(2);
         this.playlists=playlists;
+        System.out.println(playlists.size());
+        for (Playlist pl:playlists) {
+            PLGUI plgui=new PLGUI(pl,pl.name,pl.imgPath);
+            playlistGUIs.add(plgui);
+            plgui.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    choosePlaylistListener.setPlaylist(plgui.getPlaylist());
+                    makeVisibilityTrue.makeTrue(0);
+                }
+            });
+            this.add(plgui);
+            revalidate();
+        }
         this.setLayout(new WrapLayout(WrapLayout.LEFT));
-        PLGUI favGUI=new PLGUI(playlists.get(1),playlists.get(1).name,playlists.get(1).imgPath);
-        favGUI.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                choosePlaylistListener.setPlaylist(playlists.get(1));
-                makeVisibilityTrue.makeTrue(0);
-            }
-        });
-        this.add(favGUI);
+//        PLGUI favGUI=new PLGUI(playlists.get(1),playlists.get(1).name,playlists.get(1).imgPath);
+//        favGUI.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                super.mouseClicked(e);
+//                choosePlaylistListener.setPlaylist(playlists.get(1));
+//                makeVisibilityTrue.makeTrue(0);
+//            }
+//        });
+//        this.add(favGUI);
         revalidate();
     }
 
