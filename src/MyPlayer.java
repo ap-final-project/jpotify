@@ -14,6 +14,7 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.decoder.SampleBuffer;
 import javazoom.jl.player.AudioDevice;
 import javazoom.jl.player.FactoryRegistry;
+import javazoom.jl.player.advanced.AdvancedPlayer;
 
 import javax.swing.*;
 
@@ -30,7 +31,6 @@ public class MyPlayer {
     public MyPlayer(InputStream var1) throws JavaLayerException {
         this(var1, null);
     }
-
     public MyPlayer(InputStream var1, AudioDevice var2) throws JavaLayerException {
         this.frame = 0;
         this.closed = false;

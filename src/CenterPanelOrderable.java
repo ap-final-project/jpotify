@@ -38,14 +38,14 @@ public class CenterPanelOrderable{
     public void add(SongGUI songGUI){
         songs.add(createToolbarButton(idx++, songGUI));
     }
-    public JPanel changePlayList(Playlist playlist){
+    public JPanel changePlayList(ArrayList<SongGUI> guis){
         idx=0;
         panel.remove(songs);
         songs = Box.createVerticalBox();
         DragMouseAdapter dh = new DragMouseAdapter();
         songs.addMouseListener(dh);
         songs.addMouseMotionListener(dh);
-        for (JComponent c :playlist.guis) {
+        for (JComponent c :guis) {
             songs.add(createToolbarButton(idx++, c));
         }
         panel.add(songs, BorderLayout.NORTH);
