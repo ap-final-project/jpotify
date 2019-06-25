@@ -19,6 +19,7 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
         this.centerPlayLists=centerPlayLists;
         this.centerSongs=centerSongs;
         this.setLayout(new BorderLayout());
+        this.setBackground(new Color(18,18,18));
         title=new Label("your songs",2);
         this.add(title,BorderLayout.PAGE_START);
         scrollpane=new Scroll(centerPlayLists);

@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 
 public class LeftBar extends Panel implements InformArtWrok{
     AddPlaylistListener makePlListener = null;
@@ -35,6 +36,8 @@ public class LeftBar extends Panel implements InformArtWrok{
     ChoosePlaylist choosePlaylist;
     ArrayList<Song> songs=new ArrayList<>();
     ArrayList<SongGUI> songGUIS=new ArrayList<>();
+    String[] playlistDefaultIMGS=new String[3];
+
     public void setCenterTrue(MakeVisibilityTrue centerTrue) {
         this.centerTrue = centerTrue;
     }
@@ -51,6 +54,10 @@ public class LeftBar extends Panel implements InformArtWrok{
         super(1);
         AddBtn.setIcon(new ImageIcon(new ImageIcon("img\\plus.png").getImage().getScaledInstance(28,28,100)));
         text.setText("Menu");
+
+        playlistDefaultIMGS[0]="img\\PLDefault (1).jpg";
+        playlistDefaultIMGS[1]="img\\PLDefault (2).jpg";
+        playlistDefaultIMGS[2]="img\\PLDefault (3).jpg";
         AddBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -155,6 +162,11 @@ public class LeftBar extends Panel implements InformArtWrok{
                         super.keyPressed(e);
                         if(e.getKeyCode()==KeyEvent.VK_ENTER) {
                             if(!textField.getText().trim().equals("")){
+                                Random random=new Random();
+                                if (imgPath[0].equals("")) {
+                                    imgPath[0] = playlistDefaultIMGS[Math.abs(random.nextInt()%3)];
+                                    System.out.println("ey baba");
+                                }
                                 makePlListener.makePlayList(textField.getText(),textArea.getText(), imgPath[0]);
                                 makePlayList.setVisible(false);
                             }
@@ -179,6 +191,11 @@ public class LeftBar extends Panel implements InformArtWrok{
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if(!textField.getText().trim().equals("")){
+                            Random random=new Random();
+                            if (imgPath[0].equals("")) {
+                                imgPath[0] = playlistDefaultIMGS[Math.abs(random.nextInt()%3)];
+                                System.out.println("ey baba");
+                            }
                             makePlListener.makePlayList(textField.getText(),textArea.getText(), imgPath[0]);
                             makePlayList.setVisible(false);
                         }

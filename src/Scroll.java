@@ -8,6 +8,7 @@ public class Scroll extends JScrollPane {
     public Scroll(Panel panel){
         super(panel);
         this.setBorder(new EmptyBorder(0,0,0,0));
+        this.viewport.setBackground(new Color(18,18,18));
         this.setComponentZOrder(this.getVerticalScrollBar(), 0);
         this.setComponentZOrder(this.getViewport(), 1);
         this.getVerticalScrollBar().setOpaque(false);

@@ -22,23 +22,16 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     Song currentSong;
     PlayBTNListener playBTNListener = null;
     addGUIToCenter addGUIToCenter = null;
-    ArrayList<Playlist> playlists = new ArrayList<>();
-    ArrayList<Album> albums = new ArrayList<>();
+    ArrayList<Playlist> playlists;
     AddToInfoBar InfoBarListener = null;
     InformEqualizer informEqualizer;
     MakeVisibilityTrue makeVisibilityTrue = null;
     private long totalFrames;
     private int framesPlayed = 0;
     private int lastSec = 0;
-
-
-    public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
-        this.makeVisibilityTrue = makeVisibilityTrue;
-    }
-
     static Playlist currentPlaylist;
-    Playlist recentlyPlayed = new Playlist("recentlyPlayed", "All songs", "img\\playlistdefault2.jpg");
-    Playlist favorites = new Playlist("favorites", "Your favorite songs", "img\\favoriteCover.png");
+    Playlist recentlyPlayed ;
+    Playlist favorites;
     InformArtWrok informArtWrok;
     boolean threadStarted = false;
     volatile FileInputStream fis;
@@ -102,10 +95,50 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         };
     }
 
-    public MusicPlayer() {
+    public MusicPlayer(ArrayList<Playlist> playlists) {
+        recentlyPlayed=playlists.get(0);
+        favorites=playlists.get(1);
+        for (SongGUI gui:recentlyPlayed.guis  ) {
+            gui.addMouseListener(new MouseAdapter() {
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() == 2) {
+//                        if (!gui.song.isLiked()) {
+                        gui.song.like();
+                        action(1);
+                        playBTNListener.clicked(1);
+//                        }
+//                        else{
+//                            gui.song.unLike();
+//                            playBTNListener.clicked(2);
+//                        }
+                    } else if (e.getButton() == MouseEvent.BUTTON3) {
+                        settings(gui, e);
+                    } else if (e.getClickCount() == 1) {
+                        Song songClicked = recentlyPlayed.getSongByGUI(gui);
+                        currentPlaylist = CenterSongs.currentPlayList;
+                        if (threadStarted) {
+                            if (currentSong != null && !currentSong.equals(songClicked)) {
+                                playerThread.stop();
+                                threadStarted = false;
+                                playerThread=makeNewThread();
+                            }
+                        }
+                        currentSong = songClicked;
+                        try {
+                            play(songClicked);
+                        } catch (JavaLayerException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+
+                }
+
+            });
+        }
         currentPlaylist = recentlyPlayed;
-        playlists.add(recentlyPlayed);
-        playlists.add(favorites);
+        this.playlists=playlists;
         playerThread=makeNewThread();
     }
 
@@ -404,5 +437,9 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
+        this.makeVisibilityTrue = makeVisibilityTrue;
     }
 }
