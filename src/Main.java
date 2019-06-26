@@ -13,10 +13,7 @@ import static javafx.scene.input.KeyCode.T;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-//        WelcomeJFrame welcome=new WelcomeJFrame();
-//        welcome.setVisible(true);
-//        Thread.sleep(4000);
-//        welcome.setVisible(false);
+
         ArrayList<Playlist> playlists = null;
         playlists = new ArrayList<>();
         Playlist recentlyPlayedAtLast= new Playlist("recentlyPlayed","All your Songs","img\\pink-gramaphone.jpg");
@@ -70,8 +67,8 @@ public class Main {
                 }
             }
         }
-
-        MainPage mainPage = new MainPage(playlists);
+        User user=new User("par" ,"1234");
+        MainPage mainPage = new MainPage(playlists,user);
 
         mainPage.addWindowListener(new WindowAdapter() {
             @Override

@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.LockSupport;
 
 public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdateListener {
-    Song currentSong;
+    static Song currentSong;
     PlayBTNListener playBTNListener = null;
     addGUIToCenter addGUIToCenter = null;
     ArrayList<Playlist> playlists;
@@ -39,7 +39,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     private long songTotalLength;
     MyPlayer player1;
     Thread playerThread;
-
+    InformSocket informSocket;
     short[] data = new short[64];
     boolean fromThis = true;
     final AtomicBoolean pause = new AtomicBoolean(false);
@@ -57,6 +57,9 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         this.addGUIToCenter = addGUIToCenter;
     }
 
+    public void setInformSocket(InformSocket informSocket) {
+        this.informSocket = informSocket;
+    }
 
     public Thread makeNewThread() {
         return new Thread() {
@@ -106,6 +109,11 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
             gui.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                    try {
+                        informSocket.changeSong(gui.song.title,gui.song.artist);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                     if (e.getClickCount() == 2) {
                         action(1);
 
@@ -194,6 +202,11 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                     e1.printStackTrace();
                 }
                 thread.stop();
+                try {
+                    informSocket.changeSong(currentSong.title,currentSong.artist);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 3://previous
                 playerThread.stop();
@@ -207,6 +220,12 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 } catch (JavaLayerException e1) {
                     e1.printStackTrace();
                 }
+                try {
+                    informSocket.changeSong(currentSong.title,currentSong.artist);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 break;
             case 1:
                 //heart clicked
@@ -255,6 +274,12 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 } catch (JavaLayerException e1) {
                     e1.printStackTrace();
                 }
+                try {
+                    informSocket.changeSong(currentSong.title,currentSong.artist);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 break;
             case 3://previous
                 playerThread.stop();
@@ -268,6 +293,12 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 } catch (JavaLayerException e1) {
                     e1.printStackTrace();
                 }
+                try {
+                    informSocket.changeSong(currentSong.title,currentSong.artist);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 break;
             case 1:
                 //heart clicked
@@ -378,6 +409,11 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                try {
+                    informSocket.changeSong(gui.song.title,gui.song.artist);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 if (e.getClickCount() == 2) {
                     action(1);
                 } else if (e.getButton() == MouseEvent.BUTTON3) {

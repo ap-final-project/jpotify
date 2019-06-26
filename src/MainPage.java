@@ -24,18 +24,20 @@ public class MainPage extends JFrame {
     CenterAlbum centerAlbum;
     Center center;
     MakeAlbumListener makeAlbumListener=null;
-
-    public MainPage(ArrayList<Playlist> playlists) throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
+    User user;
+    public MainPage(ArrayList<Playlist> playlists,User user) throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         centerAlbum = new CenterAlbum();
         musicPlayer = new MusicPlayer(playlists);
         makeAlbumListener=centerAlbum;
         for (SongGUI gui:playlists.get(0).guis) {
             makeAlbumListener.makeAlbumS(gui.song.album,gui.song,gui);
         }
+        this.user=user;
+        musicPlayer.setInformSocket(user);
         centerSongs = new CenterSongs();
         this.setTitle(TITLE);
         musicBar = new MusicBar();
-        friendActivity = new FriendActivity();
+        friendActivity = new FriendActivity(user);
         centerPlayLists= new CenterPlayLists(musicPlayer.getPlaylists());
         center = new Center(centerSongs, centerPlayLists, musicPlayer.getPlaylists(), centerAlbum);
         Color dark = new Color(24, 24, 24);
