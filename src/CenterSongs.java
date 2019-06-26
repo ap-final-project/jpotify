@@ -68,19 +68,12 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
 
     public void showPlayList(Playlist playlist) {
         currentPlayList = playlist;
-        songs=centerPanelOrderable.changePlayList(playlist);
+        songs=centerPanelOrderable.changePlayList(playlist.guis);
     }
 
     public void showAlbum(Album album) {
         currentAlbum = album;
-        int comps = songs.getComponents().length;
-        for (int i = comps - 1; i > 1; i--) {
-            songs.remove(songs.getComponents().length - 1);
-        }
-        System.out.println("kinjqjrnfe : "+currentAlbum.getGuis().size());
-        for (SongGUI songGUI : currentAlbum.getGuis()) {
-            addGui(songGUI);
-        }
+        songs=centerPanelOrderable.changePlayList(album.getGuis());
     }
 
     @Override
