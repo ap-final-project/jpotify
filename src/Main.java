@@ -13,9 +13,6 @@ import static javafx.scene.input.KeyCode.T;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Login loginFrame=new Login();
-        loginFrame.setVisible(true);
-
 //        WelcomeJFrame welcome=new WelcomeJFrame();
 //        welcome.setVisible(true);
 //        Thread.sleep(4000);
@@ -73,8 +70,8 @@ public class Main {
                 }
             }
         }
-
-        MainPage mainPage = new MainPage(playlists);
+        User user=new User("par" ,"1234");
+        MainPage mainPage = new MainPage(playlists,user);
 
         mainPage.addWindowListener(new WindowAdapter() {
             @Override
