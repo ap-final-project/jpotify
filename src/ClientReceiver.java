@@ -7,47 +7,62 @@ public class ClientReceiver implements Runnable {
     private OutputStream outputStream;
     private DataOutputStream dataOutputStream;
     private ServerUpdate serverUpdate = null;
+    private int count = 0;
 
     public ClientReceiver() {
     }
 
     @Override
     public void run() {
-        try {
-            String commmand = dataInputStream.readUTF();
-            System.out.println(commmand);
-            if (commmand.equals("songChanged")) {
-                String IP = dataInputStream.readUTF();
-                String title = dataInputStream.readUTF();
-                String artist = dataInputStream.readUTF();
-            } else if (commmand.equals("getSong")) {
-                File file = new File(MusicPlayer.currentSong.path);
-                byte[] music = new byte[(int) file.length()];
-                dataOutputStream.writeInt((int) file.length());
-                outputStream.write(music, 0, music.length);
-            } else if (commmand.equals("addFriends")) {
-                while (true) {
+        while (true) {
+            try {
+                String commmand = dataInputStream.readUTF();
+                System.out.println(commmand);
+                if (commmand.equals("songChanged")) {
+                    System.out.println("kian khare");
+                    String IP = dataInputStream.readUTF();
+                    String title = dataInputStream.readUTF();
+                    String artist = dataInputStream.readUTF();
+                    serverUpdate.otherUsersSongChanged(IP, title, artist);
+                } else if (commmand.equals("getSong")) {
+                    int size = dataInputStream.readInt();
+                    System.out.println("umade bede in sizesh : " + size);
+                    byte[] music = new byte[size];
+                    inputStream.read(music, 0, size);
+                    File file=new File("weGotIt.mp3");
+                    FileOutputStream fileOutputStream=new FileOutputStream(file);
+                    fileOutputStream.write(music);
+                } else if (commmand.equals("sendSong")) {
+
+                } else if (commmand.equals("addFriends")) {
+//                while (true) {
                     System.out.println("vay");
                     try {
                         int size = dataInputStream.readInt();
                         if (size != 90) {
+                            count++;
+                            System.out.println(count + " times");
                             byte[] img = new byte[size];
                             inputStream.read(img);
                             String name = dataInputStream.readUTF();
                             String title = dataInputStream.readUTF();
                             String artist = dataInputStream.readUTF();
                             System.out.println(size + name + title + artist);
+                            System.out.println("name : " + name);
                             serverUpdate.addNewFriend(img, name, title, artist);
                         }
                         System.out.println(size);
                     } catch (IOException e) {
                         e.printStackTrace();
+//                    }
                     }
                 }
+
+                commmand = "none";
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

@@ -9,7 +9,7 @@ public class User implements InformSocket{
     private ClientReceiver clientReceiver;
     private ArrayList<String> friendsIP=new ArrayList<>();
     private ArrayList<Friend> friends=new ArrayList<>();
-    private String IP="2";
+    private String IP="3";
     private String name="pariya";
     private byte [] myImg;
     private String password;
@@ -22,7 +22,7 @@ public class User implements InformSocket{
             this.name=name;
             this.password=password;
             readImage();
-            client=new Socket("localhost",4051);
+            client=new Socket("localhost",1234);
             clientSender.setOutputStream(client.getOutputStream());
             clientSender.setInputStream(client.getInputStream());
             clientSender.setDataOutputStream(new DataOutputStream(client.getOutputStream()));

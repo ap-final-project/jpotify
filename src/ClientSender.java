@@ -14,15 +14,18 @@ public class ClientSender  {
         dataOutputStream.writeUTF("songChanged");
         dataOutputStream.writeUTF(title);
         dataOutputStream.writeUTF(artist);
+        dataOutputStream.flush();
     }
     public void getSong(String IP) throws IOException {
         dataOutputStream.writeUTF("getSong");
         dataOutputStream.writeUTF(IP);
+        dataOutputStream.flush();
     }
 
     public void addFriend(String ip) throws IOException {
         dataOutputStream.writeUTF("addFriend");
         dataOutputStream.writeUTF(ip);
+        dataOutputStream.flush();
         }
     public OutputStream getOutputStream() {
         return outputStream;

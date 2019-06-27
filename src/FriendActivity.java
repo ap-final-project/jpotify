@@ -73,6 +73,9 @@ public class FriendActivity extends Panel implements addFriend,ServerUpdate{
     public void addFriend(String IP) throws IOException {
         newFriend=new Friend(IP);
         user.getFriendsIPs().add(IP);
+        for (int i=0;i<user.getFriendsIPs().size();i++){
+            System.out.println(i+" user : "+user.getFriendsIPs().get(0));
+        }
         user.getFriends().add(newFriend);
         user.getClientSender().addFriend(IP);
     }
@@ -81,6 +84,7 @@ public class FriendActivity extends Panel implements addFriend,ServerUpdate{
     public void otherUsersSongChanged(String IP, String title, String artist) {
         for (FriendGUI friendGui: friendGUIS   ) {
             if (friendGui.getFriend().getIP().equals(IP)){
+                System.out.println("Ipiiiiiiiiiiiiipipipipish  :   "+IP );
                 Friend friend=friendGui.getFriend();
                 friend.setTitle(title);
                 friend.setArtist(artist);
@@ -91,6 +95,7 @@ public class FriendActivity extends Panel implements addFriend,ServerUpdate{
 
     @Override
     public void addNewFriend(byte[] img, String name, String title, String artist) {
+        System.out.println("hololololo");
         newFriend.setImg(img);
         newFriend.setName(name);
         newFriend.setTitle(title);
@@ -99,6 +104,7 @@ public class FriendActivity extends Panel implements addFriend,ServerUpdate{
         System.out.println(title);
         System.out.println(artist);
         FriendGUI friendGUI=new FriendGUI(newFriend);
+        friendGUI.setInformSocket(user);
         System.out.println("GUIIII");
         friendGUIS.add(friendGUI);
         main.add(friendGUI);

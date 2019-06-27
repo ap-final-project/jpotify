@@ -39,11 +39,16 @@ public class FriendGUI extends Panel{
         });
     }
 
+    public void setInformSocket(InformSocket informSocket) {
+        this.informSocket = informSocket;
+    }
+
     public Friend getFriend() {
         return friend;
     }
 
     public void changeInfo() {
+        System.out.println("changiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin");
         info.setText("<html>"+friend.getName()+"<br>"+friend.getTitle()+"<br>"+friend.getArtist()+"</html>");
     }
     public void setImage(byte[] img){
