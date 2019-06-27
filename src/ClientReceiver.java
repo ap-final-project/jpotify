@@ -35,7 +35,7 @@ public class ClientReceiver implements Runnable {
                     System.out.println("umade bede in sizesh : " + size);
                     byte[] music = new byte[size];
 //                    if(flag)
-                        File file=new File("weGotIt.mp3");
+                        File file=new File("ahang"+size+".mp3");
 //                    break;
                     int bytesRead = 0;
                     int totalBytes = 0;

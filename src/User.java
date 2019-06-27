@@ -12,6 +12,11 @@ public class User implements InformSocket{
     private String IP="2";
     private String name="p";
     private byte [] myImg;
+
+    public String getPassword() {
+        return password;
+    }
+
     private String password;
     //    File
     Socket client;

@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
@@ -12,12 +14,30 @@ import static javafx.scene.input.KeyCode.T;
 //import static jdk.vm.ci.sparc.SPARC.o2;
 
 public class Main {
+    static ArrayList<User> users=new ArrayList<>();
     public static void main(String[] args) throws Exception {
 //        WelcomeJFrame welcome=new WelcomeJFrame();
 //        welcome.setVisible(true);
 //        Thread.sleep(4000);
 //        welcome.setVisible(false);
+        Login loginPage=new Login();
         ArrayList<Playlist> playlists = null;
+        loginPage.signUp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                users.add(new User(loginPage.userName,loginPage.passWord));
+            }
+        });
+        loginPage.login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (User user:users){
+                    if(user.getName().equals(loginPage.userName) && user.getPassword().equals(loginPage.passWord)){
+
+                    }
+                }
+            }
+        });
         playlists = new ArrayList<>();
         Playlist recentlyPlayedAtLast= new Playlist("recentlyPlayed","All your Songs","img\\pink-gramaphone.jpg");
         Playlist favorites= new Playlist("favorites","you liked Songs","img\\favoriteCover.png");
