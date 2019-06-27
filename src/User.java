@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-public class User {
-=======
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -12,11 +9,11 @@ public class User implements InformSocket{
     private ClientReceiver clientReceiver;
     private ArrayList<String> friendsIP=new ArrayList<>();
     private ArrayList<Friend> friends=new ArrayList<>();
-    private String IP="127.0.0.1";
+    private String IP="2";
     private String name="pariya";
     private byte [] myImg;
     private String password;
-//    File
+    //    File
     Socket client;
     public User(String name,String password){
         try {
@@ -25,13 +22,15 @@ public class User implements InformSocket{
             this.name=name;
             this.password=password;
             readImage();
-            client=new Socket("192.168.223.1",4051);
+            client=new Socket("localhost",4051);
             clientSender.setOutputStream(client.getOutputStream());
+            clientSender.setInputStream(client.getInputStream());
             clientSender.setDataOutputStream(new DataOutputStream(client.getOutputStream()));
+            clientSender.setDataInputStream(new DataInputStream(client.getInputStream()));
             clientReceiver.setInputStream(client.getInputStream());
             clientReceiver.setOutputStream(client.getOutputStream());
             clientReceiver.setDataInputStream(new DataInputStream(client.getInputStream()));
-            clientReceiver.setOutputStream(new DataOutputStream(client.getOutputStream()));
+            clientReceiver.setDataOutputStream(new DataOutputStream(client.getOutputStream()));
             System.out.println("connected");
             ObjectOutputStream objectOutputStream=new ObjectOutputStream(client.getOutputStream());
             DataOutputStream dataOutputStream=new DataOutputStream(client.getOutputStream());
@@ -40,17 +39,14 @@ public class User implements InformSocket{
             dataOutputStream.writeUTF(IP);
             dataOutputStream.writeInt(myImg.length);
             client.getOutputStream().write(myImg,0,myImg.length);
+            client.getOutputStream().flush();
             Thread input=new Thread(clientReceiver);
             input.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void addFriend(String IP,Friend friend) throws IOException {
-        friendsIP.add(IP);
-        friends.add(friend);
-        clientSender.addFriend(IP);
-    }
+
     public ClientReceiver getClientReceiver() {
         return clientReceiver;
     }
@@ -111,7 +107,7 @@ public class User implements InformSocket{
         System.out.println("songam changid");
     }
     public  void readImage(){
-        File myFile = new File ("img\\favoriteCover.png");
+        File myFile = new File ("img\\user.png");
         myImg  = new byte [(int)myFile.length()];
         try {
             FileInputStream fis = new FileInputStream(myFile);
@@ -121,5 +117,4 @@ public class User implements InformSocket{
             e.printStackTrace();
         }
     }
->>>>>>> 1e1977e099c13a300e4834098fdce9d3b2d8639e
 }

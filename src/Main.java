@@ -70,7 +70,7 @@ public class Main {
                 }
             }
         }
-        User user=new User("par" ,"1234");
+        User user=new User("dovomi" ,"1234");
         MainPage mainPage = new MainPage(playlists,user);
 
         mainPage.addWindowListener(new WindowAdapter() {

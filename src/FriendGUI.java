@@ -17,11 +17,11 @@ public class FriendGUI extends Panel{
         super(1);
         this.friend=friend;
         pic=new Label(1);
-        pic.setIcon(new ImageIcon(friend.getImg()));
         info=new Label(1);
-        info.setText("<html>"+friend.getName()+"<br>"+friend.getTitle()+"<br>"+friend.getArtist()+"</html>");
         status=new Label(1);
         status.setText("online");
+        pic.setIcon(new ImageIcon(friend.getImg()));
+        info.setText("<html>"+friend.getName()+"<br>"+friend.getTitle()+"<br>"+friend.getArtist()+"</html>");
         this.setLayout(new BorderLayout());
         this.add(pic,BorderLayout.WEST);
         this.add(info,BorderLayout.CENTER);
@@ -45,5 +45,8 @@ public class FriendGUI extends Panel{
 
     public void changeInfo() {
         info.setText("<html>"+friend.getName()+"<br>"+friend.getTitle()+"<br>"+friend.getArtist()+"</html>");
+    }
+    public void setImage(byte[] img){
+        pic.setIcon(new ImageIcon(img));
     }
 }

@@ -1,8 +1,8 @@
 public class Friend {
-    private String name;
-    private String title;
-    private String artist;
-    private String IP;
+    private String name="";
+    private String title="";
+    private String artist="";
+    private String IP="";
     private byte[] img;
     private Playlist sharedPL;
     private boolean isOnline;

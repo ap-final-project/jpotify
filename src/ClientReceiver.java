@@ -6,23 +6,46 @@ public class ClientReceiver implements Runnable {
     private DataInputStream dataInputStream;
     private OutputStream outputStream;
     private DataOutputStream dataOutputStream;
-    public ClientReceiver(){
+    private ServerUpdate serverUpdate = null;
+
+    public ClientReceiver() {
     }
+
     @Override
     public void run() {
         try {
-            String commmand=dataInputStream.readUTF();
-            if (commmand.equals("songChanged")){
-                String IP=dataInputStream.readUTF();
-                String title=dataInputStream.readUTF();
-                String artist=dataInputStream.readUTF();
-
-            }else if (commmand.equals("getSong")){
-                File file=new File(MusicPlayer.currentSong.path);
-                byte[] music=new byte[(int) file.length()];
+            String commmand = dataInputStream.readUTF();
+            System.out.println(commmand);
+            if (commmand.equals("songChanged")) {
+                String IP = dataInputStream.readUTF();
+                String title = dataInputStream.readUTF();
+                String artist = dataInputStream.readUTF();
+            } else if (commmand.equals("getSong")) {
+                File file = new File(MusicPlayer.currentSong.path);
+                byte[] music = new byte[(int) file.length()];
                 dataOutputStream.writeInt((int) file.length());
-                outputStream.write(music,0,music.length);
+                outputStream.write(music, 0, music.length);
+            } else if (commmand.equals("addFriends")) {
+                while (true) {
+                    System.out.println("vay");
+                    try {
+                        int size = dataInputStream.readInt();
+                        if (size != 90) {
+                            byte[] img = new byte[size];
+                            inputStream.read(img);
+                            String name = dataInputStream.readUTF();
+                            String title = dataInputStream.readUTF();
+                            String artist = dataInputStream.readUTF();
+                            System.out.println(size + name + title + artist);
+                            serverUpdate.addNewFriend(img, name, title, artist);
+                        }
+                        System.out.println(size);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,5 +81,9 @@ public class ClientReceiver implements Runnable {
 
     public void setDataOutputStream(DataOutputStream dataOutputStream) {
         this.dataOutputStream = dataOutputStream;
+    }
+
+    public void setServerUpdate(ServerUpdate serverUpdate) {
+        this.serverUpdate = serverUpdate;
     }
 }
