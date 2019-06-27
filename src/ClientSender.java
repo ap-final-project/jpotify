@@ -2,9 +2,9 @@ import javax.print.attribute.standard.OutputDeviceAssigned;
 import java.io.*;
 
 public class ClientSender  {
-    private OutputStream outputStream;
+//    private OutputStream outputStream;
     private DataOutputStream dataOutputStream;
-    private InputStream inputStream;
+//    private InputStream inputStream;
     private ServerUpdate serverUpdate=null;
     private DataInputStream dataInputStream;
     private String command;
@@ -27,13 +27,13 @@ public class ClientSender  {
         dataOutputStream.writeUTF(ip);
         dataOutputStream.flush();
         }
-    public OutputStream getOutputStream() {
-        return outputStream;
-    }
+//    public OutputStream getOutputStream() {
+//        return outputStream;
+//    }
 
-    public void setOutputStream(OutputStream outputStream) {
-        this.outputStream = outputStream;
-    }
+//    public void setOutputStream(OutputStream outputStream) {
+//        this.outputStream = outputStream;
+//    }
 
     public void setDataOutputStream(DataOutputStream dataOutputStream) {
     this.dataOutputStream=dataOutputStream;
@@ -43,13 +43,13 @@ public class ClientSender  {
         this.serverUpdate = serverUpdate;
     }
 
-    public InputStream getInputStream() {
-        return inputStream;
-    }
+//    public InputStream getInputStream() {
+//        return inputStream;
+//    }
 
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
-    }
+//    public void setInputStream(InputStream inputStream) {
+//        this.inputStream = inputStream;
+//    }
 
     public DataOutputStream getDataOutputStream() {
         return dataOutputStream;

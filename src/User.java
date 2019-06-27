@@ -9,8 +9,8 @@ public class User implements InformSocket{
     private ClientReceiver clientReceiver;
     private ArrayList<String> friendsIP=new ArrayList<>();
     private ArrayList<Friend> friends=new ArrayList<>();
-    private String IP="3";
-    private String name="pariya";
+    private String IP="2";
+    private String name="p";
     private byte [] myImg;
     private String password;
     //    File
@@ -23,12 +23,12 @@ public class User implements InformSocket{
             this.password=password;
             readImage();
             client=new Socket("localhost",1235);
-            clientSender.setOutputStream(client.getOutputStream());
-            clientSender.setInputStream(client.getInputStream());
+//            clientSender.setOutputStream(client.getOutputStream());
+//            clientSender.setInputStream(client.getInputStream());
             clientSender.setDataOutputStream(new DataOutputStream(client.getOutputStream()));
             clientSender.setDataInputStream(new DataInputStream(client.getInputStream()));
-            clientReceiver.setInputStream(client.getInputStream());
-            clientReceiver.setOutputStream(client.getOutputStream());
+//            clientReceiver.setInputStream(client.getInputStream());
+//            clientReceiver.setOutputStream(client.getOutputStream());
             clientReceiver.setDataInputStream(new DataInputStream(client.getInputStream()));
             clientReceiver.setDataOutputStream(new DataOutputStream(client.getOutputStream()));
             System.out.println("connected");

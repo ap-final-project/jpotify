@@ -1,11 +1,10 @@
 import javax.swing.*;
 import java.io.*;
 
-
 public class ClientReceiver implements Runnable {
-    private InputStream inputStream;
+//    private InputStream inputStream;
     private DataInputStream dataInputStream;
-    private OutputStream outputStream;
+//    private OutputStream outputStream;
     private DataOutputStream dataOutputStream;
     private ServerUpdate serverUpdate = null;
     private int count = 0;
@@ -38,18 +37,29 @@ public class ClientReceiver implements Runnable {
 //                    if(flag)
                         File file=new File("weGotIt.mp3");
 //                    break;
+                    int bytesRead = 0;
+                    int totalBytes = 0;
                     FileOutputStream fileOutputStream=new FileOutputStream(file);
-                    inputStream.read(music);
-                    int count=0;
-                    while ((count=inputStream.read(music))>0) {
-                        fileOutputStream.write(music,0,count);
+                    if(dataInputStream.readUTF().equals("salam")){
+                        System.out.println("miram tu if line 43");
+//                        while((bytesRead = ;) != -1) {
+//                            totalBytes += bytesRead;
+                        dataInputStream.readFully(music);
+                            fileOutputStream.write(music);
+//                        }
+                    }
+                    else System.out.println("kikikiihbuhjbucbewjcbwevbawebvawebviaewvibeaiv");
+
+                    //س
+//                    dataInputStream.read(music);
+//                    fileOutputStream.write(music,0,music.length);
+//                    dataInputStream.read(music);
+//                    int count=0;
+//                    while ((count=dataInputStream.read(music))>0) {
 //                }
-                    } System.out.println("biroooooooooooooooooooooooooooooon");
+//                    }
+                    System.out.println("biroooooooooooooooooooooooooooooon");
                 }
-
-
-
-
                 else if (commmand.equals("sendSong")) {
                     File file=new File(MusicPlayer.currentSong.path);
                     FileInputStream fis=new FileInputStream(file);
@@ -59,8 +69,8 @@ public class ClientReceiver implements Runnable {
                     fis.read(music);
                     dataOutputStream.writeInt(music.length);
                         dataOutputStream.flush();
-                    outputStream.write(music);
-                    outputStream.flush();
+                    dataOutputStream.write(music);
+                    dataOutputStream.flush();
                 } else if (commmand.equals("addFriends")) {
 //                while (true) {
                     System.out.println("vay");
@@ -70,7 +80,7 @@ public class ClientReceiver implements Runnable {
                             count++;
                             System.out.println(count + " times");
                             byte[] img = new byte[size];
-                            inputStream.read(img);
+                            dataInputStream.read(img);
                             String name = dataInputStream.readUTF();
                             String title = dataInputStream.readUTF();
                             String artist = dataInputStream.readUTF();
@@ -91,21 +101,21 @@ public class ClientReceiver implements Runnable {
         }
     }
 
-    public InputStream getInputStream() {
-        return inputStream;
-    }
+//    public InputStream getInputStream() {
+//        return inputStream;
+//    }
 
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
-    }
+//    public void setInputStream(InputStream inputStream) {
+//        this.inputStream = inputStream;
+//    }
 
-    public OutputStream getOutputStream() {
-        return outputStream;
-    }
+//    public OutputStream getOutputStream() {
+//        return outputStream;
+//    }
 
-    public void setOutputStream(OutputStream outputStream) {
-        this.outputStream = outputStream;
-    }
+//    public void setOutputStream(OutputStream outputStream) {
+//        this.outputStream = outputStream;
+//    }
 
     public DataInputStream getDataInputStream() {
         return dataInputStream;
