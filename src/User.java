@@ -22,7 +22,7 @@ public class User implements InformSocket{
             this.name=name;
             this.password=password;
             readImage();
-            client=new Socket("localhost",1234);
+            client=new Socket("localhost",1235);
             clientSender.setOutputStream(client.getOutputStream());
             clientSender.setInputStream(client.getInputStream());
             clientSender.setDataOutputStream(new DataOutputStream(client.getOutputStream()));
