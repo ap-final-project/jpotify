@@ -23,6 +23,7 @@ public class MainPage extends JFrame {
     CenterPlayLists centerPlayLists;
     CenterAlbum centerAlbum;
     Center center;
+    Top top=new Top();
     MakeAlbumListener makeAlbumListener=null;
 
     public MainPage(ArrayList<Playlist> playlists) throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
@@ -63,6 +64,7 @@ public class MainPage extends JFrame {
         musicPlayer.setMakeVisibilityTrue(center);
         centerAlbum.setChoosePlaylist(center);
         centerAlbum.setMakeVisibilityTrue(center);
+        this.add(top,BorderLayout.PAGE_START);
         this.setVisible(true);
         this.add(main);
         leftBar.setaddSongListener(musicPlayer);

@@ -179,7 +179,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
                 float value = slider.getValue() / 100.0f;
                 try {
                     getVolumeControl().setValue(value);
-                    if (value>0 && value<0.33) sound.setIcon(mute);
+                    if (value>=0 && value<0.33) sound.setIcon(mute);
                     else if (value>=0.33 && value<0.66) sound.setIcon(low);
                     else sound.setIcon(loud);
                     //you can put a click play code here to have nice feedback when moving slider
