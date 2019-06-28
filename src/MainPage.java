@@ -1,6 +1,7 @@
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
+import org.jmusixmatch.MusixMatchException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +28,7 @@ public class MainPage extends JFrame {
 
     MakeAlbumListener makeAlbumListener=null;
     User user;
-    public MainPage(ArrayList<Playlist> playlists,User user) throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
+    public MainPage(ArrayList<Playlist> playlists,User user) throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException, MusixMatchException {
         centerAlbum = new CenterAlbum();
         musicPlayer = new MusicPlayer(playlists);
         makeAlbumListener=centerAlbum;

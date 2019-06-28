@@ -1,4 +1,5 @@
 import javazoom.jl.decoder.JavaLayerException;
+import org.jmusixmatch.MusixMatchException;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.FloatControl;
@@ -10,11 +11,14 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.SliderUI;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
+public class MusicBar extends Panel implements AddToInfoBar, PlayBTNListener {
+    org.jmusixmatch.entity.lyrics.Lyrics lyrics;
     Button play;
     Button stop;
     Button next;
@@ -26,26 +30,28 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     Label artistName = new Label(3);
     Label album = new Label(3);
     Label year = new Label(3);
-    ImageIcon playIcon=new ImageIcon("img\\play.png");
-    ImageIcon pauseIcon=new ImageIcon("img\\pause.png");
-    ImageIcon fullHeartIcon=new ImageIcon("img\\fullHeart.png");
-    ImageIcon emptyHeartIcon=new ImageIcon("img\\emptyHeart.png");
-    Label sound=new Label(3);
-    ImageIcon loud=new ImageIcon("img\\loud.png");
-    ImageIcon low=new ImageIcon("img\\low.png");
-    ImageIcon mute=new ImageIcon("img\\mute.png");
+    ImageIcon playIcon = new ImageIcon("img\\play.png");
+    ImageIcon pauseIcon = new ImageIcon("img\\pause.png");
+    ImageIcon fullHeartIcon = new ImageIcon("img\\fullHeart.png");
+    ImageIcon emptyHeartIcon = new ImageIcon("img\\emptyHeart.png");
+    Label sound = new Label(3);
+    ImageIcon loud = new ImageIcon("img\\loud.png");
+    ImageIcon low = new ImageIcon("img\\low.png");
+    ImageIcon mute = new ImageIcon("img\\mute.png");
     Panel info;
-    JSlider jSlider=new JSlider();
+    Button getLyric = new Button("get Lyric", 3);
+    JSlider jSlider = new JSlider();
     progress progressBar;
     MusicBarListener musicBarListener;
     private float songLength;
     ProgressBarUpdateListener barUpdateListener;
-    private boolean isPlaying=false;
+    private boolean isPlaying = false;
+
     public void setBarUpdateListener(ProgressBarUpdateListener barUpdateListener) {
         this.barUpdateListener = barUpdateListener;
     }
 
-    public MusicBar() {
+    public MusicBar() throws MusixMatchException {
         super(3);
         this.setLayout(new BorderLayout());
         info = new Panel(3);
@@ -69,21 +75,21 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         like.setIcon(emptyHeartIcon);
         FlowLayout flowLayout = new FlowLayout();
         flowLayout.setHgap(30);
-        jSlider.setBackground(new Color(40,40,40));
-        jSlider.setForeground(new Color(194,194,194));
+        jSlider.setBackground(new Color(40, 40, 40));
+        jSlider.setForeground(new Color(194, 194, 194));
         jSlider.setOpaque(true);
         jSlider.setPaintTicks(true);
         jSlider.setUI(new LightSliderUI(jSlider));
-        Panel volume=new Panel(3);
-        BorderLayout layout=new BorderLayout();
+        Panel volume = new Panel(3);
+        BorderLayout layout = new BorderLayout();
         layout.setHgap(10);
         volume.setLayout(layout);
-        sound.setBorder(BorderFactory.createEmptyBorder(0,0,8,0));
-        volume.setPreferredSize(new Dimension(120,30));
+        sound.setBorder(BorderFactory.createEmptyBorder(0, 0, 8, 0));
+        volume.setPreferredSize(new Dimension(120, 30));
         sound.setIcon(low);
-        volume.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
-        volume.add(sound,BorderLayout.WEST);
-        volume.add(jSlider,BorderLayout.CENTER);
+        volume.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
+        volume.add(sound, BorderLayout.WEST);
+        volume.add(jSlider, BorderLayout.CENTER);
         up.setLayout(flowLayout);
         up.add(like);
         up.add(shuffle);
@@ -91,7 +97,21 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         up.add(play);
         up.add(next);
         up.add(repeat);
-        this.add(volume,BorderLayout.EAST);
+        up.add(getLyric);
+        getLyric.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+//                    System.out.println("cliiiiiiiiiiiiiiiiiiiiick");
+//                    System.out.println(songName.getText());
+//                    System.out.println(artistName.getText());
+                    Lyrics lyrics=new Lyrics(songName.getText().trim(),artistName.getText().trim());
+                } catch (MusixMatchException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        this.add(volume, BorderLayout.EAST);
         Panel keke = new Panel(3);
         keke.setBorder(new EmptyBorder(10, 10, 10, 10));
         keke.setLayout(new BorderLayout());
@@ -114,25 +134,27 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     }
 
     @Override
-    public void addTOInfo(Song song) {
+    public void addTOInfo(Song song) throws MusixMatchException {
         songName.setText(song.title);
         artistName.setText(song.artist);
         album.setText(song.album);
         year.setText(song.year);
         this.add(info, BorderLayout.WEST);
+        lyrics= new org.jmusixmatch.entity.lyrics.Lyrics();
         this.addInfo();
-        songLength= song.getTime();
-        isPlaying=true;
+        songLength = song.getTime();
+
+        isPlaying = true;
         revalidate();
     }
 
     @Override
     public void progressBarIncrement(int sec) {
-        progressBar.setV((int) Math.ceil(sec*100/songLength));
+        progressBar.setV((int) Math.ceil(sec * 100 / songLength));
         progressBar.setTime(sec);
     }
 
-    private void setListeners(){
+    private void setListeners() {
         play.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -175,12 +197,12 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         jSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                JSlider slider=(JSlider) e.getSource();
+                JSlider slider = (JSlider) e.getSource();
                 float value = slider.getValue() / 100.0f;
                 try {
                     getVolumeControl().setValue(value);
-                    if (value>=0 && value<0.33) sound.setIcon(mute);
-                    else if (value>=0.33 && value<0.66) sound.setIcon(low);
+                    if (value >= 0 && value < 0.33) sound.setIcon(mute);
+                    else if (value >= 0.33 && value < 0.66) sound.setIcon(low);
                     else sound.setIcon(loud);
                     //you can put a click play code here to have nice feedback when moving slider
                 } catch (Exception ex) {
@@ -197,7 +219,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
                 like.setIcon(new ImageIcon("img\\fullHeart.png"));
                 break;
             case 2:
-                like .setIcon(new ImageIcon("img\\emptyHeart.png"));
+                like.setIcon(new ImageIcon("img\\emptyHeart.png"));
                 break;
             case 4:
                 progressBar.reset();
@@ -212,6 +234,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
                 break;
         }
     }
+
     private FloatControl getVolumeControl() throws Exception {
         try {
             Mixer.Info mixers[] = AudioSystem.getMixerInfo();
@@ -223,13 +246,14 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
                         Line line = mixer.getLine(info);
                         try {
                             line.open();
-                        } catch (IllegalArgumentException iae) {}
+                        } catch (IllegalArgumentException iae) {
+                        }
                         return (FloatControl) line.getControl(FloatControl.Type.VOLUME);
                     }
                 }
             }
         } catch (Exception ex) {
-            System.out.println("problem creating volume control object:"+ex);
+            System.out.println("problem creating volume control object:" + ex);
             throw ex;
         }
         throw new Exception("unknown problem creating volume control object");

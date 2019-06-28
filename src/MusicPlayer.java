@@ -6,6 +6,7 @@ import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
+import org.jmusixmatch.MusixMatchException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -171,6 +172,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 InfoBarListener.addTOInfo(song);
                 playerThread.start();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (MusixMatchException e) {
                 e.printStackTrace();
             }
         }
