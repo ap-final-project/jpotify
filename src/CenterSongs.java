@@ -73,6 +73,7 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
 
     public void showAlbum(Album album) {
         currentAlbum = album;
+        currentPlayList=album.getAlbumPL();
         songs=centerPanelOrderable.changePlayList(album.getGuis());
     }
 

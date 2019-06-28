@@ -5,13 +5,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class CenterAlbum extends Panel implements MakeAlbumListener{
-    ArrayList<Album> albums = new ArrayList<>();
+public class CenterAlbum extends Panel implements MakeAlbumListener {
+    static ArrayList<Album> albums = new ArrayList<>();
     ArrayList<AlbumGUI> albumGuis = new ArrayList<>();
     ChoosePlaylist choosePlaylist = null;
     MakeVisibilityTrue makeVisibilityTrue = null;
-
-    boolean flag=false;
+    boolean flag = false;
 
     public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
         this.makeVisibilityTrue = makeVisibilityTrue;
@@ -49,18 +48,21 @@ public class CenterAlbum extends Panel implements MakeAlbumListener{
         for (Album album : albums) {
             if (album.getName().equals(song.album)) {
                 album.addSong(song, songGUI);
-                for (AlbumGUI albumGUI:albumGuis){
-                    if(albumGUI.album.equals(album))
-                        albumGUI.label.setText("<html>"+"<div>"+album.getName()+"<br>"+album.getSongs().size()+" songs"+"</html>");
-                        break;
+                album.getAlbumPL().songs.add(song);
+                album.getAlbumPL().guis.add(songGUI);
+                for (AlbumGUI albumGUI : albumGuis) {
+                    if (albumGUI.album.equals(album))
+                        albumGUI.label.setText("<html>" + "<div>" + album.getName() + "<br>" + album.getSongs().size() + " songs" + "</html>");
+                    break;
                 }
-                flag=true;
+                flag = true;
                 break;
             }
         }
-        if(!flag) {
+        if (!flag) {
             Album album = new Album(name, song, songGUI);
             AlbumGUI albumGUI = new AlbumGUI(album);
+            album.setMakeAlbumListener(this);
             albums.add(album);
             albumGuis.add(albumGUI);
             this.add(albumGUI);
@@ -74,6 +76,20 @@ public class CenterAlbum extends Panel implements MakeAlbumListener{
                 }
             });
         }
-        flag=false;
+        flag = false;
+    }
+
+    @Override
+    public void removeAlbum(Album album) {
+
+        for (Component c : this.getComponents()) {
+            if (c instanceof AlbumGUI) {
+                if (((AlbumGUI) c).album.equals(album)) {
+                    remove(c);
+                    albumGuis.remove(albums.indexOf(album));
+                    albums.remove(album);
+                }
+            }
+        }
     }
 }

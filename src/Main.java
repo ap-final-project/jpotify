@@ -45,6 +45,7 @@ public class Main {
             usersInfo = new UsersInfo();
         }
         String[] imgPath1=new String[1];
+        imgPath1[0]="img\\user.png";
         loginPage.photo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

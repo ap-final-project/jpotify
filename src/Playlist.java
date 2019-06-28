@@ -4,8 +4,8 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class Playlist {
-    ArrayList<Song> songs = new ArrayList<>();
-    ArrayList<SongGUI> guis = new ArrayList<>();
+    ArrayList<Song> songs;
+    ArrayList<SongGUI> guis ;
     String name = "";
     String imgPath = "";
     String description = "";
@@ -14,6 +14,8 @@ public class Playlist {
         this.name = name;
         this.description = description;
         this.imgPath = imgPath;
+        songs = new ArrayList<>();
+        guis = new ArrayList<>();
     }
 
     public void add(SongGUI songGUI, Song song) {

@@ -69,7 +69,6 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                     while (player1.play(1)) {
 //                        informEqualizer.sendValues(player1.getFrames());
                         framesPlayed++;
-
                         if (framesPlayed % 2 == 0) {
                             short[] thisFrame = player1.getFrames();
                             for (int i = 0; i < 32; i++) {
@@ -343,6 +342,11 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                         if (p.guis.contains(gui)) {
                             p.remove(gui.song);
                             p.guis.remove(gui);
+                        }
+                    }
+                    for (int i=0;i<CenterAlbum.albums.size();i++){
+                        if(CenterAlbum.albums.get(i).getGuis().contains(gui)){
+                            CenterAlbum.albums.get(i).remove(gui.song,gui);
                         }
                     }
 //                    for (Album a:)

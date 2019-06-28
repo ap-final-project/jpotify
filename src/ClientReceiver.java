@@ -71,6 +71,8 @@ public class ClientReceiver implements Runnable {
                         dataOutputStream.flush();
                     dataOutputStream.write(music);
                     dataOutputStream.flush();
+//                    dataOutputStream.writeUTF("songSent");
+                    dataOutputStream.flush();
                 } else if (commmand.equals("addFriends")) {
 //                while (true) {
                     System.out.println("vay");

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Album {
     private ArrayList<Song> songs = new ArrayList<>();
     private ArrayList<SongGUI> guis = new ArrayList<>();
-
-
+    MakeAlbumListener makeAlbumListener=null;
+    private Playlist albumPL;
     public ArrayList<SongGUI> getGuis() {
         return guis;
     }
@@ -35,6 +35,7 @@ public class Album {
     }
 
     private String name;
+
     private String artist;
     private String path;
     private int num;
@@ -43,7 +44,6 @@ public class Album {
 //    public void setInformPLGUI(PanelGuiInformer informPLGUI) {
 //        this.informPLGUI = informPLGUI;
 //    }
-
     public Album(String name, ArrayList<Song> songs,ArrayList<SongGUI> songGUIS) {
         this.name = name;
         //getting songs
@@ -51,7 +51,15 @@ public class Album {
         guis=songGUIS;
         num = songs.size();
         artist = songs.get(0).artist;
+        albumPL=new Playlist("album","album","img\\play.png");
+        for (Song s:songs ) {
+            albumPL.songs.add(s);
+        }
+        for (SongGUI songGUI:songGUIS) {
+            albumPL.guis.add(songGUI);
+        }
     }
+
     public  Album(String name,Song song,SongGUI songGUI){
         this.name=name;
         songs.add(song);
@@ -59,16 +67,30 @@ public class Album {
         num=songs.size();
 //        informPLGUI.updateGui();
         artist=song.artist;
-    }
+        albumPL=new Playlist("album","album","img\\play.png");
+        albumPL.songs.add(song);
+        albumPL.guis.add(songGUI);
 
+    }
     public void addSong(Song song,SongGUI gui){
         songs.add(song);
         guis.add(gui);
         num++;
     }
+
     public void remove(Song song,SongGUI gui){
         songs.remove(song);
         guis.remove(gui);
+        if(this.getSongs().size()<1){
+            makeAlbumListener.removeAlbum(this);
+        }
         num--;
+    }
+    public void setMakeAlbumListener(MakeAlbumListener makeAlbumListener) {
+        this.makeAlbumListener = makeAlbumListener;
+    }
+
+    public Playlist getAlbumPL() {
+        return albumPL;
     }
 }
