@@ -405,7 +405,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         SongGUI gui = songGUI1;
         recentlyPlayed.add(gui, song);
 //        addGUIToCenter.addGui(gui);
-        makeVisibilityTrue.makeTrue(0);
+        makeVisibilityTrue.makeTrue(4);
 
         gui.addMouseListener(new MouseAdapter() {
 
