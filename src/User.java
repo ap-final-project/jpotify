@@ -4,29 +4,37 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class User implements InformSocket{
-    private ClientSender clientSender;
-    private ClientReceiver clientReceiver;
-    private ArrayList<String> friendsIP=new ArrayList<>();
-    private ArrayList<Friend> friends=new ArrayList<>();
-    private String IP="2";
-    private String name="p";
-    private byte [] myImg;
+public class User implements InformSocket,Serializable{
+    transient private ClientSender clientSender;
+    transient private ClientReceiver clientReceiver;
+    transient private Socket client;
+    private  ArrayList<String> friendsIP=new ArrayList<>();
+    private  ArrayList<Friend> friends=new ArrayList<>();
+    private  String IP;
+    private  String name;
+    private  byte [] myImg;
+    private String imgPath;
 
-    public String getPassword() {
-        return password;
+    public String getImgPath() {
+        return imgPath;
     }
 
-    private String password;
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+
+    private  String password;
+
     //    File
-    Socket client;
-    public User(String name,String password){
+    public User(String name,String password,String imgPath){
         try {
+            this.name=name;
+            this.IP=name;
+            this.password=password;
+            this.imgPath=imgPath;
+            readImage();
             clientReceiver=new ClientReceiver();
             clientSender=new ClientSender();
-            this.name=name;
-            this.password=password;
-            readImage();
             client=new Socket("localhost",1235);
 //            clientSender.setOutputStream(client.getOutputStream());
 //            clientSender.setInputStream(client.getInputStream());
@@ -72,18 +80,30 @@ public class User implements InformSocket{
         return friendsIP;
     }
 
-    public void setFriends(ArrayList<String> friendsIP) {
-        this.friendsIP = friendsIP;
+    public void setFriends(ArrayList<Friend> friends) {
+        this.friends = friends;
+    }
+
+    public void setImg(byte[] myImg) {
+        this.myImg = myImg;
+    }
+
+    public byte[] getImg() {
+        return myImg;
     }
 
     public ArrayList<Friend> getFriends() {
         return friends;
     }
 
-    public void setFriendsIP(ArrayList<Friend> friends) {
-        this.friends = friends;
+    public void setFriendsIP(ArrayList<String> friendsIP) {
+        this.friendsIP = friendsIP;
     }
 
+
+    public String getPassword() {
+        return password;
+    }
     public String getIP() {
         return IP;
     }
@@ -112,12 +132,14 @@ public class User implements InformSocket{
         System.out.println("songam changid");
     }
     public  void readImage(){
-        File myFile = new File ("img\\user.png");
+        System.out.println("injaaaa njonvievnoeiwv");
+        File myFile = new File (imgPath);
+        System.out.println(imgPath);
         myImg  = new byte [(int)myFile.length()];
         try {
             FileInputStream fis = new FileInputStream(myFile);
             BufferedInputStream bis = new BufferedInputStream(fis);
-            bis.read(myImg,0,myImg.length);
+            bis.read(myImg);
         } catch (IOException e) {
             e.printStackTrace();
         }

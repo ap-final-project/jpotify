@@ -331,10 +331,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem remove = new JMenuItem("remove . . .");
         JMenuItem addPl = new JMenuItem("add to PlayList");
-        JMenuItem kian = new JMenuItem("kian");
         popupMenu.add(addPl);
         popupMenu.add(remove);
-        popupMenu.add(kian);
         popupMenu.show(e.getComponent(), e.getX(), e.getY());
         popupMenu.setVisible(true);
         remove.addActionListener(new ActionListener() {

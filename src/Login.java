@@ -13,11 +13,13 @@ public class Login extends JFrame {
     String passWord;
     Label welcome;
     Button login;
+    Button photo;
     Button signUp;
     Login() {
         setTitle("LOGIN FORM");
         welcome=new Label("Welcome to JPotify!!!",3);
         login=new Button("Login",3);
+        photo=new Button("add img",3);
         signUp=new Button("signUp",3);
         SpringLayout springLayout = new SpringLayout();
         this.setLayout(springLayout);
@@ -46,12 +48,16 @@ public class Login extends JFrame {
         springLayout.putConstraint(SpringLayout.WEST,userLabel,10,SpringLayout.WEST,this);
         springLayout.putConstraint(SpringLayout.WEST,passLabel,10,SpringLayout.WEST,this);
         springLayout.putConstraint(SpringLayout.EAST,signUp,200,SpringLayout.WEST,login);
+        springLayout.putConstraint(SpringLayout.EAST,photo,40,SpringLayout.EAST,this);
+        springLayout.putConstraint(SpringLayout.SOUTH,photo,150,SpringLayout.SOUTH,this);
+
         this.add(login);
         this.add(signUp);
         this.add(userLabel);
         this.add(passLabel);
         this.add(userText);
         this.add(passText);
+        this.add(photo);
         this.setVisible(true);
 
     }

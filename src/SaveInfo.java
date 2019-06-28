@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class SaveInfo implements Serializable{
+
     ArrayList<String> songPaths = new ArrayList<>();
     ArrayList<String> playlistName=new ArrayList<>();
     ArrayList<String> playlistImgPath=new ArrayList<>();

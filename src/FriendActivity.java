@@ -20,6 +20,7 @@ public class FriendActivity extends Panel implements addFriend,ServerUpdate{
         addF=new Button(1);
         addF.setText("Add friend");
         this.user=user;
+        if(user==null) System.out.println("user nulle");
         user.getClientSender().setServerUpdate(this);
         user.getClientReceiver().setServerUpdate(this);
         label=new Label(1);

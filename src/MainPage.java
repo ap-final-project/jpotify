@@ -23,7 +23,8 @@ public class MainPage extends JFrame {
     CenterPlayLists centerPlayLists;
     CenterAlbum centerAlbum;
     Center center;
-    Top top=new Top();
+    Top top;
+
     MakeAlbumListener makeAlbumListener=null;
     User user;
     public MainPage(ArrayList<Playlist> playlists,User user) throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
@@ -31,9 +32,10 @@ public class MainPage extends JFrame {
         musicPlayer = new MusicPlayer(playlists);
         makeAlbumListener=centerAlbum;
         for (SongGUI gui:playlists.get(0).guis) {
-            makeAlbumListener.makeAlbumS(gui.song.album,gui.song,gui);
-        }
+            makeAlbumListener.makeAlbumS(gui.song.album,gui.song,gui); }
         this.user=user;
+
+        top=new Top(user);
         musicPlayer.setInformSocket(user);
         centerSongs = new CenterSongs();
         this.setTitle(TITLE);
