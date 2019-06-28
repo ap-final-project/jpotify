@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class CenterPanelOrderable{
+public class CenterPanelOrderable implements SwapToTop{
     JPanel panel;
     Box songs;
     private static ImageIcon imageIcon=new ImageIcon("img\\menu1.png");
@@ -53,6 +53,27 @@ public class CenterPanelOrderable{
         }
         panel.add(songs, BorderLayout.NORTH);
         return panel;
+    }
+
+    @Override
+    public void moveToTop(SongGUI i) {
+        int index=0;
+        for (int j=0;j<songs.getComponents().length;j++) {
+            if (songs.getComponents()[j] instanceof JPanel){
+                JPanel panel= (JPanel) songs.getComponents()[j];
+                for (Component comp:panel.getComponents()) {
+                    if (comp.equals(i)){
+                        System.out.println("index is"+j);
+                        index=j;
+                    }
+                }
+            }
+        }
+        JComponent component= (JComponent) songs.getComponent(index);
+        songs.remove(component);
+        songs.add(component, 0);
+        songs.revalidate();
+        songs.repaint();
     }
 }
 

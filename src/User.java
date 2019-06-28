@@ -35,7 +35,7 @@ public class User implements InformSocket,Serializable{
             readImage();
             clientReceiver=new ClientReceiver();
             clientSender=new ClientSender();
-            client=new Socket("localhost",1235);
+            client=new Socket("192.168.1.102",1235);
 //            clientSender.setOutputStream(client.getOutputStream());
 //            clientSender.setInputStream(client.getInputStream());
             clientSender.setDataOutputStream(new DataOutputStream(client.getOutputStream()));

@@ -76,8 +76,7 @@ public class DragMouseAdapter extends MouseAdapter {
         }
         return -1;
     }
-    private void swapComponentLocation(
-            Container parent, Component remove, Component add, int idx) {
+    private void swapComponentLocation(Container parent, Component remove, Component add, int idx) {
         parent.remove(remove);
         parent.add(add, idx);
         parent.revalidate();
