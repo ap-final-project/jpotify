@@ -28,6 +28,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     MakeVisibilityTrue makeVisibilityTrue = null;
     private long totalFrames;
     private int framesPlayed = 0;
+    static boolean onRepeat;
     private int lastSec = 0;
     static Playlist currentPlaylist;
     Playlist recentlyPlayed;
@@ -192,7 +193,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 }
                 break;
             case 2://next
-                currentSong = currentPlaylist.getNextSong(currentSong);
+                if (!onRepeat)
+                    currentSong = currentPlaylist.getNextSong(currentSong);
                 swapToTop.moveToTop(currentPlaylist.getGUIBySong(currentSong));
                 currentPlaylist.swap(currentPlaylist.songs.indexOf(currentSong),0);
 
@@ -214,7 +216,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 }
                 break;
             case 3://previous
-                currentSong = currentPlaylist.getPreSong(currentSong);
+                if (!onRepeat)
+                    currentSong = currentPlaylist.getPreSong(currentSong);
                 swapToTop.moveToTop(currentPlaylist.getGUIBySong(currentSong));
                 currentPlaylist.swap(currentPlaylist.songs.indexOf(currentSong),0);
 
@@ -270,8 +273,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 }
                 break;
             case 2://next
-
-                currentSong = currentPlaylist.getNextSong(currentSong);
+                if (!onRepeat)
+                    currentSong = currentPlaylist.getNextSong(currentSong);
                 swapToTop.moveToTop(currentPlaylist.getGUIBySong(currentSong));
                 currentPlaylist.swap(currentPlaylist.songs.indexOf(currentSong),0);
                 threadStarted = false;
@@ -293,8 +296,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
 
                 break;
             case 3://previous
-
-                currentSong = currentPlaylist.getPreSong(currentSong);
+                if (!onRepeat)
+                    currentSong = currentPlaylist.getPreSong(currentSong);
                 swapToTop.moveToTop(currentPlaylist.getGUIBySong(currentSong));
                 currentPlaylist.swap(currentPlaylist.songs.indexOf(currentSong),0);
                 playerThread.stop();

@@ -30,6 +30,8 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     ImageIcon pauseIcon=new ImageIcon("img\\pause.png");
     ImageIcon fullHeartIcon=new ImageIcon("img\\fullHeart.png");
     ImageIcon emptyHeartIcon=new ImageIcon("img\\emptyHeart.png");
+    ImageIcon onRepeat=new ImageIcon("img\\repeat.png");
+    ImageIcon repeatOff=new ImageIcon("img\\repeatOff.png");
     Label sound=new Label(3);
     ImageIcon loud=new ImageIcon("img\\loud.png");
     ImageIcon low=new ImageIcon("img\\low.png");
@@ -65,7 +67,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         previous.setIcon(new ImageIcon("img\\back.png"));
         next.setIcon(new ImageIcon("img\\next.png"));
         shuffle.setIcon(new ImageIcon("img\\shuffle.png"));
-        repeat.setIcon(new ImageIcon("img\\repeat.png"));
+        repeat.setIcon(repeatOff);
         like.setIcon(emptyHeartIcon);
         FlowLayout flowLayout = new FlowLayout();
         flowLayout.setHgap(30);
@@ -133,6 +135,20 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     }
 
     private void setListeners(){
+        repeat.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (MusicPlayer.onRepeat){
+                    MusicPlayer.onRepeat=false;
+                    repeat.setIcon(repeatOff);
+                }else
+                {
+                    MusicPlayer.onRepeat=true;
+                    repeat.setIcon(onRepeat);
+                }
+            }
+        });
         play.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
