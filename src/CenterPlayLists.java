@@ -278,6 +278,7 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener,AddSha
         PLGUI plgui = new PLGUI(playlist, IP+"'s shared playlist", "img\\sharedPlaylist.jpeg");
         playlists.add(playlist);
         playlistGUIs.add(plgui);
+        plgui.remove(2);
         plgui.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

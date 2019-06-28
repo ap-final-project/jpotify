@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7575882-8480-4156-bbb2-1bf419b33540" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/img/download.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/menu1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/sharedPlayList.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/transfer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/transferBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AddSharedPlaylist.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ApProject-Test/MainPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ApProject-Test/MainPage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CenterPlayLists.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CenterPlayLists.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ClientReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FriendGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FriendGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -86,14 +78,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="25783" />
-          <entry key="txt" value="794" />
+          <entry key="java" value="25801" />
+          <entry key="txt" value="850" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="25783" />
-          <entry key="PLAIN_TEXT" value="794" />
+          <entry key="JAVA" value="25801" />
+          <entry key="PLAIN_TEXT" value="850" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -155,11 +147,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ClientReceiver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="111" column="16" selection-start-line="111" selection-start-column="16" selection-end-line="111" selection-end-column="36" />
+            <state relative-caret-position="272">
+              <caret line="52" column="61" selection-start-line="52" selection-end-line="53" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -167,11 +159,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CenterPlayLists.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="293" column="24" selection-start-line="293" selection-start-column="24" selection-end-line="293" selection-end-column="24" />
+            <state relative-caret-position="239">
+              <caret line="42" column="48" selection-start-line="42" selection-start-column="48" selection-end-line="42" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1299#7530#0" expanded="true" />
@@ -356,9 +348,9 @@
         <option value="$PROJECT_DIR$/src/User.java" />
         <option value="$PROJECT_DIR$/src/FriendGUI.java" />
         <option value="$PROJECT_DIR$/src/AddSharedPlaylist.java" />
-        <option value="$PROJECT_DIR$/src/ClientReceiver.java" />
         <option value="$PROJECT_DIR$/src/MainPage.java" />
         <option value="$PROJECT_DIR$/src/CenterPlayLists.java" />
+        <option value="$PROJECT_DIR$/src/ClientReceiver.java" />
       </list>
     </option>
   </component>
@@ -532,7 +524,7 @@
       <workItem from="1561616642212" duration="27987000" />
       <workItem from="1561654315193" duration="15741000" />
       <workItem from="1561699813666" duration="36165000" />
-      <workItem from="1561737740752" duration="1472000" />
+      <workItem from="1561737740752" duration="2682000" />
     </task>
     <task id="LOCAL-00001" summary="playList logic started">
       <created>1561179605320</created>
@@ -730,30 +722,36 @@
       <option name="project" value="LOCAL" />
       <updated>1561734665021</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="sending playlist through socket almost finished">
+      <created>1561739407345</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1561739407345</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="293331000" />
+    <option name="totallyTimeSpent" value="294541000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
       <window_info id="UI Designer" order="1" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.29395974" />
+      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.29395974" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" order="0" sideWeight="0.49798658" weight="0.32907802" />
       <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.49932885" weight="0.32907802" />
-      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.557047" side_tool="true" visible="true" weight="0.27375886" />
+      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.5577181" side_tool="true" visible="true" weight="0.27375886" />
       <window_info anchor="bottom" id="Database Changes" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="4" />
-      <window_info anchor="bottom" id="Find" order="5" sideWeight="0.47114095" weight="0.32907802" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.44295302" visible="true" weight="0.27375886" />
+      <window_info anchor="bottom" id="Find" order="5" sideWeight="0.4704698" weight="0.32907802" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.44228187" visible="true" weight="0.27375886" />
       <window_info anchor="bottom" id="Debug" order="7" sideWeight="0.49798658" weight="0.4" />
       <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.47583893" weight="0.32907802" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
@@ -846,7 +844,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="PlayList finished!! :)" />
     <MESSAGE value="Album almost completed:)" />
     <MESSAGE value="Album gui completed" />
     <MESSAGE value="album 2.0.0 finished !!!" />
@@ -871,7 +868,8 @@
     <MESSAGE value="some album's bugs fixed" />
     <MESSAGE value="trying to send playlist through sucket" />
     <MESSAGE value="trying to send playlist through socket" />
-    <option name="LAST_COMMIT_MESSAGE" value="trying to send playlist through socket" />
+    <MESSAGE value="sending playlist through socket almost finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="sending playlist through socket almost finished" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -1256,20 +1254,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientReceiver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="111" column="16" selection-start-line="111" selection-start-column="16" selection-end-line="111" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CenterPlayLists.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="293" column="24" selection-start-line="293" selection-start-column="24" selection-end-line="293" selection-end-column="24" />
+        <state relative-caret-position="239">
+          <caret line="42" column="48" selection-start-line="42" selection-start-column="48" selection-end-line="42" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1299#7530#0" expanded="true" />
@@ -1286,6 +1274,16 @@
             <element signature="e#14546#14547#0" expanded="true" />
             <element signature="e#15712#15713#0" expanded="true" />
             <element signature="e#15750#15751#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="52" column="61" selection-start-line="52" selection-end-line="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
