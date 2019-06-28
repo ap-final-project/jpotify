@@ -30,11 +30,12 @@ public class FriendGUI extends Panel{
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    informSocket.getSong(friend.getIP());
+                    if (!friend.getTitle().equals("no song")) {
+                        informSocket.getSong(friend.getIP());
+                    }
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-
             }
         });
         this.status.addMouseListener(new MouseAdapter() {

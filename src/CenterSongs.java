@@ -38,10 +38,11 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         centerPanelOrderable.makeUI(MusicPlayer.currentPlaylist.guis);
         songs=centerPanelOrderable.panel;
         Label temp=new Label(2);
-        temp.setIcon(new ImageIcon("menu1.png"));
-        temp.setVisible(false);
-        p.add(temp);
-        p.setLayout(new GridLayout(1, 6));
+        temp.setPreferredSize(new Dimension(24,24));
+//        temp.setIcon(new ImageIcon("menu1.png"));
+//        temp.setVisible(false);
+//        p.add(temp);
+        p.setLayout(new GridLayout(1, 5));
         p.add(title);
         p.add(artist);
         p.add(album);

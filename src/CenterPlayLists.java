@@ -274,6 +274,17 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener,AddSha
 
     @Override
     public void addSharedPlaylist(ArrayList<String> paths,String IP) throws IOException, UnsupportedTagException, InvalidDataException, JavaLayerException {
+        for (Playlist p:playlists  ) {
+            if (p.name.equals(IP+"'s shared playlist")){
+                for (String path:paths) {
+                    Song song=new Song(path);
+                    SongGUI songGUI=new SongGUI(song);
+                    addSong.addSong(song,songGUI);
+                    p.add(songGUI,song);
+                }
+                return;
+            }
+        }
         Playlist playlist=new Playlist(IP+"'s shared playlist","listen what others are listening","img\\sharedPlaylist.jpeg");
         PLGUI plgui = new PLGUI(playlist, IP+"'s shared playlist", "img\\sharedPlaylist.jpeg");
         playlists.add(playlist);

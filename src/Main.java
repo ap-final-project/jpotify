@@ -94,7 +94,7 @@ public class Main {
                         me.setImg(user.getImg());
 //                        me.setImgPath(user.getImgPath());
                         userName = loginPage.userName;
-                        users.add(me);
+//                        users.add(me);
                         System.out.println("yaftamat");
                         flag=false;
                         loginPage.setVisible(false);
@@ -173,7 +173,6 @@ public class Main {
                 UsersInfo usersInfo=new UsersInfo();
                 for (User user:users) {
                     usersInfo.users.add(user);
-
                 }
                 System.out.println("saving "+ usersInfo.users.size()+"users");
                 for (Song song : mainPage.musicPlayer.recentlyPlayed.songs) {
