@@ -10,6 +10,7 @@ import java.util.Objects;
 public class CenterPanelOrderable{
     JPanel panel;
     Box songs;
+    private static ImageIcon imageIcon=new ImageIcon("img\\menu1.png");
     int idx = 0;
     public  void makeUI(ArrayList<SongGUI> guis) {
         songs = Box.createVerticalBox();
@@ -26,9 +27,11 @@ public class CenterPanelOrderable{
 
     private static JComponent createToolbarButton(int i, JComponent c) {
         //label ghermeze add mishe
-        JLabel l = new JLabel(String.format(" %d", i));
+        JLabel l = new JLabel();
+        l.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
+        l.setIcon(imageIcon);
         l.setOpaque(true);
-        l.setBackground(Color.BLACK);
+        l.setBackground(new Color(18,18,18));
         JPanel p = new JPanel(new BorderLayout());
         p.add(l, BorderLayout.WEST);
         p.add(c);

@@ -28,7 +28,7 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener {
         for (Playlist pl : playlists) {
             PLGUI plgui = new PLGUI(pl, pl.name, pl.imgPath);
             playlistGUIs.add(plgui);
-            if(pl.equals(playlists.get(0))||pl.equals(playlists.get(1)) ) {
+            if(pl.equals(playlists.get(0))||pl.equals(playlists.get(1)) || pl.equals(playlists.get(2)) ) {
                 plgui.remove(2);}
                 else{
                 plgui.more.addMouseListener(new MouseAdapter() {

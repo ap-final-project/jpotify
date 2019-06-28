@@ -50,7 +50,6 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-
                 int returnValue = jfc.showOpenDialog(null);
                 // int returnValue = jfc.showSaveDialog(null);
 
@@ -111,8 +110,10 @@ public class Main {
         playlists = new ArrayList<>();
         Playlist recentlyPlayedAtLast= new Playlist("recentlyPlayed","All your Songs","img\\pink-gramaphone.jpg");
         Playlist favorites= new Playlist("favorites","you liked Songs","img\\favoriteCover.png");
+        Playlist shared= new Playlist("shared","the songs that you want to share","img\\sharedplaylist.jpeg");
         playlists.add(recentlyPlayedAtLast);
         playlists.add(favorites);
+        playlists.add(shared);
         File tempFile = new File(me.getName()+".bin");
         boolean exists = tempFile.exists();
         if (exists) {
@@ -124,7 +125,7 @@ public class Main {
                     SongGUI songGUI=new SongGUI(song);
                     recentlyPlayedAtLast.add(songGUI,song);
                 }
-                for (int i = 2; i < saved.playlistName.size(); i++) {
+                for (int i = 3; i < saved.playlistName.size(); i++) {
                     String name = saved.playlistName.get(i);
                     String description = saved.playlistDescription.get(i);
                     String imgPath = saved.playlistImgPath.get(i);

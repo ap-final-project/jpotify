@@ -131,6 +131,12 @@ public class User implements InformSocket,Serializable{
         clientSender.songChanged(title,artist,IP);
         System.out.println("songam changid");
     }
+
+    @Override
+    public void getPlaylist(String IP) {
+        clientSender.getPL(IP);
+    }
+
     public  void readImage(){
         System.out.println("injaaaa njonvievnoeiwv");
         File myFile = new File (imgPath);

@@ -37,7 +37,11 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         songs.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
         centerPanelOrderable.makeUI(MusicPlayer.currentPlaylist.guis);
         songs=centerPanelOrderable.panel;
-        p.setLayout(new GridLayout(1, 5));
+        Label temp=new Label(2);
+        temp.setIcon(new ImageIcon("menu1.png"));
+        temp.setVisible(false);
+        p.add(temp);
+        p.setLayout(new GridLayout(1, 6));
         p.add(title);
         p.add(artist);
         p.add(album);
@@ -46,7 +50,7 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
 //        p.add(test);
         p.setPreferredSize(new Dimension(800,20));
         this.add(equalizer);
-        songs.add(p);
+        this.add(p);
         songs.add(Box.createVerticalGlue());
         this.add(songs);
     }

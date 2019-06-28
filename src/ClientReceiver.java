@@ -25,40 +25,38 @@ public class ClientReceiver implements Runnable {
                     String artist = dataInputStream.readUTF();
                     serverUpdate.otherUsersSongChanged(IP, title, artist);
                 }
-                else if(commmand.equals("tolokhoda")){
-
-                }
                 else if (commmand.equals("getSong")) {
-                    System.out.println("inja miayyyy?????");
                     int size = dataInputStream.readInt();
                     System.out.println(size);
-                    System.out.println("umade bede in sizesh : " + size);
                     byte[] music = new byte[size];
 //                    if(flag)
-                        File file=new File("ahang"+size+".mp3");
+                    File file=new File("ahang"+size+".mp3");
 //                    break;
                     int bytesRead = 0;
                     int totalBytes = 0;
                     FileOutputStream fileOutputStream=new FileOutputStream(file);
                     if(dataInputStream.readUTF().equals("salam")){
                         System.out.println("miram tu if line 43");
-//                        while((bytesRead = ;) != -1) {
-//                            totalBytes += bytesRead;
                         dataInputStream.readFully(music);
                             fileOutputStream.write(music);
-//                        }
                     }
-                    else System.out.println("kikikiihbuhjbucbewjcbwevbawebvawebviaewvibeaiv");
-
-                    //س
-//                    dataInputStream.read(music);
-//                    fileOutputStream.write(music,0,music.length);
-//                    dataInputStream.read(music);
-//                    int count=0;
-//                    while ((count=dataInputStream.read(music))>0) {
-//                }
-//                    }
-                    System.out.println("biroooooooooooooooooooooooooooooon");
+                   System.out.println("song sent");
+                }else if(commmand.equals("getPlaylist")){
+                    ObjectInputStream objectInputStream=new ObjectInputStream(dataInputStream);
+                    SendPlayList sendPlayList=(SendPlayList) objectInputStream.readObject();
+                    String ip=dataInputStream.readUTF();
+                    for (int i=0;i<sendPlayList.sharedSongs.size();i++  ) {
+                        File file=new File("musicfrom"+ip+"-"+i+".mp3");
+                        FileOutputStream fileOutputStream=new FileOutputStream(file);
+                        fileOutputStream.write(sendPlayList.sharedSongs.get(i));
+                    }
+                }
+                else if(commmand.equals("sendPlaylist")){
+                    dataOutputStream.writeUTF("sendingSong");
+                    SendPlayList sendPlayList=new SendPlayList();
+                    sendPlayList.getPlayList(CenterPlayLists.playlistGUIs.get(2).playlist);
+                    ObjectOutputStream objectOutputStream=new ObjectOutputStream(dataOutputStream);
+                    objectOutputStream.writeObject(sendPlayList);
                 }
                 else if (commmand.equals("sendSong")) {
                     File file=new File(MusicPlayer.currentSong.path);
@@ -98,27 +96,12 @@ public class ClientReceiver implements Runnable {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
 
         }
     }
-
-//    public InputStream getInputStream() {
-//        return inputStream;
-//    }
-
-//    public void setInputStream(InputStream inputStream) {
-//        this.inputStream = inputStream;
-//    }
-
-//    public OutputStream getOutputStream() {
-//        return outputStream;
-//    }
-
-//    public void setOutputStream(OutputStream outputStream) {
-//        this.outputStream = outputStream;
-//    }
-
     public DataInputStream getDataInputStream() {
         return dataInputStream;
     }

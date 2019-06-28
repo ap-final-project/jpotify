@@ -135,9 +135,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                             e1.printStackTrace();
                         }
                     }
-
                 }
-
             });
         }
         currentPlaylist = recentlyPlayed;

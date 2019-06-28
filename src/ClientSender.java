@@ -27,13 +27,13 @@ public class ClientSender  {
         dataOutputStream.writeUTF(ip);
         dataOutputStream.flush();
         }
-//    public OutputStream getOutputStream() {
-//        return outputStream;
-//    }
 
-//    public void setOutputStream(OutputStream outputStream) {
-//        this.outputStream = outputStream;
-//    }
+    public void getPL(String ip) throws IOException {
+        System.out.println("daram miram begiram playlistesho");
+        dataOutputStream.writeUTF("getPlaylist");
+        dataOutputStream.writeUTF(ip);
+        dataOutputStream.flush();
+    }
 
     public void setDataOutputStream(DataOutputStream dataOutputStream) {
     this.dataOutputStream=dataOutputStream;
@@ -42,14 +42,6 @@ public class ClientSender  {
     public void setServerUpdate(ServerUpdate serverUpdate) {
         this.serverUpdate = serverUpdate;
     }
-
-//    public InputStream getInputStream() {
-//        return inputStream;
-//    }
-
-//    public void setInputStream(InputStream inputStream) {
-//        this.inputStream = inputStream;
-//    }
 
     public DataOutputStream getDataOutputStream() {
         return dataOutputStream;
@@ -62,13 +54,4 @@ public class ClientSender  {
     public void setDataInputStream(DataInputStream dataInputStream) {
         this.dataInputStream = dataInputStream;
     }
-
-    public String getCommand() {
-        return command;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
-    }
-
 }
