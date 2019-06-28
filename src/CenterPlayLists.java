@@ -1,18 +1,22 @@
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
+import javazoom.jl.decoder.JavaLayerException;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 
-public class CenterPlayLists extends Panel implements AddPlaylistListener {
+public class CenterPlayLists extends Panel implements AddPlaylistListener,AddSharedPlaylist {
     static ArrayList<PLGUI> playlistGUIs = new ArrayList<>();
     MakeVisibilityTrue makeVisibilityTrue = null;
     ChoosePlaylist choosePlaylistListener = null;
     ArrayList<Playlist> playlists;
-
+    AddSong addSong;
     public void setChoosePlaylistListener(ChoosePlaylist choosePlaylistListener) {
         this.choosePlaylistListener = choosePlaylistListener;
     }
@@ -163,7 +167,6 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener {
         plgui.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
                 choosePlaylistListener.setPlaylist(plgui.getPlaylist());
                 makeVisibilityTrue.makeTrue(0);
             }
@@ -267,5 +270,31 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener {
         });
         this.add(plgui);
         revalidate();
+    }
+
+    @Override
+    public void addSharedPlaylist(ArrayList<String> paths,String IP) throws IOException, UnsupportedTagException, InvalidDataException, JavaLayerException {
+        Playlist playlist=new Playlist(IP+"'s shared playlist","listen what others are listening","img\\sharedPlaylist.jpeg");
+        PLGUI plgui = new PLGUI(playlist, IP+"'s shared playlist", "img\\sharedPlaylist.jpeg");
+        playlists.add(playlist);
+        playlistGUIs.add(plgui);
+        plgui.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                choosePlaylistListener.setPlaylist(plgui.getPlaylist());
+                makeVisibilityTrue.makeTrue(0);
+            }
+        });
+        for (String path:paths) {
+            Song song=new Song(path);
+            SongGUI songGUI=new SongGUI(song);
+            addSong.addSong(song,songGUI);
+            playlist.add(songGUI,song);
+        }
+        this.add(plgui);
+    }
+
+    public void setAddSong(AddSong addSong) {
+        this.addSong = addSong;
     }
 }

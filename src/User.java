@@ -134,7 +134,11 @@ public class User implements InformSocket,Serializable{
 
     @Override
     public void getPlaylist(String IP) {
-        clientSender.getPL(IP);
+        try {
+            clientSender.getPL(IP);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public  void readImage(){

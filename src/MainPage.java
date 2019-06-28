@@ -34,7 +34,6 @@ public class MainPage extends JFrame {
         for (SongGUI gui:playlists.get(0).guis) {
             makeAlbumListener.makeAlbumS(gui.song.album,gui.song,gui); }
         this.user=user;
-
         top=new Top(user);
         musicPlayer.setInformSocket(user);
         centerSongs = new CenterSongs();
@@ -65,9 +64,11 @@ public class MainPage extends JFrame {
         centerPlayLists.setChoosePlaylistListener(center);
         centerPlayLists.setMakeVisibilityTrue(center);
         leftBar.setmakePlListener(centerPlayLists);
+        user.getClientReceiver().setAddSharedPlaylist(centerPlayLists);
         musicPlayer.setMakeVisibilityTrue(center);
         centerAlbum.setChoosePlaylist(center);
         centerAlbum.setMakeVisibilityTrue(center);
+        centerPlayLists.setAddSong(musicPlayer);
         this.add(top,BorderLayout.PAGE_START);
         this.setVisible(true);
         this.add(main);

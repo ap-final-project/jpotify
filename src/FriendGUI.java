@@ -19,7 +19,7 @@ public class FriendGUI extends Panel{
         pic=new Label(1);
         info=new Label(1);
         status=new Label(1);
-        status.setIcon(new ImageIcon("download.png"));
+        status.setIcon(new ImageIcon("img\\download.png"));
         pic.setIcon(new ImageIcon(friend.getImg()));
         info.setText("<html>"+friend.getName()+"<br>"+friend.getTitle()+"<br>"+friend.getArtist()+"</html>");
         this.setLayout(new BorderLayout());
@@ -37,7 +37,7 @@ public class FriendGUI extends Panel{
 
             }
         });
-        this.addMouseListener(new MouseAdapter() {
+        this.status.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 informSocket.getPlaylist(friend.getIP());

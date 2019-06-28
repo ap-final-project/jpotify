@@ -1,5 +1,10 @@
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
+import javazoom.jl.decoder.JavaLayerException;
+
 import javax.swing.*;
 import java.io.*;
+import java.util.ArrayList;
 
 public class ClientReceiver implements Runnable {
 //    private InputStream inputStream;
@@ -9,6 +14,7 @@ public class ClientReceiver implements Runnable {
     private ServerUpdate serverUpdate = null;
     private int count = 0;
     private boolean flag=true;
+    private AddSharedPlaylist addSharedPlaylist;
     public ClientReceiver() {
     }
 
@@ -43,20 +49,24 @@ public class ClientReceiver implements Runnable {
                    System.out.println("song sent");
                 }else if(commmand.equals("getPlaylist")){
                     ObjectInputStream objectInputStream=new ObjectInputStream(dataInputStream);
-                    SendPlayList sendPlayList=(SendPlayList) objectInputStream.readObject();
+                    SendPlayList sendPlayList=new SendPlayList();
+                    sendPlayList.sharedSongs= (ArrayList<byte[]>) objectInputStream.readObject();
                     String ip=dataInputStream.readUTF();
+                    ArrayList<String> paths=new ArrayList<>();
                     for (int i=0;i<sendPlayList.sharedSongs.size();i++  ) {
                         File file=new File("musicfrom"+ip+"-"+i+".mp3");
+                        paths.add("musicfrom"+ip+"-"+i+".mp3");
                         FileOutputStream fileOutputStream=new FileOutputStream(file);
                         fileOutputStream.write(sendPlayList.sharedSongs.get(i));
                     }
+                    addSharedPlaylist.addSharedPlaylist(paths,ip);
                 }
                 else if(commmand.equals("sendPlaylist")){
                     dataOutputStream.writeUTF("sendingSong");
                     SendPlayList sendPlayList=new SendPlayList();
                     sendPlayList.getPlayList(CenterPlayLists.playlistGUIs.get(2).playlist);
                     ObjectOutputStream objectOutputStream=new ObjectOutputStream(dataOutputStream);
-                    objectOutputStream.writeObject(sendPlayList);
+                    objectOutputStream.writeObject(sendPlayList.sharedSongs);
                 }
                 else if (commmand.equals("sendSong")) {
                     File file=new File(MusicPlayer.currentSong.path);
@@ -98,6 +108,12 @@ public class ClientReceiver implements Runnable {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+            } catch (UnsupportedTagException e) {
+                e.printStackTrace();
+            } catch (JavaLayerException e) {
+                e.printStackTrace();
+            } catch (InvalidDataException e) {
+                e.printStackTrace();
             }
 
         }
@@ -120,5 +136,9 @@ public class ClientReceiver implements Runnable {
 
     public void setServerUpdate(ServerUpdate serverUpdate) {
         this.serverUpdate = serverUpdate;
+    }
+
+    public void setAddSharedPlaylist(AddSharedPlaylist addSharedPlaylist) {
+        this.addSharedPlaylist = addSharedPlaylist;
     }
 }
