@@ -1,4 +1,5 @@
 import javazoom.jl.decoder.JavaLayerException;
+import org.jmusixmatch.MusixMatchException;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.FloatControl;
@@ -10,6 +11,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.SliderUI;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -21,6 +24,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     private Button shuffle;
     private Button repeat;
     private Button like;
+    private Button getLyric;
     private Label songName = new Label(3);
     private Label artistName = new Label(3);
     private Label album = new Label(3);
@@ -56,6 +60,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         this.add(info, BorderLayout.WEST);
         play = new Button(3);
         next = new Button(3);
+        getLyric=new Button("getLyric",3);
         previous = new Button(3);
         repeat = new Button(3);
         shuffle = new Button(3);
@@ -90,6 +95,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         up.add(play);
         up.add(next);
         up.add(repeat);
+        up.add(getLyric);
         this.add(volume,BorderLayout.EAST);
         Panel lowerPanel = new Panel(3);
         this.add(lowerPanel, BorderLayout.CENTER);
@@ -99,6 +105,12 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         lowerPanel.add(progressBar, BorderLayout.PAGE_END);
         progressBar.setBorder(new EmptyBorder(10, 0, 0, 0));
         this.setListeners();
+        getLyric.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    Lyrics lyrics=new Lyrics(songName.getText().trim(),artistName.getText().trim());
+            }
+        });
     }
 
     public void addInfo() {

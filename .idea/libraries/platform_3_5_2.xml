@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="platform-3.5.2">
+    <CLASSES>
+      <root url="jar://E:/libs/platform-3.5.2.jar!/" />
+      <root url="jar://E:/libs/vlcj-3.0.1.jar!/" />
+      <root url="jar://E:/libs/jna-3.5.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

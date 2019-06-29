@@ -11,5 +11,6 @@
     <orderEntry type="library" name="mp3agic-0.6" level="project" />
     <orderEntry type="library" name="jsoup-1.6.0" level="project" />
     <orderEntry type="library" name="com.sachinhandiekar:jMusixMatch:1.1.4" level="project" />
+    <orderEntry type="library" name="platform-3.5.2" level="project" />
   </component>
 </module>
