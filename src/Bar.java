@@ -8,7 +8,6 @@ public class Bar extends Panel implements changeBar {
     super(2);
     this.setLayout(new GridLayout(1,1));
     this.movieBar=movieBar;
-    movieBar.setBackground(Color.GREEN);
     this.musicBar=musicBar;
     this.add(musicBar);
     musicBar.setVisible(true);

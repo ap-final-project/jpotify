@@ -13,6 +13,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.security.KeyStore;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -32,6 +33,8 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     private int lastSec = 0;
     static Playlist currentPlaylist;
     Playlist recentlyPlayed;
+    private  ArrayList<Song> songsBeforeShuffle;
+    private ArrayList<SongGUI> guisBeforeShuffle;
     private SwapToTop swapToTop;
     Playlist favorites;
     InformArtWrok informArtWrok;
@@ -46,7 +49,7 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     boolean fromThis = true;
     final AtomicBoolean pause = new AtomicBoolean(false);
     boolean firstTime = true;
-
+    private Playlist beforeShuffle;
     public void setPlayBTNListener(PlayBTNListener playBTNListener) {
         this.playBTNListener = playBTNListener;
     }
@@ -259,6 +262,30 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                     makeVisibilityTrue.makeTrue(4);
                 }
                 break;
+            case 4:
+                songsBeforeShuffle=new ArrayList<>();
+                guisBeforeShuffle=new ArrayList<>();
+                for (SongGUI gui :currentPlaylist.guis) {
+                    guisBeforeShuffle.add(gui);
+                    songsBeforeShuffle.add(gui.song);
+                }
+                beforeShuffle=currentPlaylist;
+                Collections.shuffle(currentPlaylist.guis);
+                ArrayList<Song> songs=new ArrayList<>();
+                currentPlaylist.songs=songs;
+                for (SongGUI gui:currentPlaylist.guis) {
+                    currentPlaylist.songs.add(gui.song);
+                }
+                CenterSongs.currentPlayList=currentPlaylist;
+                makeVisibilityTrue.makeTrue(4);
+                break;
+            case 5:
+                currentPlaylist=beforeShuffle;
+                currentPlaylist.guis=guisBeforeShuffle;
+                currentPlaylist.songs=songsBeforeShuffle;
+                CenterSongs.currentPlayList=beforeShuffle;
+                makeVisibilityTrue.makeTrue(4);
+                break;
         }
     }
 
@@ -338,7 +365,6 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                     currentSong.like();
                     favorites.add(recentlyPlayed.getGUIBySong(currentSong), currentSong);
                     makeVisibilityTrue.makeTrue(4);
-
                 }
                 break;
         }

@@ -71,7 +71,6 @@ public class MainPage extends JFrame {
         musicPlayer.setInformArtWrok(leftBar);
         musicBar.setMusicBarListener(musicPlayer);//action
         top.setSearching(searchResult);
-        musicPlayer.setInformEqualizer(centerSongs);
         center.setChangeBar(bar);
         leftBar.setCenterTrue(center);
         leftBar.setChoosePlaylist(center);
@@ -79,14 +78,15 @@ public class MainPage extends JFrame {
         centerPlayLists.setMakeVisibilityTrue(center);
         leftBar.setmakePlListener(centerPlayLists);
         user.getClientReceiver().setAddSharedPlaylist(centerPlayLists);
+        musicPlayer.setInformEqualizer(centerSongs);
         musicPlayer.setMakeVisibilityTrue(center);
+        musicPlayer.setSwapToTop(centerPanelOrderable);
         centerAlbum.setChoosePlaylist(center);
         centerAlbum.setMakeVisibilityTrue(center);
         centerPlayLists.setAddSong(musicPlayer);
         movieLibrary.setMovieBarListener(movie);
         movieLibrary.setMakeVisibilityTrue(center);
         this.add(top,BorderLayout.PAGE_START);
-        musicPlayer.setSwapToTop(centerPanelOrderable);
         this.setVisible(true);
         this.add(main);
         leftBar.setAddMovie(movieLibrary);
