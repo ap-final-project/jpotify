@@ -15,38 +15,36 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
-    Button play;
-    Button stop;
-    Button next;
-    Button previous;
-    Button shuffle;
-    Button repeat;
-    Button like;
-    Label songName = new Label(3);
-    Label artistName = new Label(3);
-    Label album = new Label(3);
-    Label year = new Label(3);
-    ImageIcon playIcon=new ImageIcon("img\\play.png");
-    ImageIcon pauseIcon=new ImageIcon("img\\pause.png");
-    ImageIcon fullHeartIcon=new ImageIcon("img\\fullHeart.png");
-    ImageIcon emptyHeartIcon=new ImageIcon("img\\emptyHeart.png");
-    ImageIcon onRepeat=new ImageIcon("img\\repeat.png");
-    ImageIcon repeatOff=new ImageIcon("img\\repeatOff.png");
-    Label sound=new Label(3);
-    ImageIcon loud=new ImageIcon("img\\loud.png");
-    ImageIcon low=new ImageIcon("img\\low.png");
-    ImageIcon mute=new ImageIcon("img\\mute.png");
-    Panel info;
-    JSlider jSlider=new JSlider();
-    progress progressBar;
-    MusicBarListener musicBarListener;
+    private Button play;
+    private Button next;
+    private Button previous;
+    private Button shuffle;
+    private Button repeat;
+    private Button like;
+    private Label songName = new Label(3);
+    private Label artistName = new Label(3);
+    private Label album = new Label(3);
+    private Label year = new Label(3);
+    private ImageIcon playIcon=new ImageIcon("img\\play.png");
+    private ImageIcon pauseIcon=new ImageIcon("img\\pause.png");
+    private ImageIcon fullHeartIcon=new ImageIcon("img\\fullHeart.png");
+    private ImageIcon emptyHeartIcon=new ImageIcon("img\\emptyHeart.png");
+    private ImageIcon onRepeat=new ImageIcon("img\\repeat.png");
+    private ImageIcon repeatOff=new ImageIcon("img\\repeatOff.png");
+    private Label sound=new Label(3);
+    private ImageIcon loud=new ImageIcon("img\\loud.png");
+    private ImageIcon low=new ImageIcon("img\\low.png");
+    private ImageIcon mute=new ImageIcon("img\\mute.png");
+    private ImageIcon shuffleOff=new ImageIcon("img\\shuffle.png");
+    private ImageIcon shuffleOn=new ImageIcon("img\\shuffleOn.png");
+    private Panel info;
+    private JSlider jSlider=new JSlider();
+    private progress progressBar;
+    private MusicBarListener musicBarListener;
     private float songLength;
-    ProgressBarUpdateListener barUpdateListener;
+    private ProgressBarUpdateListener barUpdateListener;
     private boolean isPlaying=false;
-    public void setBarUpdateListener(ProgressBarUpdateListener barUpdateListener) {
-        this.barUpdateListener = barUpdateListener;
-    }
-
+    private boolean onShuffle;
     public MusicBar() {
         super(3);
         this.setLayout(new BorderLayout());
@@ -57,16 +55,15 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         progressBar = new progress();
         this.add(info, BorderLayout.WEST);
         play = new Button(3);
-        stop = new Button(3);
         next = new Button(3);
         previous = new Button(3);
         repeat = new Button(3);
         shuffle = new Button(3);
         like = new Button(3);
         play.setIcon(playIcon);
+        shuffle.setIcon(shuffleOff);
         previous.setIcon(new ImageIcon("img\\back.png"));
         next.setIcon(new ImageIcon("img\\next.png"));
-        shuffle.setIcon(new ImageIcon("img\\shuffle.png"));
         repeat.setIcon(repeatOff);
         like.setIcon(emptyHeartIcon);
         FlowLayout flowLayout = new FlowLayout();
@@ -94,13 +91,13 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         up.add(next);
         up.add(repeat);
         this.add(volume,BorderLayout.EAST);
-        Panel keke = new Panel(3);
-        keke.setBorder(new EmptyBorder(10, 10, 10, 10));
-        keke.setLayout(new BorderLayout());
-        keke.add(up, BorderLayout.PAGE_START);
+        Panel lowerPanel = new Panel(3);
+        this.add(lowerPanel, BorderLayout.CENTER);
+        lowerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        lowerPanel.setLayout(new BorderLayout());
+        lowerPanel.add(up, BorderLayout.PAGE_START);
+        lowerPanel.add(progressBar, BorderLayout.PAGE_END);
         progressBar.setBorder(new EmptyBorder(10, 0, 0, 0));
-        keke.add(progressBar, BorderLayout.PAGE_END);
-        this.add(keke, BorderLayout.CENTER);
         this.setListeners();
     }
 
@@ -109,10 +106,6 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         info.add(artistName);
         info.add(album);
         info.add(year);
-    }
-
-    public void setMusicBarListener(MusicBarListener musicBarListener) {
-        this.musicBarListener = musicBarListener;
     }
 
     @Override
@@ -146,6 +139,21 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
                 {
                     MusicPlayer.onRepeat=true;
                     repeat.setIcon(onRepeat);
+                }
+            }
+        });
+        shuffle.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (onShuffle){
+                    shuffle.setIcon(shuffleOff);
+                    onShuffle=false;
+                    musicBarListener.action(5);
+
+                }else {
+                    shuffle.setIcon(shuffleOn);
+                    onShuffle=true;
+                    musicBarListener.action(4);
                 }
             }
         });
@@ -228,6 +236,7 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
                 break;
         }
     }
+
     private FloatControl getVolumeControl() throws Exception {
         try {
             Mixer.Info mixers[] = AudioSystem.getMixerInfo();
@@ -249,5 +258,12 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
             throw ex;
         }
         throw new Exception("unknown problem creating volume control object");
+    }
+    public void setMusicBarListener(MusicBarListener musicBarListener) {
+        this.musicBarListener = musicBarListener;
+    }
+
+    public void setBarUpdateListener(ProgressBarUpdateListener barUpdateListener) {
+        this.barUpdateListener = barUpdateListener;
     }
 }
