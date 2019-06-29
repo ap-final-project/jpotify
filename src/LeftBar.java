@@ -21,14 +21,15 @@ public class LeftBar extends Panel implements InformArtWrok{
     AddPlaylistListener makePlListener = null;
     AddSong addSongListener=null;
     MakeAlbumListener makeAlbum=null;
-    Button AddBtn = new Button("Add", 1);
+    Button AddBtn = new Button("Add Songs", 1);
     Button PLBtn = new Button("make new Playlist", 1);
     Label text = new Label(1);
-    Button home = new Button("Home", 1);
-    Button btn2 = new Button("PlayLists", 1);
-    Button btn3 = new Button("Library", 1);
+    Button AddBtnMovie = new Button("add Movies", 1);
+    Button playlistsBTN = new Button("PlayLists", 1);
+    Button movie = new Button("Movie", 1);
     Button songBtn = new Button("Song", 1);
     Button albumBTN = new Button("Albums", 1);
+    Button movieLibrary=new Button("Movie Library",1);
     Panel artWork=new Panel(1);
     Panel leftBar=new Panel(1);
     Scroll scrollPane=new Scroll(leftBar);
@@ -37,7 +38,7 @@ public class LeftBar extends Panel implements InformArtWrok{
     ArrayList<Song> songs=new ArrayList<>();
     ArrayList<SongGUI> songGUIS=new ArrayList<>();
     String[] playlistDefaultIMGS=new String[3];
-
+    AddMovie addMovie;
     public void setCenterTrue(MakeVisibilityTrue centerTrue) {
         this.centerTrue = centerTrue;
     }
@@ -53,8 +54,9 @@ public class LeftBar extends Panel implements InformArtWrok{
     public LeftBar() {
         super(1);
         AddBtn.setIcon(new ImageIcon(new ImageIcon("img\\plus.png").getImage().getScaledInstance(28,28,100)));
-        text.setText("Menu");
-
+        AddBtnMovie.setIcon(new ImageIcon(new ImageIcon("img\\plus.png").getImage().getScaledInstance(28,28,100)));
+        PLBtn.setIcon(new ImageIcon(new ImageIcon("img\\plus.png").getImage().getScaledInstance(28,28,100)));
+        text.setText("Library");
         playlistDefaultIMGS[0]="img\\PLDefault (1).jpg";
         playlistDefaultIMGS[1]="img\\PLDefault (2).jpg";
         playlistDefaultIMGS[2]="img\\PLDefault (3).jpg";
@@ -96,8 +98,6 @@ public class LeftBar extends Panel implements InformArtWrok{
                             makeAlbum.makeAlbum(x.getName(),songs,songGUIS);
                         }
                     });
-                    System.out.println("\n- - - - - - - - - - -\n");
-                    System.out.println("Files Found\n");
                     Arrays.asList(files).forEach(x -> {
                         if (x.isFile()) {
                             Song song= null;
@@ -192,10 +192,39 @@ public class LeftBar extends Panel implements InformArtWrok{
                 });
             }
         });
-        btn2.addMouseListener(new MouseAdapter() {
+        AddBtnMovie.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String path;
+                JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+                int returnValue = jfc.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = jfc.getSelectedFile();
+                    path = selectedFile.getAbsolutePath();
+                    addMovie.addMovie(path);
+                    centerTrue.makeTrue(5);
+                }
+
+
+            }
+        });
+        movie.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+               centerTrue.makeTrue(6);
+            }
+        });
+        playlistsBTN.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 centerTrue.makeTrue(1);
+            }
+        });
+        movieLibrary.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                centerTrue.makeTrue(5);
+
             }
         });
         songBtn.addMouseListener(new MouseAdapter() {
@@ -216,21 +245,23 @@ public class LeftBar extends Panel implements InformArtWrok{
         this.add(artWork);
         leftBar.setLayout(new BoxLayout(leftBar,BoxLayout.Y_AXIS));
         text.setBorder(new EmptyBorder(20,15,10,0));
-        btn2.setBorder(new EmptyBorder(10,15,10,0));
-        btn3.setBorder(new EmptyBorder(10,15,10,0));
+        playlistsBTN.setBorder(new EmptyBorder(10,15,10,0));
+        movie.setBorder(new EmptyBorder(10,15,10,0));
         songBtn.setBorder(new EmptyBorder(10,15,10,0));
         albumBTN.setBorder(new EmptyBorder(10,15,10,0));
-        home.setBorder(new EmptyBorder(10,15,10,0));
+        AddBtnMovie.setBorder(new EmptyBorder(10,15,10,0));
         AddBtn.setBorder(new EmptyBorder(10,15,10,5));
         PLBtn.setBorder(new EmptyBorder(10,15,10,5));
+        movieLibrary.setBorder(new EmptyBorder(10,15,10,5));
         leftBar.add(text);
-        leftBar.add(home);
-        leftBar.add(btn2);
-        leftBar.add(btn3);
-        leftBar.add(songBtn);
         leftBar.add(albumBTN);
-        leftBar.add(AddBtn);
+        leftBar.add(songBtn);
+        leftBar.add(playlistsBTN);
+        leftBar.add(movie);
+        leftBar.add(movieLibrary);
         leftBar.add(PLBtn);
+        leftBar.add(AddBtn);
+        leftBar.add(AddBtnMovie);
         scrollPane.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0,Color.WHITE));
         leftBar.setBorder(new EmptyBorder(0,0,2,0));
         artWork.setLayout(new BorderLayout());
@@ -251,6 +282,10 @@ public class LeftBar extends Panel implements InformArtWrok{
 
     public void setChoosePlaylist(ChoosePlaylist choosePlaylist) {
         this.choosePlaylist = choosePlaylist;
+    }
+
+    public void setAddMovie(AddMovie addMovie) {
+        this.addMovie=addMovie;
     }
 }
 

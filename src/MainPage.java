@@ -24,8 +24,12 @@ public class MainPage extends JFrame {
     CenterAlbum centerAlbum;
     Center center;
     Top top;
-
+    Bar bar;
+    Movie movie;
+    MovieBar movieBar;
+    MovieLibrary movieLibrary;
     MakeAlbumListener makeAlbumListener=null;
+    SearchResult searchResult;
     User user;
     public MainPage(ArrayList<Playlist> playlists,User user) throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         centerAlbum = new CenterAlbum();
@@ -36,14 +40,20 @@ public class MainPage extends JFrame {
         }
         this.user=user;
         top=new Top(user);
+        searchResult=new SearchResult(playlists.get(0));
         musicPlayer.setInformSocket(user);
         CenterPanelOrderable centerPanelOrderable=new CenterPanelOrderable();
         centerSongs = new CenterSongs(centerPanelOrderable);
         this.setTitle(TITLE);
         musicBar = new MusicBar();
+        movie=new Movie();
+        movieBar=new MovieBar();
+        movieLibrary=new MovieLibrary();
+        movieBar.setMovieBarListener(movie);
         friendActivity = new FriendActivity(user);
         centerPlayLists= new CenterPlayLists(musicPlayer.getPlaylists());
-        center = new Center(centerSongs, centerPlayLists, musicPlayer.getPlaylists(), centerAlbum);
+        center = new Center(searchResult,movieLibrary,movie,centerSongs, centerPlayLists, musicPlayer.getPlaylists(), centerAlbum);
+        bar=new Bar(movieBar,musicBar);
         Color dark = new Color(24, 24, 24);
         this.setBackground(dark);
         this.setForeground(dark);
@@ -51,7 +61,7 @@ public class MainPage extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         main.setLayout(new BorderLayout());
         main.add(leftBar, BorderLayout.WEST);
-        main.add(musicBar, BorderLayout.PAGE_END);
+        main.add(bar, BorderLayout.PAGE_END);
         main.add(friendActivity,BorderLayout.EAST);
         musicPlayer.setInfoBarListener(musicBar);
         main.add(center, BorderLayout.CENTER);
@@ -60,7 +70,9 @@ public class MainPage extends JFrame {
         musicPlayer.setPlayBTNListener(musicBar);//clicked
         musicPlayer.setInformArtWrok(leftBar);
         musicBar.setMusicBarListener(musicPlayer);//action
+        top.setSearching(searchResult);
         musicPlayer.setInformEqualizer(centerSongs);
+        center.setChangeBar(bar);
         leftBar.setCenterTrue(center);
         leftBar.setChoosePlaylist(center);
         centerPlayLists.setChoosePlaylistListener(center);
@@ -71,13 +83,17 @@ public class MainPage extends JFrame {
         centerAlbum.setChoosePlaylist(center);
         centerAlbum.setMakeVisibilityTrue(center);
         centerPlayLists.setAddSong(musicPlayer);
+        movieLibrary.setMovieBarListener(movie);
+        movieLibrary.setMakeVisibilityTrue(center);
         this.add(top,BorderLayout.PAGE_START);
         musicPlayer.setSwapToTop(centerPanelOrderable);
         this.setVisible(true);
         this.add(main);
+        leftBar.setAddMovie(movieLibrary);
         leftBar.setaddSongListener(musicPlayer);
         leftBar.setMakeAlbum(centerAlbum);
         musicBar.setBarUpdateListener(musicPlayer);
         this.setBackground(dark);
+        top.setMakeVisibilityTrue(center);
     }
 }

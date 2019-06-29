@@ -14,9 +14,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
+public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener ,changeBar{
     Button play;
-    Button stop;
     Button next;
     Button previous;
     Button shuffle;
@@ -57,7 +56,6 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
         progressBar = new progress();
         this.add(info, BorderLayout.WEST);
         play = new Button(3);
-        stop = new Button(3);
         next = new Button(3);
         previous = new Button(3);
         repeat = new Button(3);
@@ -249,5 +247,15 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
             throw ex;
         }
         throw new Exception("unknown problem creating volume control object");
+    }
+
+    @Override
+    public void setMovieBar() {
+
+    }
+
+    @Override
+    public void setMusicBar() {
+
     }
 }

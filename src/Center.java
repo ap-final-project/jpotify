@@ -14,8 +14,15 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
     CenterPlayLists centerPlayLists;
     ArrayList<Playlist> playlists;
     CenterAlbum centerAlbum;
-    public Center(CenterSongs centerSongs, CenterPlayLists centerPlayLists,ArrayList<Playlist> playlists,CenterAlbum centerAlbum) {
+    Movie movie;
+    MovieLibrary movieLibrary;
+    changeBar changeBar;
+    SearchResult searchResult;
+    public Center(SearchResult searchResult,MovieLibrary movieLibrary,Movie movie,CenterSongs centerSongs, CenterPlayLists centerPlayLists,ArrayList<Playlist> playlists,CenterAlbum centerAlbum) {
         super(2);
+        this.movie=movie;
+        this.searchResult=searchResult;
+        this.movieLibrary=movieLibrary;
         this.centerAlbum=centerAlbum;
         this.playlists=playlists;
         this.centerPlayLists=centerPlayLists;
@@ -38,19 +45,37 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
             case 0:
                 scrollpane.setPanel(centerSongs);
                 centerSongs.setVisible(true);
+                changeBar.setMusicBar();
                 break;
             case 1:
                 scrollpane.setPanel(centerPlayLists);
                 centerPlayLists.setVisible(true);
+                changeBar.setMusicBar();
                 break;
             case 2:
                 scrollpane.setPanel(centerAlbum);
                 centerAlbum.setVisible(true);
+                changeBar.setMusicBar();
                 break;
             case 4:
                 scrollpane.setPanel(centerSongs);
                 centerSongs.setVisible(true);
                 centerSongs.showPlayList(CenterSongs.currentPlayList);
+                changeBar.setMusicBar();
+                break;
+            case 5:
+                scrollpane.setPanel(movieLibrary);
+                movieLibrary.setVisible(true);
+                changeBar.setMovieBar();
+                break;
+            case 6:
+                scrollpane.setPanel(movie);
+                movie.setVisible(true);
+                changeBar.setMovieBar();
+                break;
+            case 7:
+                scrollpane.setPanel(searchResult);
+                changeBar.setMusicBar();
                 break;
         }
     }
@@ -68,5 +93,8 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
         centerSongs.showAlbum(album);
     }
 
+    public void setChangeBar(changeBar changeBar) {
+        this.changeBar = changeBar;
+    }
 }
 
