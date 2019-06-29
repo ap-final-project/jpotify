@@ -33,11 +33,13 @@ public class MainPage extends JFrame {
         musicPlayer = new MusicPlayer(playlists);
         makeAlbumListener=centerAlbum;
         for (SongGUI gui:playlists.get(0).guis) {
-            makeAlbumListener.makeAlbumS(gui.song.album,gui.song,gui); }
+            makeAlbumListener.makeAlbumS(gui.song.album,gui.song,gui);
+        }
         this.user=user;
         top=new Top(user);
         musicPlayer.setInformSocket(user);
-        centerSongs = new CenterSongs();
+        CenterPanelOrderable centerPanelOrderable=new CenterPanelOrderable();
+        centerSongs = new CenterSongs(centerPanelOrderable);
         this.setTitle(TITLE);
         musicBar = new MusicBar();
         friendActivity = new FriendActivity(user);
@@ -71,6 +73,7 @@ public class MainPage extends JFrame {
         centerAlbum.setMakeVisibilityTrue(center);
         centerPlayLists.setAddSong(musicPlayer);
         this.add(top,BorderLayout.PAGE_START);
+        musicPlayer.setSwapToTop(centerPanelOrderable);
         this.setVisible(true);
         this.add(main);
         leftBar.setaddSongListener(musicPlayer);

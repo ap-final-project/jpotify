@@ -15,12 +15,13 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
     Label time = new Label(2);
     Panel p = new Panel(2);
     Equalizer equalizer;
-    CenterPanelOrderable centerPanelOrderable=new CenterPanelOrderable();
+    CenterPanelOrderable centerPanelOrderable;
     static Playlist currentPlayList;
     static Album currentAlbum;
     JPanel songs=new JPanel();
-    public CenterSongs() {
+    public CenterSongs(CenterPanelOrderable centerPanelOrderable) {
         super(2);
+        this.centerPanelOrderable=centerPanelOrderable;
         equalizer = new Equalizer();
         this.setLayout(new WrapLayout(WrapLayout.CENTER));
         title.setText("Title");
@@ -106,5 +107,7 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
     public boolean getScrollableTracksViewportHeight() {
         return false;
     }
+
+
 }
 

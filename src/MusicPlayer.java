@@ -29,9 +29,11 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
     MakeVisibilityTrue makeVisibilityTrue = null;
     private long totalFrames;
     private int framesPlayed = 0;
+    static boolean onRepeat;
     private int lastSec = 0;
     static Playlist currentPlaylist;
     Playlist recentlyPlayed;
+    private SwapToTop swapToTop;
     Playlist favorites;
     InformArtWrok informArtWrok;
     boolean threadStarted = false;
@@ -120,6 +122,10 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                     } else if (e.getButton() == MouseEvent.BUTTON3) {
                         settings(gui, e);
                     } else if (e.getClickCount() == 1) {
+                        swapToTop.moveToTop(gui);
+                        int position=currentPlaylist.guis.indexOf(gui);
+                        currentPlaylist.swap(position,0);
+
                         Song songClicked = recentlyPlayed.getSongByGUI(gui);
                         currentPlaylist = CenterSongs.currentPlayList;
                         if (threadStarted) {
@@ -190,7 +196,11 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 }
                 break;
             case 2://next
-                currentSong = currentPlaylist.getNextSong(currentSong);
+                if (!onRepeat)
+                    currentSong = currentPlaylist.getNextSong(currentSong);
+                swapToTop.moveToTop(currentPlaylist.getGUIBySong(currentSong));
+                currentPlaylist.swap(currentPlaylist.songs.indexOf(currentSong),0);
+
                 threadStarted = false;
                 fromThis = true;
                 pause.set(false);
@@ -209,11 +219,15 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 }
                 break;
             case 3://previous
+                if (!onRepeat)
+                    currentSong = currentPlaylist.getPreSong(currentSong);
+                swapToTop.moveToTop(currentPlaylist.getGUIBySong(currentSong));
+                currentPlaylist.swap(currentPlaylist.songs.indexOf(currentSong),0);
+
                 playerThread.stop();
                 threadStarted = false;
                 fromThis = true;
                 pause.set(false);
-                currentSong = currentPlaylist.getPreSong(currentSong);
                 playerThread = makeNewThread();
                 try {
                     play(currentSong);
@@ -262,10 +276,13 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                 }
                 break;
             case 2://next
+                if (!onRepeat)
+                    currentSong = currentPlaylist.getNextSong(currentSong);
+                swapToTop.moveToTop(currentPlaylist.getGUIBySong(currentSong));
+                currentPlaylist.swap(currentPlaylist.songs.indexOf(currentSong),0);
                 threadStarted = false;
                 fromThis = true;
                 pause.set(false);
-                currentSong = currentPlaylist.getNextSong(currentSong);
                 Thread thread = playerThread;
                 playerThread = makeNewThread();
                 thread.stop();
@@ -282,11 +299,14 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
 
                 break;
             case 3://previous
+                if (!onRepeat)
+                    currentSong = currentPlaylist.getPreSong(currentSong);
+                swapToTop.moveToTop(currentPlaylist.getGUIBySong(currentSong));
+                currentPlaylist.swap(currentPlaylist.songs.indexOf(currentSong),0);
                 playerThread.stop();
                 threadStarted = false;
                 fromThis = true;
                 pause.set(false);
-                currentSong = currentPlaylist.getPreSong(currentSong);
                 playerThread = makeNewThread();
                 try {
                     play(currentSong);
@@ -412,16 +432,14 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                try {
-                    informSocket.changeSong(gui.song.title,gui.song.artist);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
                 if (e.getClickCount() == 2) {
                     action(1);
                 } else if (e.getButton() == MouseEvent.BUTTON3) {
                     settings(gui, e);
                 } else if (e.getClickCount() == 1) {
+                    swapToTop.moveToTop(gui);
+                    int position=currentPlaylist.guis.indexOf(gui);
+                    currentPlaylist.swap(position,0);
                     Song songClicked = recentlyPlayed.getSongByGUI(gui);
                     currentPlaylist = CenterSongs.currentPlayList;
                     if (threadStarted) {
@@ -437,6 +455,12 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
                     } catch (JavaLayerException e1) {
                         e1.printStackTrace();
                     }
+                    try {
+                        informSocket.changeSong(gui.song.title,gui.song.artist);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+
                 }
 
             }
@@ -473,5 +497,9 @@ public class MusicPlayer implements MusicBarListener, AddSong, ProgressBarUpdate
 
     public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
         this.makeVisibilityTrue = makeVisibilityTrue;
+    }
+
+    public void setSwapToTop(SwapToTop swapToTop) {
+        this.swapToTop = swapToTop;
     }
 }
