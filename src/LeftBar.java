@@ -17,39 +17,32 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * Menu panel at the left of the screen
+ */
 public class LeftBar extends Panel implements InformArtWrok{
-    AddPlaylistListener makePlListener = null;
-    AddSong addSongListener=null;
-    MakeAlbumListener makeAlbum=null;
-    Button AddBtn = new Button("Add Songs", 1);
-    Button PLBtn = new Button("make new Playlist", 1);
-    Label text = new Label(1);
-    Button AddBtnMovie = new Button("add Movies", 1);
-    Button playlistsBTN = new Button("PlayLists", 1);
-    Button movie = new Button("Movie", 1);
-    Button songBtn = new Button("Song", 1);
-    Button albumBTN = new Button("Albums", 1);
-    Button movieLibrary=new Button("Movie Library",1);
-    Panel artWork=new Panel(1);
-    Panel leftBar=new Panel(1);
-    Scroll scrollPane=new Scroll(leftBar);
-    MakeVisibilityTrue centerTrue=null;
-    ChoosePlaylist choosePlaylist;
-    ArrayList<Song> songs=new ArrayList<>();
-    ArrayList<SongGUI> songGUIS=new ArrayList<>();
-    String[] playlistDefaultIMGS=new String[3];
-    AddMovie addMovie;
-    public void setCenterTrue(MakeVisibilityTrue centerTrue) {
-        this.centerTrue = centerTrue;
-    }
+    private AddPlaylistListener makePlListener = null;
+    private AddSong addSongListener=null;
+    private MakeAlbumListener makeAlbum=null;
+    private Button AddBtn = new Button("Add Songs", 1);
+    private Button PLBtn = new Button("make new Playlist", 1);
+    private Label text = new Label(1);
+    private Button AddBtnMovie = new Button("Add Movies", 1);
+    private Button playlistsBTN = new Button("PlayLists", 1);
+    private Button movie = new Button("Movie", 1);
+    private Button songBtn = new Button("Song", 1);
+    private Button albumBTN = new Button("Albums", 1);
+    private Button movieLibrary=new Button("Movie Library",1);
+    private Panel artWork=new Panel(1);
+    private Panel leftBar=new Panel(1);
+    private Scroll scrollPane=new Scroll(leftBar);
+    private MakeVisibilityTrue centerTrue=null;
+    private ChoosePlaylist choosePlaylist;
+    private ArrayList<Song> songs=new ArrayList<>();
+    private ArrayList<SongGUI> songGUIS=new ArrayList<>();
+    private String[] playlistDefaultIMGS=new String[3];
+    private AddMovie addMovie;
 
-    public void setaddSongListener(AddSong addSongListener) {
-        this.addSongListener = addSongListener;
-    }
-
-    public void setMakeAlbum(MakeAlbumListener makeAlbum) {
-        this.makeAlbum = makeAlbum;
-    }
 
     public LeftBar() {
         super(1);
@@ -71,7 +64,6 @@ public class LeftBar extends Panel implements InformArtWrok{
                 int returnValue = jfc.showDialog(null, "choose");
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File[] files = jfc.getSelectedFiles();
-                    System.out.println("Directories found\n");
                     Arrays.asList(files).forEach(x -> {
                         if (x.isDirectory()) {
                             ArrayList<String> path=new ArrayList<>();
@@ -130,28 +122,34 @@ public class LeftBar extends Panel implements InformArtWrok{
                 final String[] imgPath = {""};
                 JFrame makePlayList=new JFrame();
                 makePlayList.setVisible(true);
-                makePlayList.setSize(150,150);
-                makePlayList.setLocation(200,100);
+                makePlayList.setSize(400,300);
+                makePlayList.setLocation(800,500);
                 makePlayList.setLayout(new BorderLayout());
                 TextField textField=new TextField();
                 TextArea textArea=new TextArea();
-                Button addNewPL=new Button("Add",1);
-                Label label= new Label("Enter your playlist's name",1);
-                Button addImg=new Button("select image",3);
+                textField.setForeground(new Color(18,18,18));
+                textArea.setForeground(new Color(18,18,18));
+                Button addNewPL=new Button("Add",3);
+                Label label= new Label("Enter your playlist's name",3);
+                Button addImg=new Button(3);
+                addImg.setIcon(new ImageIcon("img\\addImg.png"));
                 Panel p=new Panel(3);
                 p.setLayout(new GridLayout(2,1));
                 p.add(label);
                 p.add(textField);
+                addImg.setBorder(BorderFactory.createEmptyBorder(50,50,50,50));
                 makePlayList.add(p,BorderLayout.PAGE_START);
                 Panel btnPanel=new Panel(3);
                 Label description=new Label("Description",3);
+                label.setFont(new Font("Cambria", Font.BOLD, 17));
+                description.setFont(new Font("Cambria", Font.BOLD, 17));
+                addNewPL.setFont(new Font("Cambria", Font.BOLD, 17));
                 Panel p1=new Panel(3);
                 p1.setLayout(new BorderLayout());
                 p1.add(description,BorderLayout.PAGE_START);
+                p1.add(addImg,BorderLayout.EAST);
                 p1.add(textArea,BorderLayout.CENTER);
                 btnPanel.setBorder(new EmptyBorder(2,2,2,2));
-                btnPanel.setLayout(new GridLayout(1,2));
-                btnPanel.add(addImg);
                 makePlayList.add(p1,BorderLayout.CENTER);
                 btnPanel.add(addNewPL);
                 makePlayList.add(btnPanel,BorderLayout.PAGE_END);
@@ -169,7 +167,6 @@ public class LeftBar extends Panel implements InformArtWrok{
 
                         int returnValue = jfc.showOpenDialog(null);
                         // int returnValue = jfc.showSaveDialog(null);
-
                         if (returnValue == JFileChooser.APPROVE_OPTION) {
                             File selectedFile = jfc.getSelectedFile();
                             imgPath[0] = selectedFile.getAbsolutePath();
@@ -183,7 +180,6 @@ public class LeftBar extends Panel implements InformArtWrok{
                             Random random=new Random();
                             if (imgPath[0].equals("")) {
                                 imgPath[0] = playlistDefaultIMGS[Math.abs(random.nextInt()%3)];
-                                System.out.println("ey baba");
                             }
                             makePlListener.makePlayList(textField.getText(),textArea.getText(), imgPath[0]);
                             makePlayList.setVisible(false);
@@ -286,6 +282,17 @@ public class LeftBar extends Panel implements InformArtWrok{
 
     public void setAddMovie(AddMovie addMovie) {
         this.addMovie=addMovie;
+    }
+    public void setCenterTrue(MakeVisibilityTrue centerTrue) {
+        this.centerTrue = centerTrue;
+    }
+
+    public void setaddSongListener(AddSong addSongListener) {
+        this.addSongListener = addSongListener;
+    }
+
+    public void setMakeAlbum(MakeAlbumListener makeAlbum) {
+        this.makeAlbum = makeAlbum;
     }
 }
 

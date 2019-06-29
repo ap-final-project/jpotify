@@ -7,8 +7,10 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Gui of the friend activity panel at the right of the screen
+ */
 public class FriendActivity extends Panel implements addFriend,ServerUpdate{
-    //addfriendo set nakardam ba dokme seda mishe
     Button addF;
     User user;
     Label label;
@@ -20,7 +22,6 @@ public class FriendActivity extends Panel implements addFriend,ServerUpdate{
         addF=new Button(1);
         addF.setText("Add friend");
         this.user=user;
-        if(user==null) System.out.println("user nulle");
         user.getClientSender().setServerUpdate(this);
         user.getClientReceiver().setServerUpdate(this);
         label=new Label(1);
@@ -70,22 +71,29 @@ public class FriendActivity extends Panel implements addFriend,ServerUpdate{
         this.add(addF,BorderLayout.PAGE_END);
     }
 
+    /**
+     *
+     * @param IP
+     * @throws IOException
+     */
     @Override
     public void addFriend(String IP) throws IOException {
         newFriend=new Friend(IP);
         user.getFriendsIPs().add(IP);
-        for (int i=0;i<user.getFriendsIPs().size();i++){
-            System.out.println(i+" user : "+user.getFriendsIPs().get(0));
-        }
         user.getFriends().add(newFriend);
         user.getClientSender().addFriend(IP);
     }
 
+    /**
+     *
+     * @param IP
+     * @param title
+     * @param artist
+     */
     @Override
     public void otherUsersSongChanged(String IP, String title, String artist) {
         for (FriendGUI friendGui: friendGUIS   ) {
             if (friendGui.getFriend().getIP().equals(IP)){
-                System.out.println("Ipiiiiiiiiiiiiipipipipish  :   "+IP );
                 Friend friend=friendGui.getFriend();
                 friend.setTitle(title);
                 friend.setArtist(artist);
@@ -94,19 +102,21 @@ public class FriendActivity extends Panel implements addFriend,ServerUpdate{
         }
     }
 
+    /**
+     *
+     * @param img
+     * @param name
+     * @param title
+     * @param artist
+     */
     @Override
     public void addNewFriend(byte[] img, String name, String title, String artist) {
-        System.out.println("hololololo");
         newFriend.setImg(img);
         newFriend.setName(name);
         newFriend.setTitle(title);
         newFriend.setArtist(artist);
-        System.out.println(name);
-        System.out.println(title);
-        System.out.println(artist);
         FriendGUI friendGUI=new FriendGUI(newFriend);
         friendGUI.setInformSocket(user);
-        System.out.println("GUIIII");
         friendGUIS.add(friendGUI);
         main.add(friendGUI);
     }

@@ -28,7 +28,6 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener,AddSha
     public CenterPlayLists(ArrayList<Playlist> playlists) {
         super(2);
         this.playlists = playlists;
-        System.out.println(playlists.size());
         for (Playlist pl : playlists) {
             PLGUI plgui = new PLGUI(pl, pl.name, pl.imgPath);
             playlistGUIs.add(plgui);
@@ -158,6 +157,12 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener,AddSha
         revalidate();
     }
 
+    /**
+     *
+     * @param name
+     * @param description
+     * @param path
+     */
     @Override
     public void makePlayList(String name, String description, String path) {
         Playlist playlist = new Playlist(name, description, path);
@@ -272,6 +277,15 @@ public class CenterPlayLists extends Panel implements AddPlaylistListener,AddSha
         revalidate();
     }
 
+    /**
+     *
+     * @param paths
+     * @param IP
+     * @throws IOException
+     * @throws UnsupportedTagException
+     * @throws InvalidDataException
+     * @throws JavaLayerException
+     */
     @Override
     public void addSharedPlaylist(ArrayList<String> paths,String IP) throws IOException, UnsupportedTagException, InvalidDataException, JavaLayerException {
         for (Playlist p:playlists  ) {

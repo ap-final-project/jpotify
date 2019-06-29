@@ -85,7 +85,6 @@ public class Song implements Serializable{
     }
 
     private String getTitle(String data) {
-//        System.out.println(data);
         String title;
         title = data.substring(3, 33);
         return title;

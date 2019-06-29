@@ -18,6 +18,11 @@ import static javafx.scene.input.KeyCode.T;
 //import static jdk.vm.ci.sparc.SPARC.o1;
 //import static jdk.vm.ci.sparc.SPARC.o2;
 
+/**
+ * @author kian Kashfipour& Pariya Mehrbod
+ *@version 1.0.0
+ *main class for logging in , saving and loading saved data from file and creating GUI.
+ */
 public class Main {
     static ArrayList<User> users=new ArrayList<>();
     static String userName = "";
@@ -25,10 +30,6 @@ public class Main {
     static User me;
     static boolean flag=true;
     public static void main(String[] args) throws Exception {
-//        WelcomeJFrame welcome=new WelcomeJFrame();
-//        welcome.setVisible(true);
-//        Thread.sleep(4000);
-//        welcome.setVisible(false);
         File tempF=new File("users.txt");
         boolean existsF=tempF.exists();
         UsersInfo usersInfo;
@@ -41,7 +42,6 @@ public class Main {
             }
         }
         else {
-            System.out.println("users nadarim");
             usersInfo = new UsersInfo();
         }
         String[] imgPath1=new String[1];
@@ -63,19 +63,14 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 boolean valid=true;
-                System.out.println("userrrrrrrs : "+users.size());
                 for (User user:users) {
-                    System.out.println(user.getName());
                     if(user.getName().equals(loginPage.userText.getText())){
-                        System.out.println("noooooooooooooooooooooo");
                         valid=false;
                     }
                 }
                 if(valid){
                 loginPage.setVisible(false);
                 me = new User(loginPage.userText.getText(), loginPage.passText.getText(),imgPath1[0]);
-//                    me.setImgPath(imgPath1[0]);
-                    System.out.println("signiiiiiiiiiiiiiiiiing upppp");
                     flag=false;
                     users.add(me);
                 userName = loginPage.userName;
@@ -95,7 +90,6 @@ public class Main {
 //                        me.setImgPath(user.getImgPath());
                         userName = loginPage.userName;
 //                        users.add(me);
-                        System.out.println("yaftamat");
                         flag=false;
                         loginPage.setVisible(false);
                     }
@@ -103,13 +97,11 @@ public class Main {
             }
         });
         while (flag){
-//            System.out.print("hi");
             System.out.print("");
         }
-        System.out.println("ouuuuuuuuuuuuuuuuuuuuuuut");
         playlists = new ArrayList<>();
         Playlist recentlyPlayedAtLast= new Playlist("recentlyPlayed","All your Songs","img\\pink-gramaphone.jpg");
-        Playlist favorites= new Playlist("favorites","you liked Songs","img\\favoriteCover.png");
+        Playlist favorites= new Playlist("favorites","your liked Songs","img\\favoriteCover.png");
         Playlist shared= new Playlist("shared","the songs that you want to share","img\\sharedplaylist.jpeg");
         playlists.add(recentlyPlayedAtLast);
         playlists.add(favorites);
@@ -136,7 +128,6 @@ public class Main {
                     ArrayList<Integer> indexes = new ArrayList<>();
                     int size=recentlyPlayedAtLast.songs.size();
                     for (int i=0;i<size;i++) {
-//                        System.out.println("hashmap!?"+i);
                         if (saved.playlistsAndItsPositiom.get(i).containsKey(p.name)) {
                                 p.add((recentlyPlayedAtLast.guis.get(i)), recentlyPlayedAtLast.songs.get(i));
                                 indexes.add(saved.playlistsAndItsPositiom.get(i).get(p.name));
@@ -155,9 +146,6 @@ public class Main {
                             }
                         }
                     }
-                for (int i=0;i<p.songs.size();i++){
-                    System.out.println(" "+p.songs.get(i).title);
-                }
                 }
             }
         }
@@ -174,7 +162,6 @@ public class Main {
                 for (User user:users) {
                     usersInfo.users.add(user);
                 }
-                System.out.println("saving "+ usersInfo.users.size()+"users");
                 for (Song song : mainPage.musicPlayer.recentlyPlayed.songs) {
                     saveInfo.songPaths.add(song.getPath());
                 }
@@ -189,24 +176,15 @@ public class Main {
                     for (Playlist p : mainPage.centerPlayLists.playlists) {
                         if (p.songs.contains(current)) {
                             songPlAndLocation.put(p.name , p.songs.indexOf(mainPage.musicPlayer.recentlyPlayed.songs.get(i)));
-                            System.out.println("we put"+mainPage.musicPlayer.recentlyPlayed.songs.get(i).title+"in"+p.name);
                         }
                     }
                     saveInfo.playlistsAndItsPositiom.add(songPlAndLocation);
-                }
-
-                for (int i=0;i<mainPage.musicPlayer.recentlyPlayed.songs.size();i++){
-                    System.out.println(mainPage.musicPlayer.recentlyPlayed.songs.get(i).title);
-                        for (Map.Entry<String,Integer> entry:saveInfo.playlistsAndItsPositiom.get(i).entrySet()) {
-                            System.out.println("  is"+entry.getValue()+" om in "+entry.getKey());
-                        }
                 }
                 try {
                     ObjectOutputStream usersOutputStream=new ObjectOutputStream(new FileOutputStream(new File("users.txt")));
                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(new File(me.getName()+".bin")));
                     usersOutputStream.writeObject(usersInfo);
                     objectOutputStream.writeObject(saveInfo);
-                    System.out.println("songs num"+saveInfo.songPaths.size());
                     for (int i = 0; i <saveInfo.playlistsAndItsPositiom.size() ; i++) {
                         objectOutputStream.writeObject(saveInfo.playlistsAndItsPositiom.get(i));
                     }

@@ -63,7 +63,6 @@ public class CenterPanelOrderable implements SwapToTop{
                 JPanel panel= (JPanel) songs.getComponents()[j];
                 for (Component comp:panel.getComponents()) {
                     if (comp.equals(i)){
-                        System.out.println("index is"+j);
                         index=j;
                     }
                 }

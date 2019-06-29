@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
+/**
+ * class for creating GUI of playlist
+ */
 public class PLGUI extends Panel{
     Label label;
     Label pic;
@@ -15,6 +19,12 @@ public class PLGUI extends Panel{
         return playlist;
     }
 
+    /**
+     *
+     * @param playlist
+     * @param songName
+     * @param path
+     */
     public PLGUI(Playlist playlist, String songName, String path) {
         super(3);
         more = new Label(3);
@@ -25,7 +35,7 @@ public class PLGUI extends Panel{
         Image newimg = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(newimg);
         pic.setIcon(imageIcon);
-        label = new Label("<html>" + " " + playlist.name + "<br>" + " " + playlist.description + "<br>" + " " + playlist.songs.size() + "songs" + "</html>", 3);
+        label = new Label("<html>" + " " + playlist.name + "<br>" + playlist.description + "<br>" + " " + playlist.songs.size() + "songs" + "</html>", 3);
         this.setPreferredSize(new Dimension(220, 280));
         SpringLayout layout = new SpringLayout();
         this.setLayout(layout);
@@ -40,5 +50,4 @@ public class PLGUI extends Panel{
         this.add(label);
         this.add(more);
     }
-
 }

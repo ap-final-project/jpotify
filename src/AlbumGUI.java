@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ *
+ */
 public class AlbumGUI extends Panel implements PanelGuiInformer{
     Album album;
     Label picture;

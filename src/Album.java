@@ -5,6 +5,10 @@ import javazoom.jl.decoder.JavaLayerException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * this class is for our song's albums that for every song we create it's album
+ * if somg's album exists we add song to it's album
+ */
 public class Album {
     private ArrayList<Song> songs = new ArrayList<>();
     private ArrayList<SongGUI> guis = new ArrayList<>();
@@ -44,6 +48,7 @@ public class Album {
 //    public void setInformPLGUI(PanelGuiInformer informPLGUI) {
 //        this.informPLGUI = informPLGUI;
 //    }
+
     public Album(String name, ArrayList<Song> songs,ArrayList<SongGUI> songGUIS) {
         this.name = name;
         //getting songs
@@ -72,12 +77,23 @@ public class Album {
         albumPL.guis.add(songGUI);
 
     }
+
+    /**
+     *
+     * @param song
+     * @param gui
+     */
     public void addSong(Song song,SongGUI gui){
         songs.add(song);
         guis.add(gui);
         num++;
     }
 
+    /**
+     *
+     * @param song
+     * @param gui
+     */
     public void remove(Song song,SongGUI gui){
         songs.remove(song);
         guis.remove(gui);
@@ -86,10 +102,18 @@ public class Album {
         }
         num--;
     }
+
+    /**
+     * @param makeAlbumListener
+     */
     public void setMakeAlbumListener(MakeAlbumListener makeAlbumListener) {
         this.makeAlbumListener = makeAlbumListener;
     }
 
+    /**
+     *
+     * @return PLaylist
+     */
     public Playlist getAlbumPL() {
         return albumPL;
     }

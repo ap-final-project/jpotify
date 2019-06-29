@@ -7,17 +7,30 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Gui for the center of the program
+ */
 public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
-    Label title;
-    Scroll scrollpane;
-    CenterSongs centerSongs;
-    CenterPlayLists centerPlayLists;
-    ArrayList<Playlist> playlists;
-    CenterAlbum centerAlbum;
-    Movie movie;
-    MovieLibrary movieLibrary;
-    changeBar changeBar;
+    private Scroll scrollpane;
+    private CenterSongs centerSongs;
+    private CenterPlayLists centerPlayLists;
+    private ArrayList<Playlist> playlists;
+    private CenterAlbum centerAlbum;
+    private Movie movie;
+    private MovieLibrary movieLibrary;
+    private changeBar changeBar;
     SearchResult searchResult;
+
+    /**
+     *
+     * @param searchResult
+     * @param movieLibrary
+     * @param movie
+     * @param centerSongs
+     * @param centerPlayLists
+     * @param playlists
+     * @param centerAlbum
+     */
     public Center(SearchResult searchResult,MovieLibrary movieLibrary,Movie movie,CenterSongs centerSongs, CenterPlayLists centerPlayLists,ArrayList<Playlist> playlists,CenterAlbum centerAlbum) {
         super(2);
         this.movie=movie;
@@ -29,8 +42,6 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
         this.centerSongs=centerSongs;
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(18,18,18));
-        title=new Label("your songs",2);
-        this.add(title,BorderLayout.PAGE_START);
         scrollpane=new Scroll(centerPlayLists);
         this.add(scrollpane);
         centerSongs.setVisible(true);
@@ -39,6 +50,10 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
         this.setVisible(true);
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void makeTrue(int i) {
         switch (i){
@@ -80,6 +95,10 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
         }
     }
 
+    /**
+     *
+     * @param playlist
+     */
     @Override
     public void setPlaylist(Playlist playlist) {
         if (playlist==null) {
@@ -88,11 +107,19 @@ public class Center extends Panel implements MakeVisibilityTrue,ChoosePlaylist{
         centerSongs.showPlayList(playlist);
     }
 
+    /**
+     *
+     * @param album
+     */
     @Override
     public void setAlbum(Album album) {
         centerSongs.showAlbum(album);
     }
 
+    /**
+     *
+     * @param changeBar
+     */
     public void setChangeBar(changeBar changeBar) {
         this.changeBar = changeBar;
     }

@@ -29,7 +29,6 @@ public class Top extends Panel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 searching.search(textField.getText());
-                System.out.println("searching");
                 makeVisibilityTrue.makeTrue(7);
             }
         });

@@ -36,7 +36,6 @@ public class DragMouseAdapter extends MouseAdapter {
         //get a dragging panel
         Component c = parent.getComponentAt(pt);
         index = parent.getComponentZOrder(c);
-        System.out.println("helooo"+index);
         if (Objects.equals(c, parent) || index < 0) {
             return;
         }
@@ -113,7 +112,6 @@ public class DragMouseAdapter extends MouseAdapter {
                 return;
             }
             int tgt = getTargetIndex(r, pt, i);
-//            System.out.println("you are moving "+tgt+"om!");
             if (tgt >= 0) {
                 swapComponentLocation(parent, gap, gap, tgt);
                 return;

@@ -5,6 +5,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+/**
+ * Albums that show at the center
+ */
 public class CenterAlbum extends Panel implements MakeAlbumListener {
     static ArrayList<Album> albums = new ArrayList<>();
     ArrayList<AlbumGUI> albumGuis = new ArrayList<>();
@@ -12,19 +15,34 @@ public class CenterAlbum extends Panel implements MakeAlbumListener {
     MakeVisibilityTrue makeVisibilityTrue = null;
     boolean flag = false;
 
+    /**
+     *
+     * @param makeVisibilityTrue
+     */
     public void setMakeVisibilityTrue(MakeVisibilityTrue makeVisibilityTrue) {
         this.makeVisibilityTrue = makeVisibilityTrue;
     }
+
 
     public CenterAlbum() {
         super(2);
         this.setLayout(new WrapLayout(WrapLayout.LEFT));
     }
 
+    /**
+     *
+     * @param choosePlaylist
+     */
     public void setChoosePlaylist(ChoosePlaylist choosePlaylist) {
         this.choosePlaylist = choosePlaylist;
     }
 
+    /**
+     *
+     * @param name
+     * @param songs
+     * @param songGUIS
+     */
     @Override
     public void makeAlbum(String name, ArrayList<Song> songs, ArrayList<SongGUI> songGUIS) {
         Album album = new Album(name, songs, songGUIS);
@@ -43,6 +61,12 @@ public class CenterAlbum extends Panel implements MakeAlbumListener {
         revalidate();
     }
 
+    /**
+     *
+     * @param name
+     * @param song
+     * @param songGUI
+     */
     @Override
     public void makeAlbumS(String name, Song song, SongGUI songGUI) {
         for (Album album : albums) {
@@ -79,6 +103,10 @@ public class CenterAlbum extends Panel implements MakeAlbumListener {
         flag = false;
     }
 
+    /**
+     *
+     * @param album
+     */
     @Override
     public void removeAlbum(Album album) {
 

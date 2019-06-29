@@ -1,5 +1,8 @@
 import java.io.Serializable;
 
+/**
+ * For friends that we want to add.
+ */
 public class Friend implements Serializable {
     private String name="";
     private String title="";

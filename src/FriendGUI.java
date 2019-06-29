@@ -7,6 +7,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
+/**
+ * Gui of the friends that we add.
+ */
 public class FriendGUI extends Panel{
     private Label pic;
     private Label info;
@@ -46,6 +49,10 @@ public class FriendGUI extends Panel{
         });
     }
 
+    /**
+     *
+     * @param informSocket
+     */
     public void setInformSocket(InformSocket informSocket) {
         this.informSocket = informSocket;
     }

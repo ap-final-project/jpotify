@@ -29,13 +29,13 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
     private Label artistName = new Label(3);
     private Label album = new Label(3);
     private Label year = new Label(3);
+    private Label sound=new Label(3);
     private ImageIcon playIcon=new ImageIcon("img\\play.png");
     private ImageIcon pauseIcon=new ImageIcon("img\\pause.png");
     private ImageIcon fullHeartIcon=new ImageIcon("img\\fullHeart.png");
     private ImageIcon emptyHeartIcon=new ImageIcon("img\\emptyHeart.png");
     private ImageIcon onRepeat=new ImageIcon("img\\repeat.png");
     private ImageIcon repeatOff=new ImageIcon("img\\repeatOff.png");
-    private Label sound=new Label(3);
     private ImageIcon loud=new ImageIcon("img\\loud.png");
     private ImageIcon low=new ImageIcon("img\\low.png");
     private ImageIcon mute=new ImageIcon("img\\mute.png");
@@ -218,7 +218,6 @@ public class MusicBar extends Panel implements AddToInfoBar,PlayBTNListener {
                     if (value>=0 && value<0.33) sound.setIcon(mute);
                     else if (value>=0.33 && value<0.66) sound.setIcon(low);
                     else sound.setIcon(loud);
-                    //you can put a click play code here to have nice feedback when moving slider
                 } catch (Exception ex) {
                     System.out.println(ex);
                 }

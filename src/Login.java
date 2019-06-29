@@ -3,10 +3,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * Login frame that opens before program starts running
+ */
 public class Login extends JFrame {
-    JButton SUBMIT;
-    Panel panel;
     Label userLabel, passLabel;
     JTextField userText, passText;
     String userName;
@@ -17,7 +17,7 @@ public class Login extends JFrame {
     Button signUp;
     Login() {
         setTitle("LOGIN FORM");
-        welcome=new Label("Welcome to JPotify!!!",3);
+        welcome=new Label("<html>"+"Welcome to JPotify!!!"+"<br>"+"Plaease enter your username and password:)"+"</html>",3);
         login=new Button("Login",3);
         photo=new Button("add img",3);
         signUp=new Button("signUp",3);
@@ -36,21 +36,24 @@ public class Login extends JFrame {
         userName = userText.getText();
         this.setSize(400,400);
         passWord = passText.getText();
-        springLayout.putConstraint(SpringLayout.NORTH, userLabel, 30, SpringLayout.NORTH, this);
-        springLayout.putConstraint(SpringLayout.NORTH, userText, 30, SpringLayout.NORTH, this);
-        springLayout.putConstraint(SpringLayout.SOUTH, passLabel, 100, SpringLayout.SOUTH, this);
-        springLayout.putConstraint(SpringLayout.SOUTH, passText, 100, SpringLayout.SOUTH, this);
+        springLayout.putConstraint(SpringLayout.NORTH,welcome,10,SpringLayout.NORTH,this);
+        springLayout.putConstraint(SpringLayout.WEST,welcome,40,SpringLayout.WEST,this);
+        springLayout.putConstraint(SpringLayout.NORTH,userLabel,50,SpringLayout.NORTH,welcome);
+        springLayout.putConstraint(SpringLayout.NORTH,userText,50,SpringLayout.NORTH,welcome);
+        springLayout.putConstraint(SpringLayout.SOUTH, passLabel, 110, SpringLayout.SOUTH, this);
+        springLayout.putConstraint(SpringLayout.SOUTH, passText, 110, SpringLayout.SOUTH, this);
         springLayout.putConstraint(SpringLayout.WEST, userText, 30, SpringLayout.EAST, userLabel);
         springLayout.putConstraint(SpringLayout.WEST, passText, 30, SpringLayout.EAST, passLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, signUp, 30, SpringLayout.SOUTH, passLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, login, 30, SpringLayout.SOUTH, passText);
+        springLayout.putConstraint(SpringLayout.NORTH, signUp, 60, SpringLayout.SOUTH, passLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, login, 60, SpringLayout.SOUTH, passText);
         springLayout.putConstraint(SpringLayout.WEST,login,70,SpringLayout.WEST,this);
-        springLayout.putConstraint(SpringLayout.WEST,userLabel,10,SpringLayout.WEST,this);
-        springLayout.putConstraint(SpringLayout.WEST,passLabel,10,SpringLayout.WEST,this);
-        springLayout.putConstraint(SpringLayout.EAST,signUp,200,SpringLayout.WEST,login);
-        springLayout.putConstraint(SpringLayout.EAST,photo,40,SpringLayout.EAST,this);
-        springLayout.putConstraint(SpringLayout.SOUTH,photo,150,SpringLayout.SOUTH,this);
+        springLayout.putConstraint(SpringLayout.WEST,userLabel,30,SpringLayout.WEST,this);
+        springLayout.putConstraint(SpringLayout.WEST,passLabel,30,SpringLayout.WEST,this);
+        springLayout.putConstraint(SpringLayout.EAST,signUp,190,SpringLayout.WEST,login);
+        springLayout.putConstraint(SpringLayout.EAST,photo,175,SpringLayout.EAST,this);
+        springLayout.putConstraint(SpringLayout.SOUTH,photo,240,SpringLayout.SOUTH,this);
 
+        this.add(welcome);
         this.add(login);
         this.add(signUp);
         this.add(userLabel);
@@ -62,8 +65,4 @@ public class Login extends JFrame {
 
     }
 
-
-//    public static void main(String[] args) {
-//        Login login=new Login();
-//    }
 }

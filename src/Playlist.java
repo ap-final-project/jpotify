@@ -82,7 +82,6 @@ public class Playlist {
     public void swap(int firtIndex, int secIndex) {
         Song song = songs.get(firtIndex);
         SongGUI songGUI = guis.get(firtIndex);
-        System.out.println("moving " + song.title + "from" + firtIndex + "to" + secIndex);
         if (firtIndex > secIndex) {
             songs.remove(song);
             guis.remove(songGUI);

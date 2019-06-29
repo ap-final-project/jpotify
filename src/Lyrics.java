@@ -6,6 +6,9 @@ import org.jmusixmatch.entity.track.TrackData;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * class for finding lyric of music
+ */
 public class Lyrics extends JFrame {
     String trackName;
     String artistName;
@@ -19,7 +22,6 @@ public class Lyrics extends JFrame {
         String apiKey = "5c816ea1678c68472364e0d23f9e4302";
         Label label;
         MusixMatch musixMatch = new MusixMatch(apiKey);
-        // Track Search [ Fuzzy ]
         Track track = null;
         try {
             track = musixMatch.getMatchingTrack(trackName, artistName);
@@ -27,32 +29,13 @@ public class Lyrics extends JFrame {
             int trackID = data.getTrackId();
             org.jmusixmatch.entity.lyrics.Lyrics lyrics = musixMatch.getLyrics(trackID);
             label=new Label(3);
-            label.setText("<html>" + lyrics.getLyricsBody().replaceAll("\n", "<br/>") + "</html>");
-            label.setFont(new Font("Cambria", Font.BOLD, 21));
+            label.setText("<html>" +trackName+" from "+artistName+" lyric : "+"<br>"+"<br>"+ lyrics.getLyricsBody().replaceAll("\n", "<br/>") + "</html>");
+            label.setFont(new Font("Cambria", Font.BOLD, 17));
             this.add(label,BorderLayout.CENTER);
         } catch (MusixMatchException e) {
             label=new Label(3);
-            label.setFont(new Font("Cambria", Font.BOLD, 21));
+            label.setFont(new Font("Cambria", Font.BOLD, 17));
             label.setText("SONG's LYRIC NOT FOUND :(");
         }
-//
-//        System.out.println("AlbumID : " + data.getAlbumId());
-//        System.out.println("Album Name : " + data.getAlbumName());
-//        System.out.println("Artist ID : " + data.getArtistId());
-//        System.out.println("Album Name : " + data.getArtistName());
-//        System.out.println("Track ID : " + data.getTrackId());
-//
-//
-//        System.out.println("Lyrics ID       : " + lyrics.getLyricsId());
-//        System.out.println("Lyrics Language : " + lyrics.getLyricsLang());
-//        System.out.println("Lyrics Body     : " + lyrics.getLyricsBody());
-//        System.out.println("Script-Tracking-URL : " + lyrics.getScriptTrackingURL());
-//        System.out.println("Pixel-Tracking-URL : " + lyrics.getPixelTrackingURL());
-//        System.out.println("Lyrics Copyright : " + lyrics.getLyricsCopyright());
-
     }
-
-//    public static void main(String[] args) throws MusixMatchException {
-//        Lyrics l=new Lyrics();
-//    }
 }

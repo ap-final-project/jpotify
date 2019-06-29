@@ -14,7 +14,6 @@ public class Bar extends Panel implements changeBar {
    }
     @Override
     public void setMovieBar() {
-        System.out.println("changing to movie");
         this.remove(musicBar);
         this.add(movieBar);
         movieBar.setVisible(true);

@@ -7,18 +7,21 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Songs that show at the center.
+ */
 public class CenterSongs extends Panel implements addGUIToCenter, InformEqualizer ,Scrollable{
-    Label title = new Label(2);
-    Label artist = new Label(2);
-    Label album = new Label(2);
-    Label year = new Label(2);
-    Label time = new Label(2);
-    Panel p = new Panel(2);
-    Equalizer equalizer;
-    CenterPanelOrderable centerPanelOrderable;
+    private Label title = new Label(2);
+    private Label artist = new Label(2);
+    private Label album = new Label(2);
+    private Label year = new Label(2);
+    private Label time = new Label(2);
+    private Panel p = new Panel(2);
+    private Equalizer equalizer;
+    private CenterPanelOrderable centerPanelOrderable;
     static Playlist currentPlayList;
     static Album currentAlbum;
-    JPanel songs=new JPanel();
+    private JPanel songs=new JPanel();
     public CenterSongs(CenterPanelOrderable centerPanelOrderable) {
         super(2);
         this.centerPanelOrderable=centerPanelOrderable;
@@ -57,6 +60,10 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         this.add(songs);
     }
 
+    /**
+     *
+     * @param songGUI
+     */
     @Override
     public void addGui(SongGUI songGUI) {
         addToPanel(songGUI);
@@ -64,6 +71,10 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         revalidate();
     }
 
+    /**
+     *
+     * @param songGUI
+     */
     public void addToPanel(SongGUI songGUI){
         centerPanelOrderable.add(songGUI);
     }
@@ -72,6 +83,10 @@ public class CenterSongs extends Panel implements addGUIToCenter, InformEqualize
         equalizer.setValues(V);
     }
 
+    /**
+     *
+     * @param playlist
+     */
     public void showPlayList(Playlist playlist) {
         currentPlayList = playlist;
         songs=centerPanelOrderable.changePlayList(playlist.guis);
