@@ -1,4 +1,4 @@
-It's a simple music player ;ike Spotify which is written in Java so that we call it Jpotify=))
+It's a simple music player like Spotify which is written in Java so that we call it Jpotify=))
 It's GUI is written by swing.
 You can add songs,albums , make playlists and customize them by choosing photo and name for them and then add your songs to each one of them and even edit
 name and photo if necessary or simply delete them.
